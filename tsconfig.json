@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "lib": [
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "skipDefaultLibCheck": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    "keyofStringsOnly": true,
+    "noEmit": true
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
