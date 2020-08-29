@@ -13,7 +13,8 @@
     "module": "ESNext",
     "resolveJsonModule": true,
     "keyofStringsOnly": true,
-    "noEmit": true
+    "noEmit": true,
+    "preserveSymlinks": true
   },
   "include": [
     "**/*.ts",
