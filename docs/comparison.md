@@ -20,7 +20,7 @@
 | `"string"+format` | |  |  | | | `"regex"` | |
 | `: true`,`: {}` |  | -           | `any`, `unknown`                               |       |                                                              |                     | `Mixed`                    |
 
-## Falsy and truthy
+### Falsy and truthy
 
 - Mongoose: `['false', 0, '0', 'no']`,  `['true', 1, '1', 'yes']`
 - JS: `[undefined, null, '', 0]` , all other
@@ -55,10 +55,35 @@
 | `if then else` | `X extends C ? T : E`                                     |
 | `dependencies` |                                                           |
 
+## Controls
+
+### Instance
+
+| Schema      | HTML                       | JS                           | TS            | MySQL                                                        |
+| ----------- | -------------------------- | ---------------------------- | ------------- | ------------------------------------------------------------ |
+|             |                            | `Object.create`<br />`Proxy` | `constructor` | Trigger/Insert                                               |
+|             |                            |                              |               | Trigger/Delete                                               |
+|             |                            |                              |               | Trigger/Update                                               |
+| `writeOnly` | `"password"`               |                              |               |                                                              |
+| `readOnly`  | `"hidden"`<br />`disabled` | `Object.freeze`              | `Readonly`    | *[lock](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html) |
+|             |                            | `Object.seal`                |               |                                                              |
 
 
 
-## Links
+### Property
+
+| Schema      | JS                                                           | TS         | Mongoose                   | Mongo      | MySQL                                                        |
+| ----------- | ------------------------------------------------------------ | ---------- | -------------------------- | ---------- | ------------------------------------------------------------ |
+| `writeOnly` | `set %()`<br />`Proxy`                                       |            | `virtual`                  |            |                                                              |
+| `readOnly`  | `get %()`                                                    | `readonly` | `immutable`<br />`virtual` |            | [`GENERATED`](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html) |
+|             | `static`                                                     | `static`   |                            |            |                                                              |
+|             | [`#%`](https://babeljs.io/docs/en/babel-plugin-proposal-private-methods) | `private`  |                            |            |                                                              |
+| `$ref`      |                                                              |            | `ObjectId`                 | `ObjectId` | `FOREIGN KEY`                                                |
+
+### Method
+
+
+## External Resources
 
 - Schema `$ref`
 - MySQL `foreignKey`
