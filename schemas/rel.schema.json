@@ -1,0 +1,711 @@
+{
+  "title": "Link Relations",
+  "description": "https://www.iana.org/assignments/link-relations/link-relations.xhtml",
+  "type": "string",
+  "enum": [
+    "about",
+    "alternate",
+    "amphtml",
+    "appendix",
+    "apple-touch-icon",
+    "apple-touch-startup-image",
+    "archives",
+    "author",
+    "blocked-by",
+    "bookmark",
+    "canonical",
+    "chapter",
+    "cite-as",
+    "collection",
+    "contents",
+    "convertedFrom",
+    "copyright",
+    "create-form",
+    "current",
+    "describedby",
+    "describes",
+    "disclosure",
+    "dns-prefetch",
+    "duplicate",
+    "edit",
+    "edit-form",
+    "edit-media",
+    "enclosure",
+    "external",
+    "first",
+    "glossary",
+    "help",
+    "hosts",
+    "hub",
+    "icon",
+    "index",
+    "intervalAfter",
+    "intervalBefore",
+    "intervalContains",
+    "intervalDisjoint",
+    "intervalDuring",
+    "intervalEquals",
+    "intervalFinishedBy",
+    "intervalFinishes",
+    "intervalIn",
+    "intervalMeets",
+    "intervalMetBy",
+    "intervalOverlappedBy",
+    "intervalOverlaps",
+    "intervalStartedBy",
+    "intervalStarts",
+    "item",
+    "last",
+    "latest-version",
+    "license",
+    "lrdd",
+    "manifest",
+    "mask-icon",
+    "media-feed",
+    "memento",
+    "micropub",
+    "modulepreload",
+    "monitor",
+    "monitor-group",
+    "next",
+    "next-archive",
+    "nofollow",
+    "noopener",
+    "noreferrer",
+    "opener",
+    "openid2.local_id",
+    "openid2.provider",
+    "original",
+    "P3Pv1",
+    "payment",
+    "pingback",
+    "preconnect",
+    "predecessor-version",
+    "prefetch",
+    "preload",
+    "prerender",
+    "prev",
+    "preview",
+    "previous",
+    "prev-archive",
+    "privacy-policy",
+    "profile",
+    "publication",
+    "related",
+    "restconf",
+    "replies",
+    "search",
+    "section",
+    "self",
+    "service",
+    "service-desc",
+    "service-doc",
+    "service-meta",
+    "sponsored",
+    "start",
+    "status",
+    "stylesheet",
+    "subsection",
+    "successor-version",
+    "sunset",
+    "tag",
+    "terms-of-service",
+    "timegate",
+    "timemap",
+    "type",
+    "ugc",
+    "up",
+    "version-history",
+    "via",
+    "webmention",
+    "working-copy",
+    "working-copy-of"
+  ],
+  "definitions": {
+    "about": {
+      "const": "about",
+      "title": "Refers to a resource that is the subject of the link's context.",
+      "description": "https://www.iana.org/go/rfc6903, section 2"
+    },
+    "alternate": {
+      "const": "alternate",
+      "title": "Refers to a substitute for this context",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-alternate"
+    },
+    "amphtml": {
+      "const": "amphtml",
+      "title": "Used to reference alternative content that uses the AMP profile of the HTML format.",
+      "description": "https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml/"
+    },
+    "appendix": {
+      "const": "appendix",
+      "title": "Refers to an appendix.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "apple-touch-icon": {
+      "const": "apple-touch-icon",
+      "title": "Refers to an icon for the context. Synonym for icon.",
+      "description": "https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html#//apple_ref/doc/uid/TP40002051-CH3-SW3"
+    },
+    "apple-touch-startup-image": {
+      "const": "apple-touch-startup-image",
+      "title": "Refers to a launch screen for the context.",
+      "description": "https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html#//apple_ref/doc/uid/TP40002051-CH3-SW3"
+    },
+    "archives": {
+      "const": "archives",
+      "title": "Refers to a collection of records, documents, or other\n      materials of historical interest.",
+      "description": "http://www.w3.org/TR/2011/WD-html5-20110113/links.html#rel-archives"
+    },
+    "author": {
+      "const": "author",
+      "title": "Refers to the context's author.",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-author"
+    },
+    "blocked-by": {
+      "const": "blocked-by",
+      "title": "Identifies the entity that blocks access to a resource\n      following receipt of a legal demand.",
+      "description": "https://www.iana.org/go/rfc7725"
+    },
+    "bookmark": {
+      "const": "bookmark",
+      "title": "Gives a permanent link to use for bookmarking purposes.",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-bookmark"
+    },
+    "canonical": {
+      "const": "canonical",
+      "title": "Designates the preferred version of a resource (the IRI and its contents).",
+      "description": "https://www.iana.org/go/rfc6596"
+    },
+    "chapter": {
+      "const": "chapter",
+      "title": "Refers to a chapter in a collection of resources.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "cite-as": {
+      "const": "cite-as",
+      "title": "Indicates that the link target is preferred over the link context for the purpose of permanent citation.",
+      "description": "https://www.iana.org/go/rfc8574"
+    },
+    "collection": {
+      "const": "collection",
+      "title": "The target IRI points to a resource which represents the collection resource for the context IRI.",
+      "description": "https://www.iana.org/go/rfc6573"
+    },
+    "contents": {
+      "const": "contents",
+      "title": "Refers to a table of contents.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "convertedFrom": {
+      "const": "convertedFrom",
+      "title": "The document linked to was later converted to the\n      document that contains this link relation.  For example, an RFC can\n      have a link to the Internet-Draft that became the RFC; in that case,\n      the link relation would be \"convertedFrom\".",
+      "description": "This relation is different than \"predecessor-version\" in that\n      \"predecessor-version\" is for items in a version control system.  It\n      is also different than \"previous\" in that this relation is used for\n      converted resources, not those that are part of a sequence of\n      resources. https://www.iana.org/go/rfc7991"
+    },
+    "copyright": {
+      "const": "copyright",
+      "title": "Refers to a copyright statement that applies to the\n    link's context.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "create-form": {
+      "const": "create-form",
+      "title": "The target IRI points to a resource where a submission form can be obtained.",
+      "description": "https://www.iana.org/go/rfc6861"
+    },
+    "current": {
+      "const": "current",
+      "title": "Refers to a resource containing the most recent\n      item(s) in a collection of resources.",
+      "description": "https://www.iana.org/go/rfc5005"
+    },
+    "describedby": {
+      "const": "describedby",
+      "title": "Refers to a resource providing information about the\n      link's context.",
+      "description": "http://www.w3.org/TR/powder-dr/#assoc-linking"
+    },
+    "describes": {
+      "const": "describes",
+      "title": "The relationship A 'describes' B asserts that\n      resource A provides a description of resource B. There are no\n      constraints on the format or representation of either A or B,\n      neither are there any further constraints on either resource.",
+      "description": "This link relation type is the inverse of the 'describedby'\n        relation type.  While 'describedby' establishes a relation from\n        the described resource back to the resource that describes it,\n        'describes' established a relation from the describing resource to\n        the resource it describes.  If B is 'describedby' A, then A\n        'describes' B. https://www.iana.org/go/rfc6892"
+    },
+    "disclosure": {
+      "const": "disclosure",
+      "title": "Refers to a list of patent disclosures made with respect to \n      material for which 'disclosure' relation is specified.",
+      "description": "https://www.iana.org/go/rfc6579"
+    },
+    "dns-prefetch": {
+      "const": "dns-prefetch",
+      "title": "Used to indicate an origin that will be used to fetch required \n      resources for the link context, and that the user agent ought to resolve \n      as early as possible.",
+      "description": "https://www.w3.org/TR/resource-hints/"
+    },
+    "duplicate": {
+      "const": "duplicate",
+      "title": "Refers to a resource whose available representations\n      are byte-for-byte identical with the corresponding representations of\n      the context IRI.",
+      "description": "This relation is for static resources.  That is, an HTTP GET\n      request on any duplicate will return the same representation.  It\n      does not make sense for dynamic or POSTable resources and should not\n      be used for them.\n     https://www.iana.org/go/rfc6249"
+    },
+    "edit": {
+      "const": "edit",
+      "title": "Refers to a resource that can be used to edit the\n      link's context.",
+      "description": "https://www.iana.org/go/rfc5023"
+    },
+    "edit-form": {
+      "const": "edit-form",
+      "title": "The target IRI points to a resource where a submission form for\n      editing associated resource can be obtained.",
+      "description": "https://www.iana.org/go/rfc6861"
+    },
+    "edit-media": {
+      "const": "edit-media",
+      "title": "Refers to a resource that can be used to edit media\n      associated with the link's context.",
+      "description": "https://www.iana.org/go/rfc5023"
+    },
+    "enclosure": {
+      "const": "enclosure",
+      "title": "Identifies a related resource that is potentially\n      large and might require special handling.",
+      "description": "https://www.iana.org/go/rfc4287"
+    },
+    "external": {
+      "const": "external",
+      "title": "Refers to a resource that is not part of the same site as the current context.",
+      "description": "https://html.spec.whatwg.org/multipage/links.html#link-type-external"
+    },
+    "first": {
+      "const": "first",
+      "title": "An IRI that refers to the furthest preceding resource\n    in a series of resources.",
+      "description": "This relation type registration did not indicate a\n      reference.  Originally requested by Mark Nottingham in December\n      2004.\n     https://www.iana.org/go/rfc8288"
+    },
+    "glossary": {
+      "const": "glossary",
+      "title": "Refers to a glossary of terms.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "help": {
+      "const": "help",
+      "title": "Refers to context-sensitive help.",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-help"
+    },
+    "hosts": {
+      "const": "hosts",
+      "title": "Refers to a resource hosted by the server indicated by\n      the link context.",
+      "description": "This relation is used in CoRE where links are retrieved as a\n      \"/.well-known/core\" resource representation, and is the default\n      relation type in the CoRE Link Format. https://www.iana.org/go/rfc6690"
+    },
+    "hub": {
+      "const": "hub",
+      "title": "Refers to a hub that enables registration for\n    notification of updates to the context.",
+      "description": "This relation type was requested by Brett Slatkin. https://www.w3.org/TR/websub/"
+    },
+    "icon": {
+      "const": "icon",
+      "title": "Refers to an icon representing the link's context.",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-icon"
+    },
+    "index": {
+      "const": "index",
+      "title": "Refers to an index.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "intervalAfter": {
+      "const": "intervalAfter",
+      "title": "refers to a resource associated with a time interval that ends before the beginning of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalAfter section 4.2.21"
+    },
+    "intervalBefore": {
+      "const": "intervalBefore",
+      "title": "refers to a resource associated with a time interval that begins after the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalBefore section 4.2.22"
+    },
+    "intervalContains": {
+      "const": "intervalContains",
+      "title": "refers to a resource associated with a time interval that begins after the beginning of the time interval associated with the context resource, and ends before the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalContains section 4.2.23"
+    },
+    "intervalDisjoint": {
+      "const": "intervalDisjoint",
+      "title": "refers to a resource associated with a time interval that begins after the end of the time interval associated with the context resource, or ends before the beginning of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalDisjoint section 4.2.24"
+    },
+    "intervalDuring": {
+      "const": "intervalDuring",
+      "title": "refers to a resource associated with a time interval that begins before the beginning of the time interval associated with the context resource, and ends after the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalDuring section 4.2.25"
+    },
+    "intervalEquals": {
+      "const": "intervalEquals",
+      "title": "refers to a resource associated with a time interval whose beginning coincides with the beginning of the time interval associated with the context resource, and whose end coincides with the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalEquals section 4.2.26"
+    },
+    "intervalFinishedBy": {
+      "const": "intervalFinishedBy",
+      "title": "refers to a resource associated with a time interval that begins after the beginning of the time interval associated with the context resource, and whose end coincides with the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalFinishedBy section 4.2.27"
+    },
+    "intervalFinishes": {
+      "const": "intervalFinishes",
+      "title": "refers to a resource associated with a time interval that begins before the beginning of the time interval associated with the context resource, and whose end coincides with the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalFinishes section 4.2.28"
+    },
+    "intervalIn": {
+      "const": "intervalIn",
+      "title": "refers to a resource associated with a time interval that begins before or is coincident with the beginning of the time interval associated with the context resource, and ends after or is coincident with the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalIn section 4.2.29"
+    },
+    "intervalMeets": {
+      "const": "intervalMeets",
+      "title": "refers to a resource associated with a time interval whose beginning coincides with the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalMeets section 4.2.30"
+    },
+    "intervalMetBy": {
+      "const": "intervalMetBy",
+      "title": "refers to a resource associated with a time interval whose end coincides with the beginning of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalMetBy section 4.2.31"
+    },
+    "intervalOverlappedBy": {
+      "const": "intervalOverlappedBy",
+      "title": "refers to a resource associated with a time interval that begins before the beginning of the time interval associated with the context resource, and ends after the beginning of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalOverlappedBy section 4.2.32"
+    },
+    "intervalOverlaps": {
+      "const": "intervalOverlaps",
+      "title": "refers to a resource associated with a time interval that begins before the end of the time interval associated with the context resource, and ends after the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalOverlaps section 4.2.33"
+    },
+    "intervalStartedBy": {
+      "const": "intervalStartedBy",
+      "title": "refers to a resource associated with a time interval whose beginning coincides with the beginning of the time interval associated with the context resource, and ends before the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalStartedBy section 4.2.34"
+    },
+    "intervalStarts": {
+      "const": "intervalStarts",
+      "title": "refers to a resource associated with a time interval whose beginning coincides with the beginning of the time interval associated with the context resource, and ends after the end of the time interval associated with the context resource",
+      "description": "https://www.w3.org/TR/owl-time/#time:intervalStarts section 4.2.35"
+    },
+    "item": {
+      "const": "item",
+      "title": "The target IRI points to a resource that is a member of the collection represented by the context IRI.",
+      "description": "https://www.iana.org/go/rfc6573"
+    },
+    "last": {
+      "const": "last",
+      "title": "An IRI that refers to the furthest following resource\n      in a series of resources.",
+      "description": "This relation type registration did not indicate a\n      reference. Originally requested by Mark Nottingham in December\n      2004.\n     https://www.iana.org/go/rfc8288"
+    },
+    "latest-version": {
+      "const": "latest-version",
+      "title": "Points to a resource containing the latest (e.g.,\n      current) version of the context.",
+      "description": "https://www.iana.org/go/rfc5829"
+    },
+    "license": {
+      "const": "license",
+      "title": "Refers to a license associated with this context.",
+      "description": "For implications of use in HTML, see: \n      http://www.w3.org/TR/html5/links.html#link-type-license https://www.iana.org/go/rfc4946"
+    },
+    "lrdd": {
+      "const": "lrdd",
+      "title": "Refers to further information about the link's context,\n      expressed as a LRDD (\"Link-based Resource Descriptor Document\")\n      resource.  See [RFC6415] for information about\n      processing this relation type in host-meta documents. When used\n      elsewhere, it refers to additional links and other metadata.\n      Multiple instances indicate additional LRDD resources. LRDD\n      resources MUST have an \"application/xrd+xml\" representation, and\n      MAY have others.",
+      "description": "https://www.iana.org/go/rfc6415"
+    },
+    "manifest": {
+      "const": "manifest",
+      "title": "Links to a manifest file for the context.",
+      "description": "https://www.w3.org/TR/appmanifest/#using-a-link-element-to-link-to-a-manifest"
+    },
+    "mask-icon": {
+      "const": "mask-icon",
+      "title": "Refers to a mask that can be applied to the icon for the context.",
+      "description": "https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/pinnedTabs/pinnedTabs.html#//apple_ref/doc/uid/TP40002051-CH18-SW1"
+    },
+    "media-feed": {
+      "const": "media-feed",
+      "title": "Refers to a feed of personalised media recommendations relevant to the link context.",
+      "description": "https://wicg.github.io/media-feeds/#discovery-of-media-feeds"
+    },
+    "memento": {
+      "const": "memento",
+      "title": "The Target IRI points to a Memento, a fixed resource that will not change state anymore.",
+      "description": "A Memento for an Original Resource is a resource that\n      encapsulates a prior state of the Original Resource. https://www.iana.org/go/rfc7089"
+    },
+    "micropub": {
+      "const": "micropub",
+      "title": "Links to the context's Micropub endpoint.",
+      "description": "https://www.w3.org/TR/micropub/#endpoint-discovery-p-1"
+    },
+    "modulepreload": {
+      "const": "modulepreload",
+      "title": "Refers to a module that the user agent is to preemptively fetch and store for use in the current context.",
+      "description": "https://html.spec.whatwg.org/multipage/links.html#link-type-modulepreload"
+    },
+    "monitor": {
+      "const": "monitor",
+      "title": "Refers to a resource that can be used to monitor changes in an HTTP resource.\n    ",
+      "description": "https://www.iana.org/go/rfc5989"
+    },
+    "monitor-group": {
+      "const": "monitor-group",
+      "title": "Refers to a resource that can be used to monitor changes in a specified group of HTTP resources.\n    ",
+      "description": "https://www.iana.org/go/rfc5989"
+    },
+    "next": {
+      "const": "next",
+      "title": "Indicates that the link's context is a part of a series, and\n      that the next in the series is the link target.\n    ",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-next"
+    },
+    "next-archive": {
+      "const": "next-archive",
+      "title": "Refers to the immediately following archive resource.",
+      "description": "https://www.iana.org/go/rfc5005"
+    },
+    "nofollow": {
+      "const": "nofollow",
+      "title": "Indicates that the context’s original author or publisher does not endorse the link target.",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-nofollow"
+    },
+    "noopener": {
+      "const": "noopener",
+      "title": "Indicates that any newly created top-level browsing context which results from following the link will not be an auxiliary browsing context.",
+      "description": "https://html.spec.whatwg.org/multipage/links.html#link-type-noopener"
+    },
+    "noreferrer": {
+      "const": "noreferrer",
+      "title": "Indicates that no referrer information is to be leaked when following the link.",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-noreferrer"
+    },
+    "opener": {
+      "const": "opener",
+      "title": "Indicates that any newly created top-level browsing context which results from following the link will be an auxiliary browsing context.",
+      "description": "https://html.spec.whatwg.org/multipage/links.html#link-type-opener"
+    },
+    "openid2.local_id": {
+      "const": "openid2.local_id",
+      "title": "Refers to an OpenID Authentication server on which the context relies for an assertion that the end user controls an Identifier.",
+      "description": "https://openid.net/specs/openid-authentication-2_0.html#rfc.section.7.3.3"
+    },
+    "openid2.provider": {
+      "const": "openid2.provider",
+      "title": "Refers to a resource which accepts OpenID Authentication protocol messages for the context.",
+      "description": "https://openid.net/specs/openid-authentication-2_0.html#rfc.section.7.3.3"
+    },
+    "original": {
+      "const": "original",
+      "title": "The Target IRI points to an Original Resource.",
+      "description": "An Original Resource is a resource that exists or used to\n      exist, and for which access to one of its prior states may be\n      required.\n     https://www.iana.org/go/rfc7089"
+    },
+    "P3Pv1": {
+      "const": "P3Pv1",
+      "title": "Refers to a P3P privacy policy for the context.",
+      "description": "https://www.w3.org/TR/P3P/#syntax_link"
+    },
+    "payment": {
+      "const": "payment",
+      "title": "Indicates a resource where payment is accepted.",
+      "description": "This relation type registration did not indicate a\n      reference.  Requested by Joshua Kinberg and Robert Sayre.  It is\n      meant as a general way to facilitate acts of payment, and thus\n      this specification makes no assumptions on the type of payment or\n      transaction protocol.  Examples may include a web page where\n      donations are accepted or where goods and services are available\n      for purchase. rel=\"payment\" is not intended to initiate an\n      automated transaction.  In Atom documents, a link element with a\n      rel=\"payment\" attribute may exist at the feed/channel level and/or\n      the entry/item level.  For example, a rel=\"payment\" link at the\n      feed/channel level may point to a \"tip jar\" URI, whereas an entry/\n      item containing a book review may include a rel=\"payment\" link\n      that points to the location where the book may be purchased\n      through an online retailer.\n     https://www.iana.org/go/rfc8288"
+    },
+    "pingback": {
+      "const": "pingback",
+      "title": "Gives the address of the pingback resource for the link context.",
+      "description": "http://www.hixie.ch/specs/pingback/pingback"
+    },
+    "preconnect": {
+      "const": "preconnect",
+      "title": "Used to indicate an origin that will be used to fetch required \n      resources for the link context. Initiating an early connection, which \n      includes the DNS lookup, TCP handshake, and optional TLS negotiation, \n      allows the user agent to mask the high latency costs of establishing a \n      connection.",
+      "description": "https://www.w3.org/TR/resource-hints/"
+    },
+    "predecessor-version": {
+      "const": "predecessor-version",
+      "title": "Points to a resource containing the predecessor\n      version in the version history.\n    ",
+      "description": "https://www.iana.org/go/rfc5829"
+    },
+    "prefetch": {
+      "const": "prefetch",
+      "title": "The prefetch link relation type is used to identify a resource \n      that might be required by the next navigation from the link context, and \n      that the user agent ought to fetch, such that the user agent can deliver a \n      faster response once the resource is requested in the future.",
+      "description": "http://www.w3.org/TR/resource-hints/"
+    },
+    "preload": {
+      "const": "preload",
+      "title": "Refers to a resource that should be loaded early in the \n      processing of the link's context, without blocking rendering.",
+      "description": "Additional target attributes establish the detailed fetch properties of the link. http://www.w3.org/TR/preload/"
+    },
+    "prerender": {
+      "const": "prerender",
+      "title": "Used to identify a resource that might be required by the next \n      navigation from the link context, and that the user agent ought to fetch \n      and execute, such that the user agent can deliver a faster response once \n      the resource is requested in the future.",
+      "description": "https://www.w3.org/TR/resource-hints/"
+    },
+    "prev": {
+      "const": "prev",
+      "title": "Indicates that the link's context is a part of a series, and\n      that the previous in the series is the link target.\n    ",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-prev"
+    },
+    "preview": {
+      "const": "preview",
+      "title": "Refers to a resource that provides a preview of the link's context.",
+      "description": "https://www.iana.org/go/rfc6903, section 3"
+    },
+    "previous": {
+      "const": "previous",
+      "title": "Refers to the previous resource in an ordered series\n      of resources.  Synonym for \"prev\".",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "prev-archive": {
+      "const": "prev-archive",
+      "title": "Refers to the immediately preceding archive resource.",
+      "description": "https://www.iana.org/go/rfc5005"
+    },
+    "privacy-policy": {
+      "const": "privacy-policy",
+      "title": "Refers to a privacy policy associated with the link's context.",
+      "description": "https://www.iana.org/go/rfc6903, section 4"
+    },
+    "profile": {
+      "const": "profile",
+      "title": "Identifying that a resource representation conforms\nto a certain profile, without affecting the non-profile semantics\nof the resource representation.",
+      "description": "Profile URIs are primarily intended to be used as\nidentifiers, and thus clients SHOULD NOT indiscriminately access\nprofile URIs. https://www.iana.org/go/rfc6906"
+    },
+    "publication": {
+      "const": "publication",
+      "title": "Links to a publication manifest. A manifest represents \n      structured information about a publication, such as informative metadata, \n      a list of resources, and a default reading order.",
+      "description": "https://www.w3.org/TR/pub-manifest/#link-relation-type-registration"
+    },
+    "related": {
+      "const": "related",
+      "title": "Identifies a related resource.",
+      "description": "https://www.iana.org/go/rfc4287"
+    },
+    "restconf": {
+      "const": "restconf",
+      "title": "Identifies the root of RESTCONF API as configured on this HTTP server.\n      The \"restconf\" relation defines the root of the API defined in RFC8040.\n      Subsequent revisions of RESTCONF will use alternate relation values to support \n      protocol versioning.",
+      "description": "https://www.iana.org/go/rfc8040"
+    },
+    "replies": {
+      "const": "replies",
+      "title": "Identifies a resource that is a reply to the context\n      of the link.\n    ",
+      "description": "https://www.iana.org/go/rfc4685"
+    },
+    "search": {
+      "const": "search",
+      "title": "Refers to a resource that can be used to search through\n      the link's context and related resources.",
+      "description": "http://www.opensearch.org/Specifications/OpenSearch/1.1"
+    },
+    "section": {
+      "const": "section",
+      "title": "Refers to a section in a collection of resources.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "self": {
+      "const": "self",
+      "title": "Conveys an identifier for the link's context.\n    ",
+      "description": "https://www.iana.org/go/rfc4287"
+    },
+    "service": {
+      "const": "service",
+      "title": "Indicates a URI that can be used to retrieve a\n      service document.",
+      "description": "When used in an Atom document, this relation type specifies\n      Atom Publishing Protocol service documents by default.  Requested\n      by James Snell.\n     https://www.iana.org/go/rfc5023"
+    },
+    "service-desc": {
+      "const": "service-desc",
+      "title": "Identifies service description for the context that\n      is primarily intended for consumption by machines.",
+      "description": "https://www.iana.org/go/rfc8631"
+    },
+    "service-doc": {
+      "const": "service-doc",
+      "title": "Identifies service documentation for the context that\n      is primarily intended for human consumption.",
+      "description": "https://www.iana.org/go/rfc8631"
+    },
+    "service-meta": {
+      "const": "service-meta",
+      "title": "Identifies general metadata for the context that is\n      primarily intended for consumption by machines.",
+      "description": "https://www.iana.org/go/rfc8631"
+    },
+    "sponsored": {
+      "const": "sponsored",
+      "title": "Refers to a resource that is within a context that is \n\t\tsponsored (such as advertising or another compensation agreement).",
+      "description": "https://webmasters.googleblog.com/2019/09/evolving-nofollow-new-ways-to-identify.html"
+    },
+    "start": {
+      "const": "start",
+      "title": "Refers to the first resource in a collection of\n      resources.",
+      "description": "https://www.w3.org/TR/html401"
+    },
+    "status": {
+      "const": "status",
+      "title": "Identifies a resource that represents the context's\n      status.",
+      "description": "https://www.iana.org/go/rfc8631"
+    },
+    "stylesheet": {
+      "const": "stylesheet",
+      "title": "Refers to a stylesheet.",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-stylesheet"
+    },
+    "subsection": {
+      "const": "subsection",
+      "title": "Refers to a resource serving as a subsection in a\n      collection of resources.",
+      "description": "https://www.w3.org/TR/html401/"
+    },
+    "successor-version": {
+      "const": "successor-version",
+      "title": "Points to a resource containing the successor version\n      in the version history.\n    ",
+      "description": "https://www.iana.org/go/rfc5829"
+    },
+    "sunset": {
+      "const": "sunset",
+      "title": "Identifies a resource that provides information about\n      the context's retirement policy.\n    ",
+      "description": "https://www.iana.org/go/rfc8594"
+    },
+    "tag": {
+      "const": "tag",
+      "title": "Gives a tag (identified by the given address) that applies to\n      the current document.\n    ",
+      "description": "http://www.w3.org/TR/html5/links.html#link-type-tag"
+    },
+    "terms-of-service": {
+      "const": "terms-of-service",
+      "title": "Refers to the terms of service associated with the link's context.",
+      "description": "https://www.iana.org/go/rfc6903, section 5"
+    },
+    "timegate": {
+      "const": "timegate",
+      "title": "The Target IRI points to a TimeGate for an Original Resource.",
+      "description": "A TimeGate for an Original Resource is a resource that is\n      capable of datetime negotiation to support access to prior states\n      of the Original Resource.\n     https://www.iana.org/go/rfc7089"
+    },
+    "timemap": {
+      "const": "timemap",
+      "title": "The Target IRI points to a TimeMap for an Original Resource.",
+      "description": "A TimeMap for an Original Resource is a resource from which\n      a list of URIs of Mementos of the Original Resource is available.\n     https://www.iana.org/go/rfc7089"
+    },
+    "type": {
+      "const": "type",
+      "title": "Refers to a resource identifying the abstract semantic type of which the link's context is considered to be an instance.",
+      "description": "https://www.iana.org/go/rfc6903, section 6"
+    },
+    "ugc": {
+      "const": "ugc",
+      "title": "Refers to a resource that is within a context that is User Generated Content.\n    ",
+      "description": "https://webmasters.googleblog.com/2019/09/evolving-nofollow-new-ways-to-identify.html"
+    },
+    "up": {
+      "const": "up",
+      "title": "Refers to a parent document in a hierarchy of\n      documents.\n    ",
+      "description": "This relation type registration did not indicate a\n      reference.  Requested by Noah Slater. https://www.iana.org/go/rfc8288"
+    },
+    "version-history": {
+      "const": "version-history",
+      "title": "Points to a resource containing the version history\n      for the context.\n    ",
+      "description": "https://www.iana.org/go/rfc5829"
+    },
+    "via": {
+      "const": "via",
+      "title": "Identifies a resource that is the source of the\n      information in the link's context.\n    ",
+      "description": "https://www.iana.org/go/rfc4287"
+    },
+    "webmention": {
+      "const": "webmention",
+      "title": "Identifies a target URI that supports the Webmention protocol.\n    This allows clients that mention a resource in some form of publishing process\n    to contact that endpoint and inform it that this resource has been mentioned.",
+      "description": "This is a similar \"Linkback\" mechanism to the ones of Refback, Trackback, and Pingback.\n    It uses a different protocol, though, and thus should be discoverable through its own link\n    relation type. http://www.w3.org/TR/webmention/"
+    },
+    "working-copy": {
+      "const": "working-copy",
+      "title": "Points to a working copy for this resource.",
+      "description": "https://www.iana.org/go/rfc5829"
+    },
+    "working-copy-of": {
+      "const": "working-copy-of",
+      "title": "Points to the versioned resource from which this\n      working copy was obtained.\n    ",
+      "description": "https://www.iana.org/go/rfc5829"
+    }
+  }
+}
