@@ -9,12 +9,12 @@
 
 ### Element
 
-|                 | HTTP     | CLI    | fs        | SQL                        |
-| --------------- | -------- | ------ | --------- | -------------------------- |
-| Info            | OPTIONS  | --help | `.stat()` | DESCRIBE DESC<br />EXPLAIN |
-| Create          | POST     |        |           | INSERT                     |
-| Read            | GET HEAD |        |           | SELECT                     |
-| Update (Save)   | PUT      |        |           | UPDATE                     |
-| Update (Modify) | PATCH    |        |           | UPDATE                     |
-| Delete          | DELETE   |        |           | DELETE                     |
+|                 | HTTP     | CLI    | fs        | SQL                        | Mongo  |
+| --------------- | -------- | ------ | --------- | -------------------------- | ------ |
+| Info            | OPTIONS  | --help | `.stat()` | DESCRIBE DESC<br />EXPLAIN |        |
+| Create          | POST     |        |           | INSERT                     |        |
+| Read            | GET HEAD |        |           | SELECT                     |        |
+| Update (Save)   | PUT      |        |           | UPDATE                     |        |
+| Update (Modify) | PATCH    |        |           | UPDATE                     | `$set` |
+| Delete          | DELETE   |        |           | DELETE                     |        |
 

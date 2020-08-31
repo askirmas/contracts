@@ -1,5 +1,19 @@
 # HTTP
 
+
+
+| [@](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) | req  | res  |
+| ------------------------------------------------------------ | ---- | ---- |
+| [OPTIONS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS) | -    | +    |
+| [GET](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET) | -    | +    |
+| [HEAD](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD) | -    | -    |
+| [POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST) | +    | +    |
+| [PUT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT) | +    | -    |
+| [DELETE](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE) | ?    | ?    |
+| [PATCH](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH) | +    | +    |
+
+
+
 ## Methods
 
 | [@](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) | [safe](https://developer.mozilla.org/en-US/docs/Glossary/safe) | [idempotent](https://developer.mozilla.org/en-US/docs/Glossary/idempotent) | [cacheable](https://developer.mozilla.org/en-US/docs/Glossary/cacheable) | req  | res  | statuses              |

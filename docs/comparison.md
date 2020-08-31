@@ -59,26 +59,30 @@
 
 ### Instance
 
-| Schema      | HTML                       | JS                           | TS            | MySQL                                                        |
-| ----------- | -------------------------- | ---------------------------- | ------------- | ------------------------------------------------------------ |
-|             |                            | `Object.create`<br />`Proxy` | `constructor` | Trigger/Insert                                               |
-|             |                            |                              |               | Trigger/Delete                                               |
-|             |                            |                              |               | Trigger/Update                                               |
-| `writeOnly` | `"password"`               |                              |               |                                                              |
-| `readOnly`  | `"hidden"`<br />`disabled` | `Object.freeze`              | `Readonly`    | *[lock](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html) |
-|             |                            | `Object.seal`                |               |                                                              |
+| Schema                        | HTML                       | JS                           | TS            | MySQL                                                        |
+| ----------------------------- | -------------------------- | ---------------------------- | ------------- | ------------------------------------------------------------ |
+|                               |                            | `Object.create`<br />`Proxy` | `constructor` | Trigger/Insert                                               |
+|                               |                            |                              |               | Trigger/Delete                                               |
+|                               |                            |                              |               | Trigger/Update                                               |
+| `writeOnly`                   | `"password"`               |                              |               |                                                              |
+| `readOnly`                    | `"hidden"`<br />`disabled` | `Object.freeze`              | `Readonly`    | *[lock](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html) |
+| `additionalProperties: false` |                            | `Object.seal`                |               |                                                              |
 
 
 
 ### Property
 
-| Schema      | JS                                                           | TS         | Mongoose                   | Mongo      | MySQL                                                        |
-| ----------- | ------------------------------------------------------------ | ---------- | -------------------------- | ---------- | ------------------------------------------------------------ |
-| `writeOnly` | `set %()`<br />`Proxy`                                       |            | `virtual`                  |            |                                                              |
-| `readOnly`  | `get %()`                                                    | `readonly` | `immutable`<br />`virtual` |            | [`GENERATED`](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html) |
-|             | `static`                                                     | `static`   |                            |            |                                                              |
-|             | [`#%`](https://babeljs.io/docs/en/babel-plugin-proposal-private-methods) | `private`  |                            |            |                                                              |
-| `$ref`      |                                                              |            | `ObjectId`                 | `ObjectId` | `FOREIGN KEY`                                                |
+| Schema      | JS class                                                     | [JS Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) | TS                        | Mongoose                                               | MongoDB    | MySQL                                                        |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------- | ------------------------------------------------------ | ---------- | ------------------------------------------------------------ |
+| `writeOnly` |                                                              | `set %()`                                                    | `set %()`                 | `virtual`                                              |            |                                                              |
+| `readOnly`  |                                                              | `get %()`<br />`writable`                                    | `get %()`<br />`readonly` | `immutable`<br />`virtual`                             |            | [`GENERATED`](https://dev.mysql.com/doc/refman/5.7/en/create-table-generated-columns.html) |
+|             | `static`                                                     |                                                              | `static`                  |                                                        |            |                                                              |
+|             | [`#%`](https://babeljs.io/docs/en/babel-plugin-proposal-private-methods) |                                                              | `private`                 |                                                        |            |                                                              |
+|             |                                                              |                                                              | `protected`               |                                                        |            |                                                              |
+| `default`   |                                                              | `value`                                                      |                           | [`default`](https://mongoosejs.com/docs/defaults.html) |            | `DEFAULT`                                                    |
+|             |                                                              | `configurable`                                               |                           |                                                        |            |                                                              |
+|             |                                                              | `enumerable`                                                 |                           |                                                        |            |                                                              |
+| `$ref`      |                                                              |                                                              |                           | `ObjectId`                                             | `ObjectId` | `FOREIGN KEY`                                                |
 
 ### Method
 

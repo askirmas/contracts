@@ -104,18 +104,30 @@
 
 ## `links`
 
-|                                                              | 07                                                       |
-| ------------------------------------------------------------ | -------------------------------------------------------- |
-|                                                              | `title`<br />`description`<br />`$comment`               |
-| Relation to the target resource of the link                  | `rel`                                                    |
-| A URI template, as defined by RFC 6570<br />A schema for validating user input to the URI template, where the input is in the form of a JSON object with property names matching variable names in \"href\" | `href`<br />`hrefSchema`                                 |
-|                                                              | `anchor`<br />`anchorPointer`                            |
-|                                                              | `templatePointers`<br />`templateRequired`               |
-| JSON Schema describing the link target<br />Media type (as defined by RFC 2046) describing the link target | `targetSchema`<br />`targetMediaType`<br />`targetHints` |
-|                                                              | `headerSchema`                                           |
-| Schema describing the data to submit along with the request<br />The media type in which to submit data along with the request | `submissionSchema`<br />`submissionMediaType`            |
+|                                                              | 07                                            | type/format                |
+| ------------------------------------------------------------ | --------------------------------------------- | -------------------------- |
+|                                                              | `title`<br />`description`<br />`$comment`    |                            |
+| Relation to the target resource of the link                  | `rel`                                         |                            |
+| *Request headers*                                            | `headerSchema`                                |                            |
+|                                                              | `anchor`                                      | `uri-template`             |
+|                                                              | `anchorPointer`                               | `relative-json-pointer`    |
+| A URI template, as defined by RFC 6570                       | `href`                                        | `uri-template`             |
+| A schema for validating user input to the URI template, where the input is in the form of a JSON object with property names matching variable names in \"href\" | `hrefSchema`                                  | `Hyper`                    |
+| *Paths in data aliased with href vars*                       | `templatePointers`                            | `relative-json-pointer{} ` |
+| *Those required*                                             | `templateRequired`                            | `string[]`                 |
+| JSON Schema describing the link target                       | `targetSchema`                                | `Hyper`                    |
+| Media type (as defined by RFC 2046) describing the link target | `targetMediaType`                             | `string`                   |
+| *Response headers*                                           | `targetHints`                                 |                            |
+| Schema describing the data to submit along with the request<br />The media type in which to submit data along with the request | `submissionSchema`<br />`submissionMediaType` | `Hyper`<br />`string`      |
 
+### Scenarios
 
+- #.post(submission) :target
+- post(submission) :target
+
+- #.post()
+
+- target POST _
 
 ## External Resources
 
