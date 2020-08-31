@@ -7,7 +7,7 @@
   })),
   "definitions": Object.keys(definitions)
   .reduce((acc, def, i) => {
-    const {definitions: items} = definitions[def]
+    const {"definitions": items} = definitions[def]
     , groupRefs = Object.keys(items)
     .map(itemKey => {
       const itemName = `${def}__${itemKey}`
@@ -29,19 +29,23 @@
 Object.fromEntries(
   $$('#wikiArticle > h2')
   .slice(0, 5)
-  .map(({id, nextElementSibling}) =>[
+  .map(({id, "textContent": group, nextElementSibling}) =>[
     id,
     {
       "definitions": Object.fromEntries(
         $$('dt', nextElementSibling)
-        .map(({textContent, nextElementSibling: {textContent: description}}) => {
+        .map(({textContent, nextElementSibling: {"textContent": description}}) => {
           const code = +textContent.slice(0, 3)
-          , title = textContent.slice(4)
+          , name = textContent.slice(4).trim()
+          
           return [
-            title.replace(' ', '_'),
+            name.replace(/[\s\(\)]+/g, '_'),
             {
-              "const": code,
-              title,
+              "enum": [
+                code,
+                name
+              ],
+              "title": `${group}: ${name}`,
               description
             }
           ]

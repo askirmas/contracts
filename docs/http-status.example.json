@@ -1,4 +1,4 @@
 {
   "$schema": "./http-status.check.json",
-  "some": 400
+  "some": "Bad Request"
 }
