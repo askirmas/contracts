@@ -1,0 +1,4 @@
+{
+  "$schema": "./http-status.check.json",
+  "some": 400
+}

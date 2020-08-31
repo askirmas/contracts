@@ -18,6 +18,23 @@
 
 - https://tools.ietf.org/html/rfc7231#section-6.3
 
+```javascript
+$$('dt').map(({
+  firstChild: {href, textContent},
+  nextElementSibling: {textContent: description}
+}) => (
+  (code, title) => `| ${[
+    href 
+    ? `[${code}](${href})`
+    : code,
+    title,
+    description
+  ].join(" | ")} |`)(
+    +textContent.slice(0, 3),
+    textContent.slice(4)
+  )
+).join("\n")
+```
 |[Status](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)|Message|Description|
 |-|-|-|
 | [100](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/100) | Continue | This interim response indicates that everything so far is OK and that the client should continue the request, or ignore the response if the request is already finished. |
