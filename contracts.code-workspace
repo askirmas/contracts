@@ -2,11 +2,15 @@
 	"folders": [
 		{
 			"path": "."
-		}
+    },
+    {
+      "path": "./configs"
+    }
   ],
   "settings": {
     "typescript.tsdk": "./node_modules/typescript/lib",
     "prettier.enable": false,
+    "eslint.alwaysShowStatus": true,
     "eslint.enable": false
   }
 }
