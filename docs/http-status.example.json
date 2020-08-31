@@ -1,4 +1,4 @@
 {
   "$schema": "./http-status.check.json",
-  "some": "Bad Request"
+  "some": "Client error responses: Not Found"
 }

@@ -21,7 +21,8 @@
     "Information_responses__Continue": {
       "enum": [
         100,
-        "Continue"
+        "Continue",
+        "Information responses: Continue"
       ],
       "title": "Information responses: Continue",
       "description": "This interim response indicates that everything so far is OK and that the client should continue the request, or ignore the response if the request is already finished."
@@ -29,7 +30,8 @@
     "Information_responses__Switching_Protocol": {
       "enum": [
         101,
-        "Switching Protocol"
+        "Switching Protocol",
+        "Information responses: Switching Protocol"
       ],
       "title": "Information responses: Switching Protocol",
       "description": "This code is sent in response to an Upgrade request header from the client, and indicates the protocol the server is switching to."
@@ -37,7 +39,8 @@
     "Information_responses__Processing_WebDAV_": {
       "enum": [
         102,
-        "Processing (WebDAV)"
+        "Processing (WebDAV)",
+        "Information responses: Processing (WebDAV)"
       ],
       "title": "Information responses: Processing (WebDAV)",
       "description": "This code indicates that the server has received and is processing the request, but no response is available yet."
@@ -45,7 +48,8 @@
     "Information_responses__Early_Hints": {
       "enum": [
         103,
-        "Early Hints"
+        "Early Hints",
+        "Information responses: Early Hints"
       ],
       "title": "Information responses: Early Hints",
       "description": "This status code is primarily intended to be used with the Link header, letting the user agent start preloading resources while the server prepares a response."
@@ -74,7 +78,8 @@
     "Successful_responses__OK": {
       "enum": [
         200,
-        "OK"
+        "OK",
+        "Successful responses: OK"
       ],
       "title": "Successful responses: OK",
       "description": "The request has succeeded. The meaning of the success depends on the HTTP method:\n \n  GET: The resource has been fetched and is transmitted in the message body.\n  HEAD: The entity headers are in the message body.\n  PUT or POST: The resource describing the result of the action is transmitted in the message body.\n  TRACE: The message body contains the request message as received by the server\n \n "
@@ -82,7 +87,8 @@
     "Successful_responses__Created": {
       "enum": [
         201,
-        "Created"
+        "Created",
+        "Successful responses: Created"
       ],
       "title": "Successful responses: Created",
       "description": "The request has succeeded and a new resource has been created as a result. This is typically the response sent after POST requests, or some PUT requests."
@@ -90,7 +96,8 @@
     "Successful_responses__Accepted": {
       "enum": [
         202,
-        "Accepted"
+        "Accepted",
+        "Successful responses: Accepted"
       ],
       "title": "Successful responses: Accepted",
       "description": "The request has been received but not yet acted upon. It is noncommittal, since there is no way in HTTP to later send an asynchronous response indicating the outcome of the request. It is intended for cases where another process or server handles the request, or for batch processing."
@@ -98,7 +105,8 @@
     "Successful_responses__Non-Authoritative_Information": {
       "enum": [
         203,
-        "Non-Authoritative Information"
+        "Non-Authoritative Information",
+        "Successful responses: Non-Authoritative Information"
       ],
       "title": "Successful responses: Non-Authoritative Information",
       "description": "This response code means the returned meta-information is not exactly the same as is available from the origin server, but is collected from a local or a third-party copy. This is mostly used for mirrors or backups of another resource. Except for that specific case, the \"200 OK\" response is preferred to this status."
@@ -106,7 +114,8 @@
     "Successful_responses__No_Content": {
       "enum": [
         204,
-        "No Content"
+        "No Content",
+        "Successful responses: No Content"
       ],
       "title": "Successful responses: No Content",
       "description": "There is no content to send for this request, but the headers may be useful. The user-agent may update its cached headers for this resource with the new ones."
@@ -114,7 +123,8 @@
     "Successful_responses__Reset_Content": {
       "enum": [
         205,
-        "Reset Content"
+        "Reset Content",
+        "Successful responses: Reset Content"
       ],
       "title": "Successful responses: Reset Content",
       "description": "Tells the user-agent to reset the document which sent this request."
@@ -122,7 +132,8 @@
     "Successful_responses__Partial_Content": {
       "enum": [
         206,
-        "Partial Content"
+        "Partial Content",
+        "Successful responses: Partial Content"
       ],
       "title": "Successful responses: Partial Content",
       "description": "This response code is used when the Range header is sent from the client to request only part of a resource."
@@ -130,7 +141,8 @@
     "Successful_responses__Multi-Status_WebDAV_": {
       "enum": [
         207,
-        "Multi-Status (WebDAV)"
+        "Multi-Status (WebDAV)",
+        "Successful responses: Multi-Status (WebDAV)"
       ],
       "title": "Successful responses: Multi-Status (WebDAV)",
       "description": "Conveys information about multiple resources, for situations where multiple status codes might be appropriate."
@@ -138,7 +150,8 @@
     "Successful_responses__Already_Reported_WebDAV_": {
       "enum": [
         208,
-        "Already Reported (WebDAV)"
+        "Already Reported (WebDAV)",
+        "Successful responses: Already Reported (WebDAV)"
       ],
       "title": "Successful responses: Already Reported (WebDAV)",
       "description": "Used inside a <dav:propstat> response element to avoid repeatedly enumerating the internal members of multiple bindings to the same collection."
@@ -146,7 +159,8 @@
     "Successful_responses__IM_Used_HTTP_Delta_encoding_": {
       "enum": [
         226,
-        "IM Used (HTTP Delta encoding)"
+        "IM Used (HTTP Delta encoding)",
+        "Successful responses: IM Used (HTTP Delta encoding)"
       ],
       "title": "Successful responses: IM Used (HTTP Delta encoding)",
       "description": "The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance."
@@ -193,7 +207,8 @@
     "Redirection_messages__Multiple_Choice": {
       "enum": [
         300,
-        "Multiple Choice"
+        "Multiple Choice",
+        "Redirection messages: Multiple Choice"
       ],
       "title": "Redirection messages: Multiple Choice",
       "description": "The request has more than one possible response. The user-agent or user should choose one of them. (There is no standardized way of choosing one of the responses, but HTML links to the possibilities are recommended so the user can pick.)"
@@ -201,7 +216,8 @@
     "Redirection_messages__Moved_Permanently": {
       "enum": [
         301,
-        "Moved Permanently"
+        "Moved Permanently",
+        "Redirection messages: Moved Permanently"
       ],
       "title": "Redirection messages: Moved Permanently",
       "description": "The URL of the requested resource has been changed permanently. The new URL is given in the response."
@@ -209,7 +225,8 @@
     "Redirection_messages__Found": {
       "enum": [
         302,
-        "Found"
+        "Found",
+        "Redirection messages: Found"
       ],
       "title": "Redirection messages: Found",
       "description": "This response code means that the URI of requested resource has been changed temporarily. Further changes in the URI might be made in the future. Therefore, this same URI should be used by the client in future requests."
@@ -217,7 +234,8 @@
     "Redirection_messages__See_Other": {
       "enum": [
         303,
-        "See Other"
+        "See Other",
+        "Redirection messages: See Other"
       ],
       "title": "Redirection messages: See Other",
       "description": "The server sent this response to direct the client to get the requested resource at another URI with a GET request."
@@ -225,7 +243,8 @@
     "Redirection_messages__Not_Modified": {
       "enum": [
         304,
-        "Not Modified"
+        "Not Modified",
+        "Redirection messages: Not Modified"
       ],
       "title": "Redirection messages: Not Modified",
       "description": "This is used for caching purposes. It tells the client that the response has not been modified, so the client can continue to use the same cached version of the response."
@@ -233,7 +252,8 @@
     "Redirection_messages__Use_Proxy": {
       "enum": [
         305,
-        "Use Proxy"
+        "Use Proxy",
+        "Redirection messages: Use Proxy"
       ],
       "title": "Redirection messages: Use Proxy",
       "description": "Defined in a previous version of the HTTP specification to indicate that a requested response must be accessed by a proxy. It has been deprecated due to security concerns regarding in-band configuration of a proxy."
@@ -241,7 +261,8 @@
     "Redirection_messages__unused": {
       "enum": [
         306,
-        "unused"
+        "unused",
+        "Redirection messages: unused"
       ],
       "title": "Redirection messages: unused",
       "description": "This response code is no longer used; it is just reserved. It was used in a previous version of the HTTP/1.1 specification."
@@ -249,7 +270,8 @@
     "Redirection_messages__Temporary_Redirect": {
       "enum": [
         307,
-        "Temporary Redirect"
+        "Temporary Redirect",
+        "Redirection messages: Temporary Redirect"
       ],
       "title": "Redirection messages: Temporary Redirect",
       "description": "The server sends this response to direct the client to get the requested resource at another URI with same method that was used in the prior request. This has the same semantics as the 302 Found HTTP response code, with the exception that the user agent must not change the HTTP method used: If a POST was used in the first request, a POST must be used in the second request."
@@ -257,7 +279,8 @@
     "Redirection_messages__Permanent_Redirect": {
       "enum": [
         308,
-        "Permanent Redirect"
+        "Permanent Redirect",
+        "Redirection messages: Permanent Redirect"
       ],
       "title": "Redirection messages: Permanent Redirect",
       "description": "This means that the resource is now permanently located at another URI, specified by the Location: HTTP Response header. This has the same semantics as the 301 Moved Permanently HTTP response code, with the exception that the user agent must not change the HTTP method used: If a POST was used in the first request, a POST must be used in the second request."
@@ -301,7 +324,8 @@
     "Client_error_responses__Bad_Request": {
       "enum": [
         400,
-        "Bad Request"
+        "Bad Request",
+        "Client error responses: Bad Request"
       ],
       "title": "Client error responses: Bad Request",
       "description": "The server could not understand the request due to invalid syntax."
@@ -309,7 +333,8 @@
     "Client_error_responses__Unauthorized": {
       "enum": [
         401,
-        "Unauthorized"
+        "Unauthorized",
+        "Client error responses: Unauthorized"
       ],
       "title": "Client error responses: Unauthorized",
       "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response."
@@ -317,7 +342,8 @@
     "Client_error_responses__Payment_Required": {
       "enum": [
         402,
-        "Payment Required"
+        "Payment Required",
+        "Client error responses: Payment Required"
       ],
       "title": "Client error responses: Payment Required",
       "description": "This response code is reserved for future use. The initial aim for creating this code was using it for digital payment systems, however this status code is used very rarely and no standard convention exists."
@@ -325,7 +351,8 @@
     "Client_error_responses__Forbidden": {
       "enum": [
         403,
-        "Forbidden"
+        "Forbidden",
+        "Client error responses: Forbidden"
       ],
       "title": "Client error responses: Forbidden",
       "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401, the client's identity is known to the server."
@@ -333,7 +360,8 @@
     "Client_error_responses__Not_Found": {
       "enum": [
         404,
-        "Not Found"
+        "Not Found",
+        "Client error responses: Not Found"
       ],
       "title": "Client error responses: Not Found",
       "description": "The server can not find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 to hide the existence of a resource from an unauthorized client. This response code is probably the most famous one due to its frequent occurrence on the web."
@@ -341,7 +369,8 @@
     "Client_error_responses__Method_Not_Allowed": {
       "enum": [
         405,
-        "Method Not Allowed"
+        "Method Not Allowed",
+        "Client error responses: Method Not Allowed"
       ],
       "title": "Client error responses: Method Not Allowed",
       "description": "The request method is known by the server but has been disabled and cannot be used. For example, an API may forbid DELETE-ing a resource. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code."
@@ -349,7 +378,8 @@
     "Client_error_responses__Not_Acceptable": {
       "enum": [
         406,
-        "Not Acceptable"
+        "Not Acceptable",
+        "Client error responses: Not Acceptable"
       ],
       "title": "Client error responses: Not Acceptable",
       "description": "This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content that conforms to the criteria given by the user agent."
@@ -357,7 +387,8 @@
     "Client_error_responses__Proxy_Authentication_Required": {
       "enum": [
         407,
-        "Proxy Authentication Required"
+        "Proxy Authentication Required",
+        "Client error responses: Proxy Authentication Required"
       ],
       "title": "Client error responses: Proxy Authentication Required",
       "description": "This is similar to 401 but authentication is needed to be done by a proxy."
@@ -365,7 +396,8 @@
     "Client_error_responses__Request_Timeout": {
       "enum": [
         408,
-        "Request Timeout"
+        "Request Timeout",
+        "Client error responses: Request Timeout"
       ],
       "title": "Client error responses: Request Timeout",
       "description": "This response is sent on an idle connection by some servers, even without any previous request by the client. It means that the server would like to shut down this unused connection. This response is used much more since some browsers, like Chrome, Firefox 27+, or IE9, use HTTP pre-connection mechanisms to speed up surfing. Also note that some servers merely shut down the connection without sending this message."
@@ -373,7 +405,8 @@
     "Client_error_responses__Conflict": {
       "enum": [
         409,
-        "Conflict"
+        "Conflict",
+        "Client error responses: Conflict"
       ],
       "title": "Client error responses: Conflict",
       "description": "This response is sent when a request conflicts with the current state of the server."
@@ -381,7 +414,8 @@
     "Client_error_responses__Gone": {
       "enum": [
         410,
-        "Gone"
+        "Gone",
+        "Client error responses: Gone"
       ],
       "title": "Client error responses: Gone",
       "description": "This response is sent when the requested content has been permanently deleted from server, with no forwarding address. Clients are expected to remove their caches and links to the resource. The HTTP specification intends this status code to be used for \"limited-time, promotional services\". APIs should not feel compelled to indicate resources that have been deleted with this status code."
@@ -389,7 +423,8 @@
     "Client_error_responses__Length_Required": {
       "enum": [
         411,
-        "Length Required"
+        "Length Required",
+        "Client error responses: Length Required"
       ],
       "title": "Client error responses: Length Required",
       "description": "Server rejected the request because the Content-Length header field is not defined and the server requires it."
@@ -397,7 +432,8 @@
     "Client_error_responses__Precondition_Failed": {
       "enum": [
         412,
-        "Precondition Failed"
+        "Precondition Failed",
+        "Client error responses: Precondition Failed"
       ],
       "title": "Client error responses: Precondition Failed",
       "description": "The client has indicated preconditions in its headers which the server does not meet."
@@ -405,7 +441,8 @@
     "Client_error_responses__Payload_Too_Large": {
       "enum": [
         413,
-        "Payload Too Large"
+        "Payload Too Large",
+        "Client error responses: Payload Too Large"
       ],
       "title": "Client error responses: Payload Too Large",
       "description": "Request entity is larger than limits defined by server; the server might close the connection or return an Retry-After header field."
@@ -413,7 +450,8 @@
     "Client_error_responses__URI_Too_Long": {
       "enum": [
         414,
-        "URI Too Long"
+        "URI Too Long",
+        "Client error responses: URI Too Long"
       ],
       "title": "Client error responses: URI Too Long",
       "description": "The URI requested by the client is longer than the server is willing to interpret."
@@ -421,7 +459,8 @@
     "Client_error_responses__Unsupported_Media_Type": {
       "enum": [
         415,
-        "Unsupported Media Type"
+        "Unsupported Media Type",
+        "Client error responses: Unsupported Media Type"
       ],
       "title": "Client error responses: Unsupported Media Type",
       "description": "The media format of the requested data is not supported by the server, so the server is rejecting the request."
@@ -429,7 +468,8 @@
     "Client_error_responses__Range_Not_Satisfiable": {
       "enum": [
         416,
-        "Range Not Satisfiable"
+        "Range Not Satisfiable",
+        "Client error responses: Range Not Satisfiable"
       ],
       "title": "Client error responses: Range Not Satisfiable",
       "description": "The range specified by the Range header field in the request can't be fulfilled; it's possible that the range is outside the size of the target URI's data."
@@ -437,7 +477,8 @@
     "Client_error_responses__Expectation_Failed": {
       "enum": [
         417,
-        "Expectation Failed"
+        "Expectation Failed",
+        "Client error responses: Expectation Failed"
       ],
       "title": "Client error responses: Expectation Failed",
       "description": "This response code means the expectation indicated by the Expect request header field can't be met by the server."
@@ -445,7 +486,8 @@
     "Client_error_responses__I'm_a_teapot": {
       "enum": [
         418,
-        "I'm a teapot"
+        "I'm a teapot",
+        "Client error responses: I'm a teapot"
       ],
       "title": "Client error responses: I'm a teapot",
       "description": "The server refuses the attempt to brew coffee with a teapot."
@@ -453,7 +495,8 @@
     "Client_error_responses__Misdirected_Request": {
       "enum": [
         421,
-        "Misdirected Request"
+        "Misdirected Request",
+        "Client error responses: Misdirected Request"
       ],
       "title": "Client error responses: Misdirected Request",
       "description": "The request was directed at a server that is not able to produce a response. This can be sent by a server that is not configured to produce responses for the combination of scheme and authority that are included in the request URI."
@@ -461,7 +504,8 @@
     "Client_error_responses__Unprocessable_Entity_WebDAV_": {
       "enum": [
         422,
-        "Unprocessable Entity (WebDAV)"
+        "Unprocessable Entity (WebDAV)",
+        "Client error responses: Unprocessable Entity (WebDAV)"
       ],
       "title": "Client error responses: Unprocessable Entity (WebDAV)",
       "description": "The request was well-formed but was unable to be followed due to semantic errors."
@@ -469,7 +513,8 @@
     "Client_error_responses__Locked_WebDAV_": {
       "enum": [
         423,
-        "Locked (WebDAV)"
+        "Locked (WebDAV)",
+        "Client error responses: Locked (WebDAV)"
       ],
       "title": "Client error responses: Locked (WebDAV)",
       "description": "The resource that is being accessed is locked."
@@ -477,7 +522,8 @@
     "Client_error_responses__Failed_Dependency_WebDAV_": {
       "enum": [
         424,
-        "Failed Dependency (WebDAV)"
+        "Failed Dependency (WebDAV)",
+        "Client error responses: Failed Dependency (WebDAV)"
       ],
       "title": "Client error responses: Failed Dependency (WebDAV)",
       "description": "The request failed due to failure of a previous request."
@@ -485,7 +531,8 @@
     "Client_error_responses__Too_Early": {
       "enum": [
         425,
-        "Too Early"
+        "Too Early",
+        "Client error responses: Too Early"
       ],
       "title": "Client error responses: Too Early",
       "description": "Indicates that the server is unwilling to risk processing a request that might be replayed."
@@ -493,7 +540,8 @@
     "Client_error_responses__Upgrade_Required": {
       "enum": [
         426,
-        "Upgrade Required"
+        "Upgrade Required",
+        "Client error responses: Upgrade Required"
       ],
       "title": "Client error responses: Upgrade Required",
       "description": "The server refuses to perform the request using the current protocol but might be willing to do so after the client upgrades to a different protocol. The server sends an Upgrade header in a 426 response to indicate the required protocol(s)."
@@ -501,7 +549,8 @@
     "Client_error_responses__Precondition_Required": {
       "enum": [
         428,
-        "Precondition Required"
+        "Precondition Required",
+        "Client error responses: Precondition Required"
       ],
       "title": "Client error responses: Precondition Required",
       "description": "The origin server requires the request to be conditional. This response is intended to prevent the 'lost update' problem, where a client GETs a resource's state, modifies it, and PUTs it back to the server, when meanwhile a third party has modified the state on the server, leading to a conflict."
@@ -509,7 +558,8 @@
     "Client_error_responses__Too_Many_Requests": {
       "enum": [
         429,
-        "Too Many Requests"
+        "Too Many Requests",
+        "Client error responses: Too Many Requests"
       ],
       "title": "Client error responses: Too Many Requests",
       "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")."
@@ -517,7 +567,8 @@
     "Client_error_responses__Request_Header_Fields_Too_Large": {
       "enum": [
         431,
-        "Request Header Fields Too Large"
+        "Request Header Fields Too Large",
+        "Client error responses: Request Header Fields Too Large"
       ],
       "title": "Client error responses: Request Header Fields Too Large",
       "description": "The server is unwilling to process the request because its header fields are too large. The request may be resubmitted after reducing the size of the request header fields."
@@ -525,7 +576,8 @@
     "Client_error_responses__Unavailable_For_Legal_Reasons": {
       "enum": [
         451,
-        "Unavailable For Legal Reasons"
+        "Unavailable For Legal Reasons",
+        "Client error responses: Unavailable For Legal Reasons"
       ],
       "title": "Client error responses: Unavailable For Legal Reasons",
       "description": "The user-agent requested a resource that cannot legally be provided, such as a web page censored by a government."
@@ -629,7 +681,8 @@
     "Server_error_responses__Internal_Server_Error": {
       "enum": [
         500,
-        "Internal Server Error"
+        "Internal Server Error",
+        "Server error responses: Internal Server Error"
       ],
       "title": "Server error responses: Internal Server Error",
       "description": "The server has encountered a situation it doesn't know how to handle."
@@ -637,7 +690,8 @@
     "Server_error_responses__Not_Implemented": {
       "enum": [
         501,
-        "Not Implemented"
+        "Not Implemented",
+        "Server error responses: Not Implemented"
       ],
       "title": "Server error responses: Not Implemented",
       "description": "The request method is not supported by the server and cannot be handled. The only methods that servers are required to support (and therefore that must not return this code) are GET and HEAD."
@@ -645,7 +699,8 @@
     "Server_error_responses__Bad_Gateway": {
       "enum": [
         502,
-        "Bad Gateway"
+        "Bad Gateway",
+        "Server error responses: Bad Gateway"
       ],
       "title": "Server error responses: Bad Gateway",
       "description": "This error response means that the server, while working as a gateway to get a response needed to handle the request, got an invalid response."
@@ -653,7 +708,8 @@
     "Server_error_responses__Service_Unavailable": {
       "enum": [
         503,
-        "Service Unavailable"
+        "Service Unavailable",
+        "Server error responses: Service Unavailable"
       ],
       "title": "Server error responses: Service Unavailable",
       "description": "The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Note that together with this response, a user-friendly page explaining the problem should be sent. This responses should be used for temporary conditions and the Retry-After: HTTP header should, if possible, contain the estimated time before the recovery of the service. The webmaster must also take care about the caching-related headers that are sent along with this response, as these temporary condition responses should usually not be cached."
@@ -661,7 +717,8 @@
     "Server_error_responses__Gateway_Timeout": {
       "enum": [
         504,
-        "Gateway Timeout"
+        "Gateway Timeout",
+        "Server error responses: Gateway Timeout"
       ],
       "title": "Server error responses: Gateway Timeout",
       "description": "This error response is given when the server is acting as a gateway and cannot get a response in time."
@@ -669,7 +726,8 @@
     "Server_error_responses__HTTP_Version_Not_Supported": {
       "enum": [
         505,
-        "HTTP Version Not Supported"
+        "HTTP Version Not Supported",
+        "Server error responses: HTTP Version Not Supported"
       ],
       "title": "Server error responses: HTTP Version Not Supported",
       "description": "The HTTP version used in the request is not supported by the server."
@@ -677,7 +735,8 @@
     "Server_error_responses__Variant_Also_Negotiates": {
       "enum": [
         506,
-        "Variant Also Negotiates"
+        "Variant Also Negotiates",
+        "Server error responses: Variant Also Negotiates"
       ],
       "title": "Server error responses: Variant Also Negotiates",
       "description": "The server has an internal configuration error: the chosen variant resource is configured to engage in transparent content negotiation itself, and is therefore not a proper end point in the negotiation process."
@@ -685,7 +744,8 @@
     "Server_error_responses__Insufficient_Storage_WebDAV_": {
       "enum": [
         507,
-        "Insufficient Storage (WebDAV)"
+        "Insufficient Storage (WebDAV)",
+        "Server error responses: Insufficient Storage (WebDAV)"
       ],
       "title": "Server error responses: Insufficient Storage (WebDAV)",
       "description": "The method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request."
@@ -693,7 +753,8 @@
     "Server_error_responses__Loop_Detected_WebDAV_": {
       "enum": [
         508,
-        "Loop Detected (WebDAV)"
+        "Loop Detected (WebDAV)",
+        "Server error responses: Loop Detected (WebDAV)"
       ],
       "title": "Server error responses: Loop Detected (WebDAV)",
       "description": "The server detected an infinite loop while processing the request."
@@ -701,7 +762,8 @@
     "Server_error_responses__Not_Extended": {
       "enum": [
         510,
-        "Not Extended"
+        "Not Extended",
+        "Server error responses: Not Extended"
       ],
       "title": "Server error responses: Not Extended",
       "description": "Further extensions to the request are required for the server to fulfil it."
@@ -709,7 +771,8 @@
     "Server_error_responses__Network_Authentication_Required": {
       "enum": [
         511,
-        "Network Authentication Required"
+        "Network Authentication Required",
+        "Server error responses: Network Authentication Required"
       ],
       "title": "Server error responses: Network Authentication Required",
       "description": "The 511 status code indicates that the client needs to authenticate to gain network access."

@@ -37,15 +37,17 @@ Object.fromEntries(
         .map(({textContent, nextElementSibling: {"textContent": description}}) => {
           const code = +textContent.slice(0, 3)
           , name = textContent.slice(4).trim()
-          
+          , title = `${group}: ${name}`
+
           return [
             name.replace(/[\s\(\)]+/g, '_'),
             {
               "enum": [
                 code,
-                name
+                name,
+                title
               ],
-              "title": `${group}: ${name}`,
+              title,
               description
             }
           ]
