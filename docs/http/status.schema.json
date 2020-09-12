@@ -1,4 +1,5 @@
 {
+  "description": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
   "$schema": "http://json-schema.org/draft-07/schema",
   "oneOf": [
     {
@@ -18,7 +19,8 @@
     }
   ],
   "definitions": {
-    "Information_responses__Continue": {
+    "Continue": {
+      "default": 100,
       "enum": [
         100,
         "Continue",
@@ -27,7 +29,8 @@
       "title": "Information responses: Continue",
       "description": "This interim response indicates that everything so far is OK and that the client should continue the request, or ignore the response if the request is already finished."
     },
-    "Information_responses__Switching_Protocol": {
+    "Switching_Protocol": {
+      "default": 101,
       "enum": [
         101,
         "Switching Protocol",
@@ -36,7 +39,8 @@
       "title": "Information responses: Switching Protocol",
       "description": "This code is sent in response to an Upgrade request header from the client, and indicates the protocol the server is switching to."
     },
-    "Information_responses__Processing_WebDAV_": {
+    "Processing_WebDAV_": {
+      "default": 102,
       "enum": [
         102,
         "Processing (WebDAV)",
@@ -45,7 +49,8 @@
       "title": "Information responses: Processing (WebDAV)",
       "description": "This code indicates that the server has received and is processing the request, but no response is available yet."
     },
-    "Information_responses__Early_Hints": {
+    "Early_Hints": {
+      "default": 103,
       "enum": [
         103,
         "Early Hints",
@@ -57,16 +62,16 @@
     "Information_responses": {
       "anyOf": [
         {
-          "$ref": "#/definitions/Information_responses__Continue"
+          "$ref": "#/definitions/Continue"
         },
         {
-          "$ref": "#/definitions/Information_responses__Switching_Protocol"
+          "$ref": "#/definitions/Switching_Protocol"
         },
         {
-          "$ref": "#/definitions/Information_responses__Processing_WebDAV_"
+          "$ref": "#/definitions/Processing_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Information_responses__Early_Hints"
+          "$ref": "#/definitions/Early_Hints"
         },
         {
           "type": "number",
@@ -75,7 +80,8 @@
         }
       ]
     },
-    "Successful_responses__OK": {
+    "OK": {
+      "default": 200,
       "enum": [
         200,
         "OK",
@@ -84,7 +90,8 @@
       "title": "Successful responses: OK",
       "description": "The request has succeeded. The meaning of the success depends on the HTTP method:\n \n  GET: The resource has been fetched and is transmitted in the message body.\n  HEAD: The entity headers are in the message body.\n  PUT or POST: The resource describing the result of the action is transmitted in the message body.\n  TRACE: The message body contains the request message as received by the server\n \n "
     },
-    "Successful_responses__Created": {
+    "Created": {
+      "default": 201,
       "enum": [
         201,
         "Created",
@@ -93,7 +100,8 @@
       "title": "Successful responses: Created",
       "description": "The request has succeeded and a new resource has been created as a result. This is typically the response sent after POST requests, or some PUT requests."
     },
-    "Successful_responses__Accepted": {
+    "Accepted": {
+      "default": 202,
       "enum": [
         202,
         "Accepted",
@@ -102,7 +110,8 @@
       "title": "Successful responses: Accepted",
       "description": "The request has been received but not yet acted upon. It is noncommittal, since there is no way in HTTP to later send an asynchronous response indicating the outcome of the request. It is intended for cases where another process or server handles the request, or for batch processing."
     },
-    "Successful_responses__Non-Authoritative_Information": {
+    "Non-Authoritative_Information": {
+      "default": 203,
       "enum": [
         203,
         "Non-Authoritative Information",
@@ -111,7 +120,8 @@
       "title": "Successful responses: Non-Authoritative Information",
       "description": "This response code means the returned meta-information is not exactly the same as is available from the origin server, but is collected from a local or a third-party copy. This is mostly used for mirrors or backups of another resource. Except for that specific case, the \"200 OK\" response is preferred to this status."
     },
-    "Successful_responses__No_Content": {
+    "No_Content": {
+      "default": 204,
       "enum": [
         204,
         "No Content",
@@ -120,7 +130,8 @@
       "title": "Successful responses: No Content",
       "description": "There is no content to send for this request, but the headers may be useful. The user-agent may update its cached headers for this resource with the new ones."
     },
-    "Successful_responses__Reset_Content": {
+    "Reset_Content": {
+      "default": 205,
       "enum": [
         205,
         "Reset Content",
@@ -129,7 +140,8 @@
       "title": "Successful responses: Reset Content",
       "description": "Tells the user-agent to reset the document which sent this request."
     },
-    "Successful_responses__Partial_Content": {
+    "Partial_Content": {
+      "default": 206,
       "enum": [
         206,
         "Partial Content",
@@ -138,7 +150,8 @@
       "title": "Successful responses: Partial Content",
       "description": "This response code is used when the Range header is sent from the client to request only part of a resource."
     },
-    "Successful_responses__Multi-Status_WebDAV_": {
+    "Multi-Status_WebDAV_": {
+      "default": 207,
       "enum": [
         207,
         "Multi-Status (WebDAV)",
@@ -147,7 +160,8 @@
       "title": "Successful responses: Multi-Status (WebDAV)",
       "description": "Conveys information about multiple resources, for situations where multiple status codes might be appropriate."
     },
-    "Successful_responses__Already_Reported_WebDAV_": {
+    "Already_Reported_WebDAV_": {
+      "default": 208,
       "enum": [
         208,
         "Already Reported (WebDAV)",
@@ -156,7 +170,8 @@
       "title": "Successful responses: Already Reported (WebDAV)",
       "description": "Used inside a <dav:propstat> response element to avoid repeatedly enumerating the internal members of multiple bindings to the same collection."
     },
-    "Successful_responses__IM_Used_HTTP_Delta_encoding_": {
+    "IM_Used_HTTP_Delta_encoding_": {
+      "default": 226,
       "enum": [
         226,
         "IM Used (HTTP Delta encoding)",
@@ -168,34 +183,34 @@
     "Successful_responses": {
       "anyOf": [
         {
-          "$ref": "#/definitions/Successful_responses__OK"
+          "$ref": "#/definitions/OK"
         },
         {
-          "$ref": "#/definitions/Successful_responses__Created"
+          "$ref": "#/definitions/Created"
         },
         {
-          "$ref": "#/definitions/Successful_responses__Accepted"
+          "$ref": "#/definitions/Accepted"
         },
         {
-          "$ref": "#/definitions/Successful_responses__Non-Authoritative_Information"
+          "$ref": "#/definitions/Non-Authoritative_Information"
         },
         {
-          "$ref": "#/definitions/Successful_responses__No_Content"
+          "$ref": "#/definitions/No_Content"
         },
         {
-          "$ref": "#/definitions/Successful_responses__Reset_Content"
+          "$ref": "#/definitions/Reset_Content"
         },
         {
-          "$ref": "#/definitions/Successful_responses__Partial_Content"
+          "$ref": "#/definitions/Partial_Content"
         },
         {
-          "$ref": "#/definitions/Successful_responses__Multi-Status_WebDAV_"
+          "$ref": "#/definitions/Multi-Status_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Successful_responses__Already_Reported_WebDAV_"
+          "$ref": "#/definitions/Already_Reported_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Successful_responses__IM_Used_HTTP_Delta_encoding_"
+          "$ref": "#/definitions/IM_Used_HTTP_Delta_encoding_"
         },
         {
           "type": "number",
@@ -204,7 +219,8 @@
         }
       ]
     },
-    "Redirection_messages__Multiple_Choice": {
+    "Multiple_Choice": {
+      "default": 300,
       "enum": [
         300,
         "Multiple Choice",
@@ -213,7 +229,8 @@
       "title": "Redirection messages: Multiple Choice",
       "description": "The request has more than one possible response. The user-agent or user should choose one of them. (There is no standardized way of choosing one of the responses, but HTML links to the possibilities are recommended so the user can pick.)"
     },
-    "Redirection_messages__Moved_Permanently": {
+    "Moved_Permanently": {
+      "default": 301,
       "enum": [
         301,
         "Moved Permanently",
@@ -222,7 +239,8 @@
       "title": "Redirection messages: Moved Permanently",
       "description": "The URL of the requested resource has been changed permanently. The new URL is given in the response."
     },
-    "Redirection_messages__Found": {
+    "Found": {
+      "default": 302,
       "enum": [
         302,
         "Found",
@@ -231,7 +249,8 @@
       "title": "Redirection messages: Found",
       "description": "This response code means that the URI of requested resource has been changed temporarily. Further changes in the URI might be made in the future. Therefore, this same URI should be used by the client in future requests."
     },
-    "Redirection_messages__See_Other": {
+    "See_Other": {
+      "default": 303,
       "enum": [
         303,
         "See Other",
@@ -240,7 +259,8 @@
       "title": "Redirection messages: See Other",
       "description": "The server sent this response to direct the client to get the requested resource at another URI with a GET request."
     },
-    "Redirection_messages__Not_Modified": {
+    "Not_Modified": {
+      "default": 304,
       "enum": [
         304,
         "Not Modified",
@@ -249,7 +269,8 @@
       "title": "Redirection messages: Not Modified",
       "description": "This is used for caching purposes. It tells the client that the response has not been modified, so the client can continue to use the same cached version of the response."
     },
-    "Redirection_messages__Use_Proxy": {
+    "Use_Proxy": {
+      "default": 305,
       "enum": [
         305,
         "Use Proxy",
@@ -258,7 +279,8 @@
       "title": "Redirection messages: Use Proxy",
       "description": "Defined in a previous version of the HTTP specification to indicate that a requested response must be accessed by a proxy. It has been deprecated due to security concerns regarding in-band configuration of a proxy."
     },
-    "Redirection_messages__unused": {
+    "unused": {
+      "default": 306,
       "enum": [
         306,
         "unused",
@@ -267,7 +289,8 @@
       "title": "Redirection messages: unused",
       "description": "This response code is no longer used; it is just reserved. It was used in a previous version of the HTTP/1.1 specification."
     },
-    "Redirection_messages__Temporary_Redirect": {
+    "Temporary_Redirect": {
+      "default": 307,
       "enum": [
         307,
         "Temporary Redirect",
@@ -276,7 +299,8 @@
       "title": "Redirection messages: Temporary Redirect",
       "description": "The server sends this response to direct the client to get the requested resource at another URI with same method that was used in the prior request. This has the same semantics as the 302 Found HTTP response code, with the exception that the user agent must not change the HTTP method used: If a POST was used in the first request, a POST must be used in the second request."
     },
-    "Redirection_messages__Permanent_Redirect": {
+    "Permanent_Redirect": {
+      "default": 308,
       "enum": [
         308,
         "Permanent Redirect",
@@ -288,31 +312,31 @@
     "Redirection_messages": {
       "anyOf": [
         {
-          "$ref": "#/definitions/Redirection_messages__Multiple_Choice"
+          "$ref": "#/definitions/Multiple_Choice"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__Moved_Permanently"
+          "$ref": "#/definitions/Moved_Permanently"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__Found"
+          "$ref": "#/definitions/Found"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__See_Other"
+          "$ref": "#/definitions/See_Other"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__Not_Modified"
+          "$ref": "#/definitions/Not_Modified"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__Use_Proxy"
+          "$ref": "#/definitions/Use_Proxy"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__unused"
+          "$ref": "#/definitions/unused"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__Temporary_Redirect"
+          "$ref": "#/definitions/Temporary_Redirect"
         },
         {
-          "$ref": "#/definitions/Redirection_messages__Permanent_Redirect"
+          "$ref": "#/definitions/Permanent_Redirect"
         },
         {
           "type": "number",
@@ -321,7 +345,8 @@
         }
       ]
     },
-    "Client_error_responses__Bad_Request": {
+    "Bad_Request": {
+      "default": 400,
       "enum": [
         400,
         "Bad Request",
@@ -330,7 +355,8 @@
       "title": "Client error responses: Bad Request",
       "description": "The server could not understand the request due to invalid syntax."
     },
-    "Client_error_responses__Unauthorized": {
+    "Unauthorized": {
+      "default": 401,
       "enum": [
         401,
         "Unauthorized",
@@ -339,7 +365,8 @@
       "title": "Client error responses: Unauthorized",
       "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response."
     },
-    "Client_error_responses__Payment_Required": {
+    "Payment_Required": {
+      "default": 402,
       "enum": [
         402,
         "Payment Required",
@@ -348,7 +375,8 @@
       "title": "Client error responses: Payment Required",
       "description": "This response code is reserved for future use. The initial aim for creating this code was using it for digital payment systems, however this status code is used very rarely and no standard convention exists."
     },
-    "Client_error_responses__Forbidden": {
+    "Forbidden": {
+      "default": 403,
       "enum": [
         403,
         "Forbidden",
@@ -357,7 +385,8 @@
       "title": "Client error responses: Forbidden",
       "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401, the client's identity is known to the server."
     },
-    "Client_error_responses__Not_Found": {
+    "Not_Found": {
+      "default": 404,
       "enum": [
         404,
         "Not Found",
@@ -366,7 +395,8 @@
       "title": "Client error responses: Not Found",
       "description": "The server can not find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 to hide the existence of a resource from an unauthorized client. This response code is probably the most famous one due to its frequent occurrence on the web."
     },
-    "Client_error_responses__Method_Not_Allowed": {
+    "Method_Not_Allowed": {
+      "default": 405,
       "enum": [
         405,
         "Method Not Allowed",
@@ -375,7 +405,8 @@
       "title": "Client error responses: Method Not Allowed",
       "description": "The request method is known by the server but has been disabled and cannot be used. For example, an API may forbid DELETE-ing a resource. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code."
     },
-    "Client_error_responses__Not_Acceptable": {
+    "Not_Acceptable": {
+      "default": 406,
       "enum": [
         406,
         "Not Acceptable",
@@ -384,7 +415,8 @@
       "title": "Client error responses: Not Acceptable",
       "description": "This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content that conforms to the criteria given by the user agent."
     },
-    "Client_error_responses__Proxy_Authentication_Required": {
+    "Proxy_Authentication_Required": {
+      "default": 407,
       "enum": [
         407,
         "Proxy Authentication Required",
@@ -393,7 +425,8 @@
       "title": "Client error responses: Proxy Authentication Required",
       "description": "This is similar to 401 but authentication is needed to be done by a proxy."
     },
-    "Client_error_responses__Request_Timeout": {
+    "Request_Timeout": {
+      "default": 408,
       "enum": [
         408,
         "Request Timeout",
@@ -402,7 +435,8 @@
       "title": "Client error responses: Request Timeout",
       "description": "This response is sent on an idle connection by some servers, even without any previous request by the client. It means that the server would like to shut down this unused connection. This response is used much more since some browsers, like Chrome, Firefox 27+, or IE9, use HTTP pre-connection mechanisms to speed up surfing. Also note that some servers merely shut down the connection without sending this message."
     },
-    "Client_error_responses__Conflict": {
+    "Conflict": {
+      "default": 409,
       "enum": [
         409,
         "Conflict",
@@ -411,7 +445,8 @@
       "title": "Client error responses: Conflict",
       "description": "This response is sent when a request conflicts with the current state of the server."
     },
-    "Client_error_responses__Gone": {
+    "Gone": {
+      "default": 410,
       "enum": [
         410,
         "Gone",
@@ -420,7 +455,8 @@
       "title": "Client error responses: Gone",
       "description": "This response is sent when the requested content has been permanently deleted from server, with no forwarding address. Clients are expected to remove their caches and links to the resource. The HTTP specification intends this status code to be used for \"limited-time, promotional services\". APIs should not feel compelled to indicate resources that have been deleted with this status code."
     },
-    "Client_error_responses__Length_Required": {
+    "Length_Required": {
+      "default": 411,
       "enum": [
         411,
         "Length Required",
@@ -429,7 +465,8 @@
       "title": "Client error responses: Length Required",
       "description": "Server rejected the request because the Content-Length header field is not defined and the server requires it."
     },
-    "Client_error_responses__Precondition_Failed": {
+    "Precondition_Failed": {
+      "default": 412,
       "enum": [
         412,
         "Precondition Failed",
@@ -438,7 +475,8 @@
       "title": "Client error responses: Precondition Failed",
       "description": "The client has indicated preconditions in its headers which the server does not meet."
     },
-    "Client_error_responses__Payload_Too_Large": {
+    "Payload_Too_Large": {
+      "default": 413,
       "enum": [
         413,
         "Payload Too Large",
@@ -447,7 +485,8 @@
       "title": "Client error responses: Payload Too Large",
       "description": "Request entity is larger than limits defined by server; the server might close the connection or return an Retry-After header field."
     },
-    "Client_error_responses__URI_Too_Long": {
+    "URI_Too_Long": {
+      "default": 414,
       "enum": [
         414,
         "URI Too Long",
@@ -456,7 +495,8 @@
       "title": "Client error responses: URI Too Long",
       "description": "The URI requested by the client is longer than the server is willing to interpret."
     },
-    "Client_error_responses__Unsupported_Media_Type": {
+    "Unsupported_Media_Type": {
+      "default": 415,
       "enum": [
         415,
         "Unsupported Media Type",
@@ -465,7 +505,8 @@
       "title": "Client error responses: Unsupported Media Type",
       "description": "The media format of the requested data is not supported by the server, so the server is rejecting the request."
     },
-    "Client_error_responses__Range_Not_Satisfiable": {
+    "Range_Not_Satisfiable": {
+      "default": 416,
       "enum": [
         416,
         "Range Not Satisfiable",
@@ -474,7 +515,8 @@
       "title": "Client error responses: Range Not Satisfiable",
       "description": "The range specified by the Range header field in the request can't be fulfilled; it's possible that the range is outside the size of the target URI's data."
     },
-    "Client_error_responses__Expectation_Failed": {
+    "Expectation_Failed": {
+      "default": 417,
       "enum": [
         417,
         "Expectation Failed",
@@ -483,7 +525,8 @@
       "title": "Client error responses: Expectation Failed",
       "description": "This response code means the expectation indicated by the Expect request header field can't be met by the server."
     },
-    "Client_error_responses__I'm_a_teapot": {
+    "I'm_a_teapot": {
+      "default": 418,
       "enum": [
         418,
         "I'm a teapot",
@@ -492,7 +535,8 @@
       "title": "Client error responses: I'm a teapot",
       "description": "The server refuses the attempt to brew coffee with a teapot."
     },
-    "Client_error_responses__Misdirected_Request": {
+    "Misdirected_Request": {
+      "default": 421,
       "enum": [
         421,
         "Misdirected Request",
@@ -501,7 +545,8 @@
       "title": "Client error responses: Misdirected Request",
       "description": "The request was directed at a server that is not able to produce a response. This can be sent by a server that is not configured to produce responses for the combination of scheme and authority that are included in the request URI."
     },
-    "Client_error_responses__Unprocessable_Entity_WebDAV_": {
+    "Unprocessable_Entity_WebDAV_": {
+      "default": 422,
       "enum": [
         422,
         "Unprocessable Entity (WebDAV)",
@@ -510,7 +555,8 @@
       "title": "Client error responses: Unprocessable Entity (WebDAV)",
       "description": "The request was well-formed but was unable to be followed due to semantic errors."
     },
-    "Client_error_responses__Locked_WebDAV_": {
+    "Locked_WebDAV_": {
+      "default": 423,
       "enum": [
         423,
         "Locked (WebDAV)",
@@ -519,7 +565,8 @@
       "title": "Client error responses: Locked (WebDAV)",
       "description": "The resource that is being accessed is locked."
     },
-    "Client_error_responses__Failed_Dependency_WebDAV_": {
+    "Failed_Dependency_WebDAV_": {
+      "default": 424,
       "enum": [
         424,
         "Failed Dependency (WebDAV)",
@@ -528,7 +575,8 @@
       "title": "Client error responses: Failed Dependency (WebDAV)",
       "description": "The request failed due to failure of a previous request."
     },
-    "Client_error_responses__Too_Early": {
+    "Too_Early": {
+      "default": 425,
       "enum": [
         425,
         "Too Early",
@@ -537,7 +585,8 @@
       "title": "Client error responses: Too Early",
       "description": "Indicates that the server is unwilling to risk processing a request that might be replayed."
     },
-    "Client_error_responses__Upgrade_Required": {
+    "Upgrade_Required": {
+      "default": 426,
       "enum": [
         426,
         "Upgrade Required",
@@ -546,7 +595,8 @@
       "title": "Client error responses: Upgrade Required",
       "description": "The server refuses to perform the request using the current protocol but might be willing to do so after the client upgrades to a different protocol. The server sends an Upgrade header in a 426 response to indicate the required protocol(s)."
     },
-    "Client_error_responses__Precondition_Required": {
+    "Precondition_Required": {
+      "default": 428,
       "enum": [
         428,
         "Precondition Required",
@@ -555,7 +605,8 @@
       "title": "Client error responses: Precondition Required",
       "description": "The origin server requires the request to be conditional. This response is intended to prevent the 'lost update' problem, where a client GETs a resource's state, modifies it, and PUTs it back to the server, when meanwhile a third party has modified the state on the server, leading to a conflict."
     },
-    "Client_error_responses__Too_Many_Requests": {
+    "Too_Many_Requests": {
+      "default": 429,
       "enum": [
         429,
         "Too Many Requests",
@@ -564,7 +615,8 @@
       "title": "Client error responses: Too Many Requests",
       "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")."
     },
-    "Client_error_responses__Request_Header_Fields_Too_Large": {
+    "Request_Header_Fields_Too_Large": {
+      "default": 431,
       "enum": [
         431,
         "Request Header Fields Too Large",
@@ -573,7 +625,8 @@
       "title": "Client error responses: Request Header Fields Too Large",
       "description": "The server is unwilling to process the request because its header fields are too large. The request may be resubmitted after reducing the size of the request header fields."
     },
-    "Client_error_responses__Unavailable_For_Legal_Reasons": {
+    "Unavailable_For_Legal_Reasons": {
+      "default": 451,
       "enum": [
         451,
         "Unavailable For Legal Reasons",
@@ -585,91 +638,91 @@
     "Client_error_responses": {
       "anyOf": [
         {
-          "$ref": "#/definitions/Client_error_responses__Bad_Request"
+          "$ref": "#/definitions/Bad_Request"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Unauthorized"
+          "$ref": "#/definitions/Unauthorized"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Payment_Required"
+          "$ref": "#/definitions/Payment_Required"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Forbidden"
+          "$ref": "#/definitions/Forbidden"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Not_Found"
+          "$ref": "#/definitions/Not_Found"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Method_Not_Allowed"
+          "$ref": "#/definitions/Method_Not_Allowed"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Not_Acceptable"
+          "$ref": "#/definitions/Not_Acceptable"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Proxy_Authentication_Required"
+          "$ref": "#/definitions/Proxy_Authentication_Required"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Request_Timeout"
+          "$ref": "#/definitions/Request_Timeout"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Conflict"
+          "$ref": "#/definitions/Conflict"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Gone"
+          "$ref": "#/definitions/Gone"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Length_Required"
+          "$ref": "#/definitions/Length_Required"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Precondition_Failed"
+          "$ref": "#/definitions/Precondition_Failed"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Payload_Too_Large"
+          "$ref": "#/definitions/Payload_Too_Large"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__URI_Too_Long"
+          "$ref": "#/definitions/URI_Too_Long"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Unsupported_Media_Type"
+          "$ref": "#/definitions/Unsupported_Media_Type"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Range_Not_Satisfiable"
+          "$ref": "#/definitions/Range_Not_Satisfiable"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Expectation_Failed"
+          "$ref": "#/definitions/Expectation_Failed"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__I'm_a_teapot"
+          "$ref": "#/definitions/I'm_a_teapot"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Misdirected_Request"
+          "$ref": "#/definitions/Misdirected_Request"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Unprocessable_Entity_WebDAV_"
+          "$ref": "#/definitions/Unprocessable_Entity_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Locked_WebDAV_"
+          "$ref": "#/definitions/Locked_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Failed_Dependency_WebDAV_"
+          "$ref": "#/definitions/Failed_Dependency_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Too_Early"
+          "$ref": "#/definitions/Too_Early"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Upgrade_Required"
+          "$ref": "#/definitions/Upgrade_Required"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Precondition_Required"
+          "$ref": "#/definitions/Precondition_Required"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Too_Many_Requests"
+          "$ref": "#/definitions/Too_Many_Requests"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Request_Header_Fields_Too_Large"
+          "$ref": "#/definitions/Request_Header_Fields_Too_Large"
         },
         {
-          "$ref": "#/definitions/Client_error_responses__Unavailable_For_Legal_Reasons"
+          "$ref": "#/definitions/Unavailable_For_Legal_Reasons"
         },
         {
           "type": "number",
@@ -678,7 +731,8 @@
         }
       ]
     },
-    "Server_error_responses__Internal_Server_Error": {
+    "Internal_Server_Error": {
+      "default": 500,
       "enum": [
         500,
         "Internal Server Error",
@@ -687,7 +741,8 @@
       "title": "Server error responses: Internal Server Error",
       "description": "The server has encountered a situation it doesn't know how to handle."
     },
-    "Server_error_responses__Not_Implemented": {
+    "Not_Implemented": {
+      "default": 501,
       "enum": [
         501,
         "Not Implemented",
@@ -696,7 +751,8 @@
       "title": "Server error responses: Not Implemented",
       "description": "The request method is not supported by the server and cannot be handled. The only methods that servers are required to support (and therefore that must not return this code) are GET and HEAD."
     },
-    "Server_error_responses__Bad_Gateway": {
+    "Bad_Gateway": {
+      "default": 502,
       "enum": [
         502,
         "Bad Gateway",
@@ -705,7 +761,8 @@
       "title": "Server error responses: Bad Gateway",
       "description": "This error response means that the server, while working as a gateway to get a response needed to handle the request, got an invalid response."
     },
-    "Server_error_responses__Service_Unavailable": {
+    "Service_Unavailable": {
+      "default": 503,
       "enum": [
         503,
         "Service Unavailable",
@@ -714,7 +771,8 @@
       "title": "Server error responses: Service Unavailable",
       "description": "The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Note that together with this response, a user-friendly page explaining the problem should be sent. This responses should be used for temporary conditions and the Retry-After: HTTP header should, if possible, contain the estimated time before the recovery of the service. The webmaster must also take care about the caching-related headers that are sent along with this response, as these temporary condition responses should usually not be cached."
     },
-    "Server_error_responses__Gateway_Timeout": {
+    "Gateway_Timeout": {
+      "default": 504,
       "enum": [
         504,
         "Gateway Timeout",
@@ -723,7 +781,8 @@
       "title": "Server error responses: Gateway Timeout",
       "description": "This error response is given when the server is acting as a gateway and cannot get a response in time."
     },
-    "Server_error_responses__HTTP_Version_Not_Supported": {
+    "HTTP_Version_Not_Supported": {
+      "default": 505,
       "enum": [
         505,
         "HTTP Version Not Supported",
@@ -732,7 +791,8 @@
       "title": "Server error responses: HTTP Version Not Supported",
       "description": "The HTTP version used in the request is not supported by the server."
     },
-    "Server_error_responses__Variant_Also_Negotiates": {
+    "Variant_Also_Negotiates": {
+      "default": 506,
       "enum": [
         506,
         "Variant Also Negotiates",
@@ -741,7 +801,8 @@
       "title": "Server error responses: Variant Also Negotiates",
       "description": "The server has an internal configuration error: the chosen variant resource is configured to engage in transparent content negotiation itself, and is therefore not a proper end point in the negotiation process."
     },
-    "Server_error_responses__Insufficient_Storage_WebDAV_": {
+    "Insufficient_Storage_WebDAV_": {
+      "default": 507,
       "enum": [
         507,
         "Insufficient Storage (WebDAV)",
@@ -750,7 +811,8 @@
       "title": "Server error responses: Insufficient Storage (WebDAV)",
       "description": "The method could not be performed on the resource because the server is unable to store the representation needed to successfully complete the request."
     },
-    "Server_error_responses__Loop_Detected_WebDAV_": {
+    "Loop_Detected_WebDAV_": {
+      "default": 508,
       "enum": [
         508,
         "Loop Detected (WebDAV)",
@@ -759,7 +821,8 @@
       "title": "Server error responses: Loop Detected (WebDAV)",
       "description": "The server detected an infinite loop while processing the request."
     },
-    "Server_error_responses__Not_Extended": {
+    "Not_Extended": {
+      "default": 510,
       "enum": [
         510,
         "Not Extended",
@@ -768,7 +831,8 @@
       "title": "Server error responses: Not Extended",
       "description": "Further extensions to the request are required for the server to fulfil it."
     },
-    "Server_error_responses__Network_Authentication_Required": {
+    "Network_Authentication_Required": {
+      "default": 511,
       "enum": [
         511,
         "Network Authentication Required",
@@ -780,37 +844,37 @@
     "Server_error_responses": {
       "anyOf": [
         {
-          "$ref": "#/definitions/Server_error_responses__Internal_Server_Error"
+          "$ref": "#/definitions/Internal_Server_Error"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Not_Implemented"
+          "$ref": "#/definitions/Not_Implemented"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Bad_Gateway"
+          "$ref": "#/definitions/Bad_Gateway"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Service_Unavailable"
+          "$ref": "#/definitions/Service_Unavailable"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Gateway_Timeout"
+          "$ref": "#/definitions/Gateway_Timeout"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__HTTP_Version_Not_Supported"
+          "$ref": "#/definitions/HTTP_Version_Not_Supported"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Variant_Also_Negotiates"
+          "$ref": "#/definitions/Variant_Also_Negotiates"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Insufficient_Storage_WebDAV_"
+          "$ref": "#/definitions/Insufficient_Storage_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Loop_Detected_WebDAV_"
+          "$ref": "#/definitions/Loop_Detected_WebDAV_"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Not_Extended"
+          "$ref": "#/definitions/Not_Extended"
         },
         {
-          "$ref": "#/definitions/Server_error_responses__Network_Authentication_Required"
+          "$ref": "#/definitions/Network_Authentication_Required"
         },
         {
           "type": "number",

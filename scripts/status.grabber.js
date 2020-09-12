@@ -1,6 +1,7 @@
 /// <reference lib="dom" />
 
 (definitions => JSON.stringify({
+  "description": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
   "$schema": "http://json-schema.org/draft-07/schema",
   "oneOf": Object.keys(definitions).map(def => ({
     "$ref": `#/definitions/${def}`
@@ -10,7 +11,7 @@
     const {"definitions": items} = definitions[def]
     , groupRefs = Object.keys(items)
     .map(itemKey => {
-      const itemName = `${def}__${itemKey}`
+      const itemName = `${itemKey}`
       acc[itemName] = items[itemKey]
       return {"$ref": `#/definitions/${itemName}`}
     })
@@ -42,6 +43,7 @@ Object.fromEntries(
           return [
             name.replace(/[\s\(\)]+/g, '_'),
             {
+              "default": code,
               "enum": [
                 code,
                 name,

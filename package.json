@@ -1,33 +1,37 @@
 {
-    "name": "contracts",
-    "version": "0.0.0",
-    "description": "",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "tsc": "tsc",
-        "jest": "jest --config jest.config.json --runInBand",
-        "jest@dev": "npm run jest -- --watch"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/askirmas/contracts.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/askirmas/contracts/issues"
-    },
-    "homepage": "https://github.com/askirmas/contracts#readme",
-    "devDependencies": {
-        "@types/jest": "^26.0.10",
-        "@types/mongodb": "^3.5.26",
-        "@types/mongoose": "^5.7.36",
-        "@types/node": "^14.6.2",
-        "jest": "^26.4.2",
-        "mongoose": "^5.10.2",
-        "ts-jest": "^26.3.0",
-        "typescript": "^4.0.2"
-    },
-    "dependencies": {}
+  "name": "contracts",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "setup": "git-hooks-wrapper init",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build/status",
+    "tsc": "tsc",
+    "jest": "jest --config jest.config.json --runInBand",
+    "jest@dev": "npm run jest -- --watch",
+    "build/status": "./scripts/status.mapper.js > data/statuses.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askirmas/contracts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/askirmas/contracts/issues"
+  },
+  "homepage": "https://github.com/askirmas/contracts#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "@types/mongodb": "^3.5.26",
+    "@types/mongoose": "^5.7.36",
+    "@types/node": "^14.6.2",
+    "git-hooks-wrapper": "^0.7.1",
+    "jest": "^26.4.2",
+    "mongoose": "^5.10.2",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {}
 }

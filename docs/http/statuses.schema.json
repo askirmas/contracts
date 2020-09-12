@@ -4,6 +4,6 @@
     "$schema": true
   },
   "additionalProperties": {
-    "$ref": "./http-status.schema.json"
+    "$ref": "./status.schema.json"
   }
 }

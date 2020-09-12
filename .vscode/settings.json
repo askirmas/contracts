@@ -5,6 +5,13 @@
         "jest.config.json"
       ],
       "url": "https://askirmas.github.io/jest.schema.json"
+    },
+    {
+      "fileMatch": [
+        "statuses.json",
+        "*.statuses.*json"
+      ],
+      "url": "./docs/http/statuses.schema.json"
     }
   ]
 }
