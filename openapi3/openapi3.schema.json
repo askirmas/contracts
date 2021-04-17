@@ -517,6 +517,7 @@
       ]
     },
     "Schema": {
+      "description": "https://swagger.io/specification/#schema-object",
       "type": "object",
       "properties": {
         "title": {

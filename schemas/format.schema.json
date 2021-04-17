@@ -1,0 +1,114 @@
+{
+  "oneOf": [
+    {"$ref": "#/definitions/IntegerFormat"},
+    {"$ref": "#/definitions/NumberFormat"},
+    {"$ref": "#/definitions/StringFormat"}
+  ],
+  "definitions": {
+    "IntegerFormat": {
+      "type": "object",
+      "required": [
+        "type",
+        "format"
+      ],
+      "properties": {
+        "type": {"const": "integer"},
+        "format": {
+          "oneOf": [
+            {"const": "int32", "title": "[OpenApi3] signed 32 bits https://swagger.io/specification/#data-types"},
+            {"const": "int64", "title": "[OpenApi3] signed 64 bits (a.k.a long) https://swagger.io/specification/#data-types"}
+          ]
+        }
+      }      
+    },
+    "NumberFormat": {
+      "type": "object",
+      "required": [
+        "type",
+        "format"
+      ],
+      "properties": {
+        "type": {"const": "number"},
+        "format": {
+          "oneOf": [
+            {"const": "float", "title": "[OpenApi3] https://swagger.io/specification/#data-types"},
+            {"const": "double", "title": "[OpenApi3] https://swagger.io/specification/#data-types"}
+          ]
+        }
+      }
+    },
+    "StringFormat": {
+      "type": "object",
+      "required": [
+        "type",
+        "format"
+      ],
+      "properties": {
+        "type": {"const": "string"},
+        "format": {
+          "oneOf": [
+            {"const": "byte", "title": "[OpenApi3] base64 encoded characters https://swagger.io/specification/#data-types"},
+            {"const": "binary", "title": "[OpenApi3] any sequence of octets https://swagger.io/specification/#data-types"},
+            {"const": "password", "title": "[OpenApi3] A hint to UIs to obscure input. https://swagger.io/specification/#data-types"},
+            {"const": "uuid", "title": "[OpenApi3] The unique user id. https://swagger.io/specification/#data-types"},
+            {
+              "title": "Dates and times are represented in RFC 3339, section 5.6. This is a subset of the date format also commonly known as ISO8601 format. https://json-schema.org/understanding-json-schema/reference/string.html#dates-and-times",
+              "oneOf": [
+                {"const": "date-time", "description": "Date and time together, for example, 2018-11-13T20:20:39+00:00."},
+                {"const": "time", "description": "New in draft 7 Time, for example, 20:20:39+00:00"},
+                {"const": "date", "description": "New in draft 7 Date, for example, 2018-11-13."}
+              ]
+            },
+            {
+              "title": "Email addresses https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses",
+              "oneOf": [
+                {"const": "email", "description": "Internet email address, see RFC 5322, section 3.4.1."},
+                {"const": "idn-email", "description": "New in draft 7 The internationalized form of an Internet email address, see RFC 6531."}
+              ]
+            },
+            {
+              "title": "Hostnames https://json-schema.org/understanding-json-schema/reference/string.html#hostnames",
+              "oneOf": [
+                {"const": "hostname", "description": "Internet host name, see RFC 1034, section 3.1."},
+                {"const": "idn-hostname", "description": "New in draft 7 An internationalized Internet host name, see RFC5890, section 2.3.2.3."}
+              ]
+            },
+            {
+              "title": "IP Addresses https://json-schema.org/understanding-json-schema/reference/string.html#ip-addresses",
+              "oneOf": [
+                {"const": "ipv4", "description": "IPv4 address, according to dotted-quad ABNF syntax as defined in RFC 2673, section 3.2."},
+                {"const": "ipv6", "description": "IPv6 address, as defined in RFC 2373, section 2.2."}    
+              ]
+            },
+            {
+              "title": "Resource identifiers. If the values in the schema have the ability to be relative to a particular source path (such as a link from a webpage), it is generally better practice to use \"uri-reference\" (or \"iri-reference\") rather than \"uri\" (or \"iri\"). \"uri\" should only be used when the path must be absolute. https://json-schema.org/understanding-json-schema/reference/string.html#resource-identifiers",
+              "oneOf": [
+                {"const": "uri", "description": "A universal resource identifier (URI), according to RFC3986."},
+                {"const": "uri-reference", "description": "New in draft 6 A URI Reference (either a URI or a relative-reference), according to RFC3986, section 4.1."},
+                {"const": "iri", "description": "New in draft 7 The internationalized equivalent of a “uri”, according to RFC3987."},
+                {"const": "iri-reference", "description": "New in draft 7 The internationalized equivalent of a “uri-reference”, according to RFC3987"}    
+              ]
+            },
+            {
+              "title": "URI template https://json-schema.org/understanding-json-schema/reference/string.html#uri-template",
+              "description": "New in draft 6 A URI Template (of any level) according to RFC6570. If you don’t already know what a URI Template is, you probably don’t need this value.",
+              "const": "uri-template"
+            },
+            {
+              "title": "JSON Pointer https://json-schema.org/understanding-json-schema/reference/string.html#json-pointer",
+              "oneOf": [
+                {"const": "json-pointer", "description": "New in draft 6 A JSON Pointer, according to RFC6901. There is more discussion on the use of JSON Pointer within JSON Schema in Structuring a complex schema. Note that this should be used only when the entire string contains only JSON Pointer content, e.g. /foo/bar. JSON Pointer URI fragments, e.g. #/foo/bar/ should use \"uri-reference\"."},
+                {"const": "relative-json-pointer", "description": "New in draft 7 A relative JSON pointer."}
+              ]
+            },
+            {
+              "title": "Regular Expressions https://json-schema.org/understanding-json-schema/reference/string.html#index-12",
+              "description": "New in draft 7 A regular expression, which should be valid according to the ECMA 262 dialect. Be careful, in practice, JSON schema validators are only required to accept the safe subset of Regular Expressions described elsewhere in this document.",
+              "const": "regex"
+            }            
+          ]
+        }
+      }
+    }
+  }
+}
