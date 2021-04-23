@@ -79,12 +79,12 @@ describe(stringify.name, () => {
       },
       "Level3": {
         "String expansion with multiple variables": [
-          [false, "map?{x,y}"  , "map?1024,768"],
+          [true, "map?{x,y}"  , "map?1024,768"],
           [false, "{x,hello,y}", "1024,Hello%20World%21,768"],
         ],
         "Reserved expansion with multiple variables": [
           [false, "{+x,hello,y}"  , "1024,Hello%20World!,768"],
-          [false, "{+path,x}/here", "/foo/bar,1024/here"],
+          [true, "{+path,x}/here", "/foo/bar,1024/here"],
         ],
         "Fragment expansion with multiple variables": [
           [false, "{#x,hello,y}"  , "#1024,Hello%20World!,768"],
@@ -201,9 +201,9 @@ describe(stringify.name, () => {
           [false, "{half}", "50%25"],
           [true, "O{empty}X", "OX"],
           [true, "O{undef}X", "OX"],
-          [false, "{x,y}", "1024,768"],
+          [true, "{x,y}", "1024,768"],
           [false, "{x,hello,y}", "1024,Hello%20World%21,768"],
-          [false, "?{x,empty}", "?1024,"],
+          [true, "?{x,empty}", "?1024,"],
           [false, "?{x,undef}", "?1024"],
           [false, "?{undef,y}", "?768"],
           [false, "{var:3}", "val"],
@@ -225,7 +225,7 @@ describe(stringify.name, () => {
           [true, "here?ref={+path}", "here?ref=/foo/bar"],
           [true, "up{+path}{var}/here", "up/foo/barvalue/here"],
           [false, "{+x,hello,y}", "1024,Hello%20World!,768"],
-          [false, "{+path,x}/here", "/foo/bar,1024/here"],
+          [true, "{+path,x}/here", "/foo/bar,1024/here"],
           [false, "{+path:6}/here", "/foo/b/here"],
           [true, "{+list}", "red,green,blue"],
           [false, "{+list*}", "red,green,blue"],
