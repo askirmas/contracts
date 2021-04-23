@@ -22,7 +22,7 @@ describe(stringify.name, () => {
       {
         "number": 100
       }
-    )).not.toBe(
+    )).toBe(
       "http://www..com/foo?number=100"
     ))
 
@@ -30,7 +30,7 @@ describe(stringify.name, () => {
       "http://www..com/foo{?query,number}",
       {
       }
-    )).not.toBe(
+    )).toBe(
       "http://www..com/foo"
     ))
   })
@@ -99,8 +99,8 @@ describe(stringify.name, () => {
           [true, "{/var,x}/here", "/value/1024/here"],
         ],
         "Path-style parameters, semicolon-prefixed": [
-          [false, "{;x,y}"      , ";x=1024;y=768"],
-          [false, "{;x,y,empty}", ";x=1024;y=768;empty"],
+          [true, "{;x,y}"      , ";x=1024;y=768"],
+          [true, "{;x,y,empty}", ";x=1024;y=768;empty"],
         ],
         "Form-style query, ampersand-separated": [
           [true, "{?x,y}"      , "?x=1024&y=768"],
@@ -151,7 +151,7 @@ describe(stringify.name, () => {
         ],
         "Path-style parameters, semicolon-prefixed": [
           [false, "{;hello:5}", ";hello=Hello"],
-          [false, "{;list}", ";list=red,green,blue"],
+          [true, "{;list}", ";list=red,green,blue"],
           [false, "{;list*}", ";list=red;list=green;list=blue"],
           [false, "{;keys}", ";keys=semi,%3B,dot,.,comma,%2C"],
           [false, "{;keys*}", ";semi=%3B;dot=.;comma=%2C"],
@@ -189,7 +189,7 @@ describe(stringify.name, () => {
           [false, "{count*}", "one,two,three"],
           [true, "{/count}", "/one,two,three"],
           [false, "{/count*}", "/one/two/three"],
-          [false, "{;count}", ";count=one,two,three"],
+          [true, "{;count}", ";count=one,two,three"],
           [false, "{;count*}", ";count=one;count=two;count=three"],
           [true, "{?count}", "?count=one,two,three"],
           [false, "{?count*}", "?count=one&count=two&count=three"],
@@ -260,7 +260,7 @@ describe(stringify.name, () => {
           [false, "X{.keys}", "X.semi,%3B,dot,.,comma,%2C"],
           [false, "X{.keys*}", "X.semi=%3B.dot=..comma=%2C"],
           [false, "X{.empty_keys}", "X"],
-          [false, "X{.empty_keys*}", "X"],
+          [true, "X{.empty_keys*}", "X"],
         ],
         "Path Segment Expansion: {/var}": [
           [true, "{/who}", "/fred"],
@@ -279,16 +279,16 @@ describe(stringify.name, () => {
           [false, "{/keys*}", "/semi=%3B/dot=./comma=%2C"],
         ],
         "Path-Style Parameter Expansion: {;var}": [
-          [false, "{;who}", ";who=fred"],
+          [true, "{;who}", ";who=fred"],
           [false, "{;half}", ";half=50%25"],
           [true, "{;empty}", ";empty"],
-          [false, "{;v,empty,who}", ";v=6;empty;who=fred"],
-          [false, "{;v,bar,who}", ";v=6;who=fred"],
-          [false, "{;x,y}", ";x=1024;y=768"],
-          [false, "{;x,y,empty}", ";x=1024;y=768;empty"],
-          [false, "{;x,y,undef}", ";x=1024;y=768"],
+          [true, "{;v,empty,who}", ";v=6;empty;who=fred"],
+          [true, "{;v,bar,who}", ";v=6;who=fred"],
+          [true, "{;x,y}", ";x=1024;y=768"],
+          [true, "{;x,y,empty}", ";x=1024;y=768;empty"],
+          [true, "{;x,y,undef}", ";x=1024;y=768"],
           [false, "{;hello:5}", ";hello=Hello"],
-          [false, "{;list}", ";list=red,green,blue"],
+          [true, "{;list}", ";list=red,green,blue"],
           [false, "{;list*}", ";list=red;list=green;list=blue"],
           [false, "{;keys}", ";keys=semi,%3B,dot,.,comma,%2C"],
           [false, "{;keys*}", ";semi=%3B;dot=.;comma=%2C"],

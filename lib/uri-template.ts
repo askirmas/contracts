@@ -1,7 +1,9 @@
-const schemas: Record<string, undefined|Partial<
-  Record<"lead"|"delimiter", string>
-  & Record<"keys", boolean>
->>= {
+const schemas: Record<string, undefined|Partial<{
+  "lead": string
+  "delimiter": string
+  "withKeys": boolean
+  "kvOnEmpty": boolean
+}>>= {
   "/": {
     "lead": "/",
     "delimiter": "/",
@@ -14,17 +16,20 @@ const schemas: Record<string, undefined|Partial<
     "lead": "#"
   },
   "?": {
-    "keys": true,
+    "withKeys": true,
+    "kvOnEmpty": true,
     "lead": "?",
     "delimiter": "&"
   },
   "&": {
-    "keys": true,
+    "withKeys": true,
+    "kvOnEmpty": true,
     "lead": "&",
     "delimiter": "&"
   },
   ";": {
-    "keys": true,
+    "withKeys": true,
+    "kvOnEmpty": false,
     "lead": ";",
     "delimiter": ";"
   }  
@@ -36,40 +41,45 @@ export {
 
 /** @see https://tools.ietf.org/html/rfc6570 */
 function stringify(uri: string, data: Record<string, unknown>) {
-  const parser = new RegExp(/\{([+#./?&]?)([^\}]+)\}/g)
+  const parser = new RegExp(/\{([+#./;?&]?)([^\}]+)\}/g)
   
   return uri.replace(parser, (_, schemaKey, exp: string) => {
     const keys: (string|null|undefined)[] = exp.split(",")
     , {length} = keys
-    , schema = schemas[schemaKey]
+    , schema = schemas[schemaKey] ?? {}
+    , {
+      // lead = "",
+      delimiter = ",",
+      kvOnEmpty = false
+    } = schema
 
     for (let i = length; i--;) {
       const key = keys[i] as string
-      , value = !(key in data)
-      ? key
-      : data[key]
+      , value = data[key]
 
       if (
         value === undefined
         || value === null
-        || !schema?.keys
+        || !schema?.withKeys
       ) {
         //@ts-expect-error
         keys[i] = value
         continue
       }
 
-      keys[i] = `${key}=${value}`
+      keys[i] = `${key}${
+        !kvOnEmpty && value === "" 
+        ? ""
+        : `=${value}`
+      }`
     }
-    
+
     const filtered = keys.filter(v => v !== undefined && v !== null)
 
     return `${
       filtered.length !== 0 && schema?.lead || ""
     }${
-      filtered.join(
-        schema?.delimiter ?? ","
-      )
+      filtered.join(delimiter)
     }`
   })
 }
