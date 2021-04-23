@@ -13,7 +13,7 @@ describe(stringify.name, () => {
         "query": "mycelium",
         "number": 100
       }
-    )).not.toBe(
+    )).toBe(
       "http://www..com/foo?query=mycelium&number=100"
     ))
 
@@ -103,12 +103,12 @@ describe(stringify.name, () => {
           [false, "{;x,y,empty}", ";x=1024;y=768;empty"],
         ],
         "Form-style query, ampersand-separated": [
-          [false, "{?x,y}"      , "?x=1024&y=768"],
-          [false, "{?x,y,empty}", "?x=1024&y=768&empty="],
+          [true, "{?x,y}"      , "?x=1024&y=768"],
+          [true, "{?x,y,empty}", "?x=1024&y=768&empty="],
         ],
         "Form-style query continuation": [
-          [false, "?fixed=yes{&x}", "?fixed=yes&x=1024"],
-          [false, "{&x,y,empty}"  , "&x=1024&y=768&empty="],
+          [true, "?fixed=yes{&x}", "?fixed=yes&x=1024"],
+          [true, "{&x,y,empty}"  , "&x=1024&y=768&empty="],
         ]
       },
       "Level4": {
@@ -158,14 +158,14 @@ describe(stringify.name, () => {
         ],
         "Form-style query, ampersand-separated": [
           [false, "{?var:3}", "?var=val"],
-          [false, "{?list}", "?list=red,green,blue"],
+          [true, "{?list}", "?list=red,green,blue"],
           [false, "{?list*}", "?list=red&list=green&list=blue"],
           [false, "{?keys}", "?keys=semi,%3B,dot,.,comma,%2C"],
           [false, "{?keys*}", "?semi=%3B&dot=.&comma=%2C"],
         ],
         "Form-style query continuation": [
           [false, "{&var:3}", "&var=val"],
-          [false, "{&list}", "&list=red,green,blue"],
+          [true, "{&list}", "&list=red,green,blue"],
           [false, "{&list*}", "&list=red&list=green&list=blue"],
           [false, "{&keys}", "&keys=semi,%3B,dot,.,comma,%2C"],
           [false, "{&keys*}", "&semi=%3B&dot=.&comma=%2C"],
@@ -191,7 +191,7 @@ describe(stringify.name, () => {
           [false, "{/count*}", "/one/two/three"],
           [false, "{;count}", ";count=one,two,three"],
           [false, "{;count*}", ";count=one;count=two;count=three"],
-          [false, "{?count}", "?count=one,two,three"],
+          [true, "{?count}", "?count=one,two,three"],
           [false, "{?count*}", "?count=one&count=two&count=three"],
           [false, "{&count*}", "&count=one&count=two&count=three"],
         ],
@@ -294,25 +294,25 @@ describe(stringify.name, () => {
           [false, "{;keys*}", ";semi=%3B;dot=.;comma=%2C"],
         ],
         "Form-Style Query Expansion: {?var}": [
-          [false, "{?who}", "?who=fred"],
+          [true, "{?who}", "?who=fred"],
           [false, "{?half}", "?half=50%25"],
-          [false, "{?x,y}", "?x=1024&y=768"],
-          [false, "{?x,y,empty}", "?x=1024&y=768&empty="],
-          [false, "{?x,y,undef}", "?x=1024&y=768"],
+          [true, "{?x,y}", "?x=1024&y=768"],
+          [true, "{?x,y,empty}", "?x=1024&y=768&empty="],
+          [true, "{?x,y,undef}", "?x=1024&y=768"],
           [false, "{?var:3}", "?var=val"],
-          [false, "{?list}", "?list=red,green,blue"],
+          [true, "{?list}", "?list=red,green,blue"],
           [false, "{?list*}", "?list=red&list=green&list=blue"],
           [false, "{?keys}", "?keys=semi,%3B,dot,.,comma,%2C"],
           [false, "{?keys*}", "?semi=%3B&dot=.&comma=%2C"],
         ],
         "Form-Style Query Continuation: {&var}": [
-          [false, "{&who}", "&who=fred"],
+          [true, "{&who}", "&who=fred"],
           [false, "{&half}", "&half=50%25"],
-          [false, "?fixed=yes{&x}", "?fixed=yes&x=1024"],
-          [false, "{&x,y,empty}", "&x=1024&y=768&empty="],
-          [false, "{&x,y,undef}", "&x=1024&y=768"],
+          [true, "?fixed=yes{&x}", "?fixed=yes&x=1024"],
+          [true, "{&x,y,empty}", "&x=1024&y=768&empty="],
+          [true, "{&x,y,undef}", "&x=1024&y=768"],
           [false, "{&var:3}", "&var=val"],
-          [false, "{&list}", "&list=red,green,blue"],
+          [true, "{&list}", "&list=red,green,blue"],
           [false, "{&list*}", "&list=red&list=green&list=blue"],
           [false, "{&keys}", "&keys=semi,%3B,dot,.,comma,%2C"],
           [false, "{&keys*}", "&semi=%3B&dot=.&comma=%2C"],
