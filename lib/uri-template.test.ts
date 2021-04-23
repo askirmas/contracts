@@ -59,7 +59,7 @@ describe(uriTemplate.name, () => {
     , specs: Dict<Dict<[boolean, string, string][]>> = {
       "Level1": {
         "Simple string expansion": [
-          [false, "{var}"  , "value"],
+          [true, "{var}"  , "value"],
           [false, "{hello}", "Hello%20World%21"]    
         ]
       },
@@ -113,7 +113,7 @@ describe(uriTemplate.name, () => {
         "String expansion with value modifiers": [
           [false, "{var:3}", "val"],
           [false, "{var:30}", "value"],
-          [false, "{list}", "red,green,blue"],
+          [true, "{list}", "red,green,blue"],
           [false, "{list*}", "red,green,blue"],
           [false, "{keys}", "semi,%3B,dot,.,comma,%2C"],
           [false, "{keys*}", "semi=%3B,dot=.,comma=%2C"],
@@ -171,7 +171,7 @@ describe(uriTemplate.name, () => {
       },
       "Units": {
         "Prefix Values": [
-          [false, "{var}", "value"],
+          [true, "{var}", "value"],
           [false, "{var:20}", "value"],
           [false, "{var:3}", "val"],
           [false, "{semi}", "%3B"],
@@ -183,7 +183,7 @@ describe(uriTemplate.name, () => {
           [false, "www{.dom*}", "www..com"],
         ],
         "Variable Expansion": [
-          [false, "{count}", "one,two,three"],
+          [true, "{count}", "one,two,three"],
           [false, "{count*}", "one,two,three"],
           [false, "{/count}", "/one,two,three"],
           [false, "{/count*}", "/one/two/three"],
@@ -194,10 +194,10 @@ describe(uriTemplate.name, () => {
           [false, "{&count*}", "&count=one&count=two&count=three"],
         ],
         "Simple String Expansion: {var}": [
-          [false, "{var}", "value"],
+          [true, "{var}", "value"],
           [false, "{hello}", "Hello%20World%21"],
           [false, "{half}", "50%25"],
-          [false, "O{empty}X", "OX"],
+          [true, "O{empty}X", "OX"],
           [false, "O{undef}X", "OX"],
           [false, "{x,y}", "1024,768"],
           [false, "{x,hello,y}", "1024,Hello%20World%21,768"],
@@ -206,7 +206,7 @@ describe(uriTemplate.name, () => {
           [false, "?{undef,y}", "?768"],
           [false, "{var:3}", "val"],
           [false, "{var:30}", "value"],
-          [false, "{list}", "red,green,blue"],
+          [true, "{list}", "red,green,blue"],
           [false, "{list*}", "red,green,blue"],
           [false, "{keys}", "semi,%3B,dot,.,comma,%2C"],
           [false, "{keys*}", "semi=%3B,dot=.,comma=%2C"],
@@ -279,7 +279,7 @@ describe(uriTemplate.name, () => {
         "Path-Style Parameter Expansion: {;var}": [
           [false, "{;who}", ";who=fred"],
           [false, "{;half}", ";half=50%25"],
-          [false, "{;empty}", ";empty"],
+          [true, "{;empty}", ";empty"],
           [false, "{;v,empty,who}", ";v=6;empty;who=fred"],
           [false, "{;v,bar,who}", ";v=6;who=fred"],
           [false, "{;x,y}", ";x=1024;y=768"],
@@ -333,6 +333,12 @@ describe(uriTemplate.name, () => {
 
 /** @see https://tools.ietf.org/html/rfc6570 */
 function uriTemplate(uri: string, data: Record<string, unknown>) {
-  return data && uri
+  const parser = new RegExp(/\{([^\}]+)\}/g)
+  
+  return uri.replace(parser, (_, exp) => {
+    if (exp in data)
+      return data[exp]
+    return exp
+  })
 }
 
