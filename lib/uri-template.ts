@@ -1,6 +1,7 @@
 const delimiters = new Set([
   "/",
-  "."
+  ".",
+  "#"
 ])
 
 export {

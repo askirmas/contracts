@@ -73,7 +73,7 @@ describe(stringify.name, () => {
           [true, "here?ref={+path}", "here?ref=/foo/bar"],    
         ],
         "Fragment expansion, crosshatch-prefixed": [
-          [false, "X{#var}"  , "X#value"],
+          [true, "X{#var}"  , "X#value"],
           [false, "X{#hello}", "X#Hello%20World!"],    
         ]
       },
@@ -129,7 +129,7 @@ describe(stringify.name, () => {
         ],
         "Fragment expansion with value modifiers": [
           [false, "{#path:6}/here", "#/foo/b/here"],
-          [false, "{#list}", "#red,green,blue"],
+          [true, "{#list}", "#red,green,blue"],
           [false, "{#list*}", "#red,green,blue"],
           [false, "{#keys}", "#semi,;,dot,.,comma,,"],
           [false, "{#keys*}", "#semi=;,dot=.,comma=,"],
@@ -233,15 +233,15 @@ describe(stringify.name, () => {
           [false, "{+keys*}", "semi=;,dot=.,comma=,"],
         ],
         "Fragment Expansion: {#var}": [
-          [false, "{#var}", "#value"],
+          [true, "{#var}", "#value"],
           [false, "{#hello}", "#Hello%20World!"],
           [false, "{#half}", "#50%25"],
-          [false, "foo{#empty}", "foo#"],
+          [true, "foo{#empty}", "foo#"],
           [true, "foo{#undef}", "foo"],
           [false, "{#x,hello,y}", "#1024,Hello%20World!,768"],
           [false, "{#path,x}/here", "#/foo/bar,1024/here"],
           [false, "{#path:6}/here", "#/foo/b/here"],
-          [false, "{#list}", "#red,green,blue"],
+          [true, "{#list}", "#red,green,blue"],
           [false, "{#list*}", "#red,green,blue"],
           [false, "{#keys}", "#semi,;,dot,.,comma,,"],
           [false, "{#keys*}", "#semi=;,dot=.,comma=,"],
