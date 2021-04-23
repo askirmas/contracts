@@ -58,7 +58,7 @@ describe(stringify.name, () => {
       "empty_keys": {},
       "undef": null,
     }
-    , specs: Dict<Dict<[boolean, string, string][]>> = {
+    , specs: Dict<Dict<[boolean|"!", string, string][]>> = {
       "Level1": {
         "Simple string expansion": [
           [true, "{var}"  , "value"],
@@ -95,8 +95,8 @@ describe(stringify.name, () => {
           [false, "X{.x,y}", "X.1024.768"],
         ],
         "Path segments, slash-prefixed": [
-          [false, "{/var}"       , "/value"],
-          [false, "{/var,x}/here", "/value/1024/here"],
+          [true, "{/var}"       , "/value"],
+          [true, "{/var,x}/here", "/value/1024/here"],
         ],
         "Path-style parameters, semicolon-prefixed": [
           [false, "{;x,y}"      , ";x=1024;y=768"],
@@ -143,7 +143,7 @@ describe(stringify.name, () => {
         ],
         "Path segments, slash-prefixed": [
           [false, "{/var:1,var}", "/v/value"],
-          [false, "{/list}", "/red,green,blue"],
+          [true, "{/list}", "/red,green,blue"],
           [false, "{/list*}", "/red/green/blue"],
           [false, "{/list*,path:4}", "/red/green/blue/%2Ffoo"],
           [false, "{/keys}", "/semi,%3B,dot,.,comma,%2C"],
@@ -187,7 +187,7 @@ describe(stringify.name, () => {
         "Variable Expansion": [
           [true, "{count}", "one,two,three"],
           [false, "{count*}", "one,two,three"],
-          [false, "{/count}", "/one,two,three"],
+          [true, "{/count}", "/one,two,three"],
           [false, "{/count*}", "/one/two/three"],
           [false, "{;count}", ";count=one,two,three"],
           [false, "{;count*}", ";count=one;count=two;count=three"],
@@ -263,16 +263,16 @@ describe(stringify.name, () => {
           [false, "X{.empty_keys*}", "X"],
         ],
         "Path Segment Expansion: {/var}": [
-          [false, "{/who}", "/fred"],
-          [false, "{/who,who}", "/fred/fred"],
+          [true, "{/who}", "/fred"],
+          [true, "{/who,who}", "/fred/fred"],
           [false, "{/half,who}", "/50%25/fred"],
           [false, "{/who,dub}", "/fred/me%2Ftoo"],
-          [false, "{/var}", "/value"],
-          [false, "{/var,empty}", "/value/"],
+          [true, "{/var}", "/value"],
+          [true, "{/var,empty}", "/value/"],
           [false, "{/var,undef}", "/value"],
-          [false, "{/var,x}/here", "/value/1024/here"],
+          [true, "{/var,x}/here", "/value/1024/here"],
           [false, "{/var:1,var}", "/v/value"],
-          [false, "{/list}", "/red,green,blue"],
+          [true, "{/list}", "/red,green,blue"],
           [false, "{/list*}", "/red/green/blue"],
           [false, "{/list*,path:4}", "/red/green/blue/%2Ffoo"],
           [false, "{/keys}", "/semi,%3B,dot,.,comma,%2C"],
@@ -322,11 +322,18 @@ describe(stringify.name, () => {
 
     $entries(specs).forEach(([topic, suites]) => describe(topic, () =>
       $entries(suites).forEach(([suite, its]) => describe(suite, () => 
-        its.forEach(([implemented, input, output]) => it(input, () => {
-          const exp = expect(stringify(input, payload))
-          , expSigned = implemented ? exp : exp.not
-          expSigned.toBe(output)
-        }))
+        its.forEach(([status, input, output]) => {
+          const t = status === "!"
+          ? it.only
+          : it
+
+          t(input, () => {
+            const exp = expect(stringify(input, payload))
+            , expSigned = status === false ? exp.not
+            : exp
+            expSigned.toBe(output)
+          })
+        })
       ))
     ))
   })
