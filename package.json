@@ -8,7 +8,7 @@
     "build": "npm run build/status",
     "tsc": "tsc",
     "jest": "jest --config jest.config.json --runInBand",
-    "jest@dev": "npm run jest -- --watch",
+    "dev": "npm run jest -- --watch",
     "build/status": "./scripts/status.mapper.js > data/statuses.json"
   },
   "repository": {
@@ -30,7 +30,7 @@
     "git-hooks-wrapper": "^0.7.1",
     "jest": "^26.4.2",
     "ts-jest": "^26.3.0",
-    "typescript": "^4.0.2"
+    "typescript": "^4.2.4"
   },
   "dependencies": {}
 }
