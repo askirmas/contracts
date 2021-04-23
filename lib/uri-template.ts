@@ -1,4 +1,7 @@
-const delimiters = new Set(["/"])
+const delimiters = new Set([
+  "/",
+  "."
+])
 
 export {
   stringify
@@ -8,7 +11,7 @@ export {
 function stringify(uri: string, data: Record<string, unknown>) {
   const parser = new RegExp(/\{([+#./?&]?)([^\}]+)\}/g)
   
-  return uri.replace(parser, (_, schema, exp) => {
+  return uri.replace(parser, (_, schema, exp: string) => {
     const keys = exp.split(",")
     , {length} = keys
     , delSpecial = delimiters.has(schema) 
@@ -16,15 +19,18 @@ function stringify(uri: string, data: Record<string, unknown>) {
 
     for (let i = length; i--;) {
       const key = keys[i]
+      // @ts-expect-error
       keys[i] = !(key in data)
       ? key
-      : data[key] ?? ""
+      : data[key]
     }
     
+    const filtered = keys.filter(v => v !== undefined && v !== null)
+
     return `${
-      delSpecial ? delimiter : ""
+      filtered.length !== 0 && delSpecial ? delimiter : ""
     }${
-      keys.join(delimiter)
+      filtered.join(delimiter)
     }`
   })
 }
