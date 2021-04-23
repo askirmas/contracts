@@ -65,10 +65,10 @@ describe(uriTemplate.name, () => {
       },
       "Level2": {
         "Reserved string expansion": [
-          [false, "{+var}"          , "value"],
+          [true, "{+var}"          , "value"],
           [false, "{+hello}"        , "Hello%20World!"],
-          [false, "{+path}/here"    , "/foo/bar/here"],
-          [false, "here?ref={+path}", "here?ref=/foo/bar"],    
+          [true, "{+path}/here"    , "/foo/bar/here"],
+          [true, "here?ref={+path}", "here?ref=/foo/bar"],    
         ],
         "Fragment expansion, crosshatch-prefixed": [
           [false, "X{#var}"  , "X#value"],
@@ -120,7 +120,7 @@ describe(uriTemplate.name, () => {
         ],
         "Reserved expansion with value modifiers": [
           [false, "{+path:6}/here", "/foo/b/here"],
-          [false, "{+list}", "red,green,blue"],
+          [true, "{+list}", "red,green,blue"],
           [false, "{+list*}", "red,green,blue"],
           [false, "{+keys}", "semi,;,dot,.,comma,,"],
           [false, "{+keys*}", "semi=;,dot=.,comma=,"],
@@ -212,20 +212,20 @@ describe(uriTemplate.name, () => {
           [false, "{keys*}", "semi=%3B,dot=.,comma=%2C"],
         ],
         "Reserved Expansion: {+var}": [
-          [false, "{+var}", "value"],
+          [true, "{+var}", "value"],
           [false, "{+hello}", "Hello%20World!"],
           [false, "{+half}", "50%25"],
           [false, "{base}index", "http%3A%2F%2F.com%2Fhome%2Findex"],
-          [false, "{+base}index", "http://.com/home/index"],
-          [false, "O{+empty}X", "OX"],
+          [true, "{+base}index", "http://.com/home/index"],
+          [true, "O{+empty}X", "OX"],
           [false, "O{+undef}X", "OX"],
-          [false, "{+path}/here", "/foo/bar/here"],
-          [false, "here?ref={+path}", "here?ref=/foo/bar"],
-          [false, "up{+path}{var}/here", "up/foo/barvalue/here"],
+          [true, "{+path}/here", "/foo/bar/here"],
+          [true, "here?ref={+path}", "here?ref=/foo/bar"],
+          [true, "up{+path}{var}/here", "up/foo/barvalue/here"],
           [false, "{+x,hello,y}", "1024,Hello%20World!,768"],
           [false, "{+path,x}/here", "/foo/bar,1024/here"],
           [false, "{+path:6}/here", "/foo/b/here"],
-          [false, "{+list}", "red,green,blue"],
+          [true, "{+list}", "red,green,blue"],
           [false, "{+list*}", "red,green,blue"],
           [false, "{+keys}", "semi,;,dot,.,comma,,"],
           [false, "{+keys*}", "semi=;,dot=.,comma=,"],
@@ -333,9 +333,9 @@ describe(uriTemplate.name, () => {
 
 /** @see https://tools.ietf.org/html/rfc6570 */
 function uriTemplate(uri: string, data: Record<string, unknown>) {
-  const parser = new RegExp(/\{([^\}]+)\}/g)
+  const parser = new RegExp(/\{([+#./?&]?)([^\}]+)\}/g)
   
-  return uri.replace(parser, (_, exp) => {
+  return uri.replace(parser, (_, __, exp) => {
     if (exp in data)
       return data[exp]
     return exp
