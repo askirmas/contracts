@@ -25,8 +25,8 @@
 | [PUT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT) | -                                                            | +                                                            | -                                                            | +    | -    | 201<br />200, 204     |
 | [DELETE](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE) | -                                                            | +                                                            | -                                                            | ?    | ?    | 202<br />204<br />200 |
 | [PATCH](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH) | -                                                            | .                                                            | -                                                            | +    | +    | 2xx, 200, 204         |
-| *CONNECT*                                                    |                                                              |                                                              |                                                              |      |      |                       |
-| *TRACE*                                                      |                                                              |                                                              |                                                              |      |      |                       |
+| *CONNECT*                                                    |                                                              | -                                                            |                                                              |      |      |                       |
+| *TRACE*                                                      |                                                              | +                                                            |                                                              |      |      |                       |
 
 ## Statuses
 
@@ -114,3 +114,16 @@ $$('dt').map(({
 | [508](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/508) | Loop Detected | The server detected an infinite loop while processing the request. |
 | [510](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/510) | Not Extended | Further extensions to the request are required for the server to fulfil it. |
 | [511](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/511) | Network Authentication Required | The 511 status code indicates that the client needs to authenticate to gain network access. |
+
+## Headers
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+
+### statuses
+
+`"experimental", "obsolete", "non-standard", “deprecated”`
+
+```javascript
+[...new Set($$(".icon").map(({classList}) => [...classList]).flat())].filter(x => x !== "icon")
+```
+

@@ -11,7 +11,7 @@
         "statuses.json",
         "*.statuses.*json"
       ],
-      "url": "./docs/http/statuses.schema.json"
+      "url": "./docs/statuses.schema.json"
     }
   ]
 }

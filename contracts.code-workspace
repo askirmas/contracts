@@ -6,6 +6,7 @@
   ],
   "settings": {
     "typescript.tsdk": "./node_modules/typescript/lib",
+    "json.schemaDownload.enable": true,
     "prettier.enable": false,
     "eslint.alwaysShowStatus": true,
     "eslint.enable": false

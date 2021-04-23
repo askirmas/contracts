@@ -7,6 +7,24 @@
 
 ## Compare
 
+| C/D  | HTTP Method | [Mongo](http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html) | Mongoose                                                     | SQL  |
+| ---- | ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---- |
+| D    | HEAD        | [...](https://stackoverflow.com/a/47671042/9412937)          | `"createdAt"`<br />`ObjectId.getTimestamp()`<br />`"updatedAt"` |      |
+| D    | GET         | `.findOne`<br />`"projection"`                               |                                                              |      |
+| D    | OPTIONS     |                                                              |                                                              |      |
+| D    | POST        |                                                              |                                                              |      |
+| D    | PUT         | `.replaceOne`<br />`.findOneAndReplace`                      | `findOneAndUpdate`                                           |      |
+| D    | PATCH       | `.updateOne`<br />`.findOneAndUpdate`                        | `new: true`                                                  |      |
+| D    | DELETE      | `.deleteOne`<br />`.findOneAndDelete`                        |                                                              |      |
+|      | HEAD        |                                                              |                                                              |      |
+|      | GET         | `.find`                                                      |                                                              |      |
+|      | OPTIONS     |                                                              |                                                              |      |
+|      | POST        | `.insertOne`                                                 |                                                              |      |
+|      | PUT         |                                                              |                                                              |      |
+|      | PATCH       |                                                              |                                                              |      |
+|      | DELETE      |                                                              |                                                              |      |
+
+
 ### Element
 
 |                 | HTTP     | CLI    | fs        | SQL                        | Mongo  |
