@@ -1981,7 +1981,19 @@
         "^x-": {
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "examples": [
+        {
+          "type": "apiKey",
+          "in": "cookie",
+          "name": "JSESSIONID"
+        },
+        {
+          "type": "apiKey",
+          "in": "header",
+          "name": "X-API-KEY"
+        }
+      ]
     },
     "HTTPSecurityScheme": {
       "type": "object",
@@ -2038,6 +2050,17 @@
               }
             }
           }
+        }
+      ],
+      "examples": [
+        {
+          "type": "http",
+          "scheme": "basic"
+        },
+        {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
         }
       ]
     },
