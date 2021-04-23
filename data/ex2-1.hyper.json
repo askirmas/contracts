@@ -1,0 +1,15 @@
+{
+  "description": "Getting started with JSON Hyper-Schema: Part 2 https://apisyouwonthate.com/blog/getting-started-with-json-hyper-schema-part-2",
+  "$schema": "http://json-schema.org/draft-07/hyper-schema",
+  "type": "object",
+  "properties": {
+    "id": { "type": "number" },
+    "name": { "type": "string" }
+  },
+  "links": [{
+    "rel": "self",
+    "href": "https://api.dashron.com/users/12345",
+    "targetMediaType": "application/json",
+    "targetSchema": { "$ref": "#"}
+  }]
+}

@@ -2,6 +2,7 @@
   "description": "JSON Hyper-Schema https://apisyouwonthate.com/blog/getting-started-with-json-hyper-schema",
   "$schema": "http://json-schema.org/draft-07/hyper-schema",
   "type": "object",
+  "required": ["id"],
   "properties": {
     "id": {
       "type": "number"
@@ -16,8 +17,7 @@
       "type": "string"
     }
   },
-  "required": ["id"],
-  "base": "[http://api.dashron.com/](http://api.dashron.com/)",
+  "base": "http://api.dashron.com/",
   "links": [
     {
       "rel": "self",

@@ -27,7 +27,7 @@
       }
     }
   },
-  "links": [ {
+  "links": [{
     "rel": "next",
     "href": "/users{?cursor}",
     "templateRequired": ["cursor"],
@@ -35,5 +35,5 @@
       "cursor": "/pagination/next_page_cursor"
     },
     "targetSchema": {"$ref": "#"}
-  } ]
+  }]
 }

@@ -28,14 +28,14 @@
         }]
       },
       "maxItems": 10
-    }
-  },
-  "pagination": {
-    "type": "object",
-    "properties": {
-      "next_page_cursor": {
-        "type": "string"
+    },
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "next_page_cursor": {
+          "type": "string"
+        }
       }
-    }
+    }  
   }
 }
