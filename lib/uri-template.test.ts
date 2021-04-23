@@ -88,7 +88,7 @@ describe(stringify.name, () => {
         ],
         "Fragment expansion with multiple variables": [
           [false, "{#x,hello,y}"  , "#1024,Hello%20World!,768"],
-          [false, "{#path,x}/here", "#/foo/bar,1024/here"],
+          [true, "{#path,x}/here", "#/foo/bar,1024/here"],
         ],
         "Label expansion, dot-prefixed": [
           [true, "X{.var}", "X.value"],
@@ -239,7 +239,7 @@ describe(stringify.name, () => {
           [true, "foo{#empty}", "foo#"],
           [true, "foo{#undef}", "foo"],
           [false, "{#x,hello,y}", "#1024,Hello%20World!,768"],
-          [false, "{#path,x}/here", "#/foo/bar,1024/here"],
+          [true, "{#path,x}/here", "#/foo/bar,1024/here"],
           [false, "{#path:6}/here", "#/foo/b/here"],
           [true, "{#list}", "#red,green,blue"],
           [false, "{#list*}", "#red,green,blue"],
@@ -327,7 +327,7 @@ describe(stringify.name, () => {
           ? it.only
           : it
 
-          t(input, () => {
+          t(`${status === false ? "- " : ""}${input}`, () => {
             const exp = expect(stringify(input, payload))
             , expSigned = status === false ? exp.not
             : exp

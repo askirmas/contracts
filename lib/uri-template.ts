@@ -1,8 +1,12 @@
-const delimiters = new Set([
+const leads = new Set([
+ "#",
+ ".",
+ "/"
+] as const)
+, delimiters = new Set([
   "/",
-  ".",
-  "#"
-])
+  "."
+] as const)
 
 export {
   stringify
@@ -15,8 +19,6 @@ function stringify(uri: string, data: Record<string, unknown>) {
   return uri.replace(parser, (_, schema, exp: string) => {
     const keys = exp.split(",")
     , {length} = keys
-    , delSpecial = delimiters.has(schema) 
-    , delimiter = delSpecial ? schema : ","
 
     for (let i = length; i--;) {
       const key = keys[i]
@@ -29,9 +31,11 @@ function stringify(uri: string, data: Record<string, unknown>) {
     const filtered = keys.filter(v => v !== undefined && v !== null)
 
     return `${
-      filtered.length !== 0 && delSpecial ? delimiter : ""
+      filtered.length !== 0 && leads.has(schema) ? schema : ""
     }${
-      filtered.join(delimiter)
+      filtered.join(
+        !delimiters.has(schema) ? "," : schema
+      )
     }`
   })
 }
