@@ -8,7 +8,7 @@ function stringify(uri: string, data: Record<string, unknown>) {
   
   return uri.replace(parser, (_, __, exp) => {
     if (exp in data)
-      return data[exp]
+      return data[exp] ?? ""
     return exp
   })
 }
