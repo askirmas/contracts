@@ -1,11 +1,13 @@
+import { stringify } from "./uri-template"
+
 export {}
 
 const {entries: $entries} = Object
 
-describe(uriTemplate.name, () => {
+describe(stringify.name, () => {
   describe("http://www..com/foo{?query,number}", () => {
 
-    it("q+n", () => expect(uriTemplate(
+    it("q+n", () => expect(stringify(
       "http://www..com/foo{?query,number}",
       {
         "query": "mycelium",
@@ -15,7 +17,7 @@ describe(uriTemplate.name, () => {
       "http://www..com/foo?query=mycelium&number=100"
     ))
 
-    it("n", () => expect(uriTemplate(
+    it("n", () => expect(stringify(
       "http://www..com/foo{?query,number}",
       {
         "number": 100
@@ -24,7 +26,7 @@ describe(uriTemplate.name, () => {
       "http://www..com/foo?number=100"
     ))
 
-    it("", () => expect(uriTemplate(
+    it("", () => expect(stringify(
       "http://www..com/foo{?query,number}",
       {
       }
@@ -321,7 +323,7 @@ describe(uriTemplate.name, () => {
     $entries(specs).forEach(([topic, suites]) => describe(topic, () =>
       $entries(suites).forEach(([suite, its]) => describe(suite, () => 
         its.forEach(([implemented, input, output]) => it(input, () => {
-          const exp = expect(uriTemplate(input, payload))
+          const exp = expect(stringify(input, payload))
           , expSigned = implemented ? exp : exp.not
           expSigned.toBe(output)
         }))
@@ -329,16 +331,3 @@ describe(uriTemplate.name, () => {
     ))
   })
 })
-
-
-/** @see https://tools.ietf.org/html/rfc6570 */
-function uriTemplate(uri: string, data: Record<string, unknown>) {
-  const parser = new RegExp(/\{([+#./?&]?)([^\}]+)\}/g)
-  
-  return uri.replace(parser, (_, __, exp) => {
-    if (exp in data)
-      return data[exp]
-    return exp
-  })
-}
-
