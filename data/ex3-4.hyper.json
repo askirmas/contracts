@@ -1,0 +1,47 @@
+{
+  "description": "Building on top of existing hypermedia https://apisyouwonthate.com/blog/common-hypermedia-patterns-with-json-hyper-schema",
+  "$schema": "http://json-schema.org/draft-07/hyper-schema", 
+  "type": "object",
+  "properties": {
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "user"
+        },
+        "id": {
+          "type": "number"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "links": [{
+    "rel": "self",
+    "href": "{+user_href}",
+    "templateRequired": ["user_href"],
+    "templatePointers": {
+      "user_href": "/links/self"
+    },
+    "targetHints": {
+      "allow": ["PATCH"],
+      "accept-patch": ["application/vnd.api+json"]
+    },
+    "targetSchema": { "$ref": "#/properties/data" }
+  }]
+}

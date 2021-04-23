@@ -1,0 +1,25 @@
+{
+  "description": "Describing conditional LDOs https://apisyouwonthate.com/blog/common-hypermedia-patterns-with-json-hyper-schema",
+  "$schema": "http://json-schema.org/draft-07/hyper-schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "post_availability": {
+      "enum": ["public", "private"],
+      "if": {
+        "const": "public"
+      },
+      "then": {
+        "links": [{
+          "rel": "posts",
+          "href": "/users/{user_id}/posts",
+          "templatePointers": {
+            "user_id": "/id"
+          }
+        }]
+      }
+    }
+  }
+}

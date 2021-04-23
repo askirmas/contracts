@@ -1,0 +1,41 @@
+{
+  "description": "Collection Item Hypermedia https://apisyouwonthate.com/blog/common-hypermedia-patterns-with-json-hyper-schema",
+  "$schema": "http://json-schema.org/draft-07/hyper-schema",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "links": [{
+          "rel": "item",
+          "href": "/users/{user_id}",
+          "templateRequired": ["user_id"],
+          "templatePointers": {
+            "user_id": "/data/items/id"
+          },
+          "targetSchema": {
+            "$ref": "#/properties/data/items"
+          }
+        }]
+      },
+      "maxItems": 10
+    }
+  },
+  "pagination": {
+    "type": "object",
+    "properties": {
+      "next_page_cursor": {
+        "type": "string"
+      }
+    }
+  }
+}
