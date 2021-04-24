@@ -56,7 +56,7 @@ function stringify(
   , keyWithActionsParser = /^(.+)(\*|:(\d+))$/
 
   return uri.replace(expParser, (_, schemaKey, exp: string) => {
-    const keys: (string|null|undefined)[] = exp.split(",")
+    const keys: (number|string|null|undefined)[] = exp.split(",")
     , {length} = keys
     , schema = schemas[schemaKey] ?? {}
     , {
@@ -82,18 +82,28 @@ function stringify(
 
       const fn = actionParsed?.[2]
       , substrLast = actionParsed?.[3]
-      , value = substrLast !== undefined && typeof value_ === "string"
-      ? value_.substring(0,
-        //@ts-expect-error
-        substrLast
-      )
-      : $isArray(value_)
-      ? (
-        fn === "*"
-        ? value_.join(delimiter)
-        : value_.join(",")
-      )
-      : (value_ as string)
+
+      let value: string|number = ""
+
+      switch (typeof value_) {
+        case "number": 
+          value = value_
+          break
+        case "string":
+          value = substrLast === undefined ? value_
+          : value_.substring(0,
+            //@ts-expect-error
+            substrLast
+          )
+          break
+        case "object":
+          if ($isArray(value_)) {
+            value = fn === "*"
+            ? value_.join(delimiter)
+            : value_.join(",")
+          }
+          break
+      }
 
       if (!withKeys) {
         keys[i] = value
