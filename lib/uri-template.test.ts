@@ -161,14 +161,14 @@ describe(stringify.name, () => {
           [true, "{?list}", "?list=red,green,blue"],
           [true, "{?list*}", "?list=red&list=green&list=blue"],
           [false, "{?keys}", "?keys=semi,%3B,dot,.,comma,%2C"],
-          [false, "{?keys*}", "?semi=%3B&dot=.&comma=%2C"],
+          [true, "{?keys*}", "?semi=%3B&dot=.&comma=%2C"],
         ],
         "Form-style query continuation": [
           [true, "{&var:3}", "&var=val"],
           [true, "{&list}", "&list=red,green,blue"],
           [true, "{&list*}", "&list=red&list=green&list=blue"],
           [false, "{&keys}", "&keys=semi,%3B,dot,.,comma,%2C"],
-          [false, "{&keys*}", "&semi=%3B&dot=.&comma=%2C"],
+          [true, "{&keys*}", "&semi=%3B&dot=.&comma=%2C"],
         ]        
       },
       "Units": {
@@ -180,7 +180,7 @@ describe(stringify.name, () => {
           [true, "{semi:2}", "%3B"],
         ],
         "Composite Values": [
-          [false, "/mapper{?address*}", "/mapper?city=Newport%20Beach&state=CA"],
+          [true, "/mapper{?address*}", "/mapper?city=Newport%20Beach&state=CA"],
           [true, "find{?year*}", "find?year=1965&year=2000&year=2012"],
           [true, "www{.dom*}", "www..com"],
         ],
@@ -276,7 +276,7 @@ describe(stringify.name, () => {
           [true, "{/list*}", "/red/green/blue"],
           [true, "{/list*,path:4}", "/red/green/blue/%2Ffoo"],
           [false, "{/keys}", "/semi,%3B,dot,.,comma,%2C"],
-          [false, "{/keys*}", "/semi=%3B/dot=./comma=%2C"],
+          [true, "{/keys*}", "/semi=%3B/dot=./comma=%2C"],
         ],
         "Path-Style Parameter Expansion: {;var}": [
           [true, "{;who}", ";who=fred"],
@@ -291,7 +291,7 @@ describe(stringify.name, () => {
           [true, "{;list}", ";list=red,green,blue"],
           [true, "{;list*}", ";list=red;list=green;list=blue"],
           [false, "{;keys}", ";keys=semi,%3B,dot,.,comma,%2C"],
-          [false, "{;keys*}", ";semi=%3B;dot=.;comma=%2C"],
+          [true, "{;keys*}", ";semi=%3B;dot=.;comma=%2C"],
         ],
         "Form-Style Query Expansion: {?var}": [
           [true, "{?who}", "?who=fred"],
@@ -303,7 +303,7 @@ describe(stringify.name, () => {
           [true, "{?list}", "?list=red,green,blue"],
           [true, "{?list*}", "?list=red&list=green&list=blue"],
           [false, "{?keys}", "?keys=semi,%3B,dot,.,comma,%2C"],
-          [false, "{?keys*}", "?semi=%3B&dot=.&comma=%2C"],
+          [true, "{?keys*}", "?semi=%3B&dot=.&comma=%2C"],
         ],
         "Form-Style Query Continuation: {&var}": [
           [true, "{&who}", "&who=fred"],
@@ -315,7 +315,7 @@ describe(stringify.name, () => {
           [true, "{&list}", "&list=red,green,blue"],
           [true, "{&list*}", "&list=red&list=green&list=blue"],
           [false, "{&keys}", "&keys=semi,%3B,dot,.,comma,%2C"],
-          [false, "{&keys*}", "&semi=%3B&dot=.&comma=%2C"],
+          [true, "{&keys*}", "&semi=%3B&dot=.&comma=%2C"],
         ],
       }
     }

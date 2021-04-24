@@ -129,8 +129,8 @@ function stringify(
               encoding(encode, value_[key])
             }`)
 
-          value = entries.join(delimiter)
-          break
+          keys[i] = entries.join(delimiter)
+          continue
       }
 
       if (!withKeys) {
