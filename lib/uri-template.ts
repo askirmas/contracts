@@ -41,9 +41,10 @@ export {
 
 /** @see https://tools.ietf.org/html/rfc6570 */
 function stringify(uri: string, data: Record<string, unknown>) {
-  const parser = new RegExp(/\{([+#./;?&]?)([^\}]+)\}/g)
-  
-  return uri.replace(parser, (_, schemaKey, exp: string) => {
+  const expParser = /\{([+#./;?&]?)([^\}]+)\}/g
+  , keyWithActionsParser = /^(.+)(\+|:(\d+))$/
+
+  return uri.replace(expParser, (_, schemaKey, exp: string) => {
     const keys: (string|null|undefined)[] = exp.split(",")
     , {length} = keys
     , schema = schemas[schemaKey] ?? {}
@@ -55,9 +56,11 @@ function stringify(uri: string, data: Record<string, unknown>) {
     } = schema
 
     for (let i = length; i--;) {
-      const key = keys[i] as string
+      const action = keys[i] as string
+      , actionParsed = action.match(keyWithActionsParser)
+      , key = actionParsed?.[1] ?? action
       , value = data[key]
-
+      
       if (
         value === undefined
         || value === null

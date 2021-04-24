@@ -114,7 +114,7 @@ describe(stringify.name, () => {
       "Level4": {
         "String expansion with value modifiers": [
           [false, "{var:3}", "val"],
-          [false, "{var:30}", "value"],
+          [true, "{var:30}", "value"],
           [true, "{list}", "red,green,blue"],
           [false, "{list*}", "red,green,blue"],
           [false, "{keys}", "semi,%3B,dot,.,comma,%2C"],
@@ -174,7 +174,7 @@ describe(stringify.name, () => {
       "Units": {
         "Prefix Values": [
           [true, "{var}", "value"],
-          [false, "{var:20}", "value"],
+          [true, "{var:20}", "value"],
           [false, "{var:3}", "val"],
           [false, "{semi}", "%3B"],
           [false, "{semi:2}", "%3B"],
@@ -207,7 +207,7 @@ describe(stringify.name, () => {
           [true, "?{x,undef}", "?1024"],
           [true, "?{undef,y}", "?768"],
           [false, "{var:3}", "val"],
-          [false, "{var:30}", "value"],
+          [true, "{var:30}", "value"],
           [true, "{list}", "red,green,blue"],
           [false, "{list*}", "red,green,blue"],
           [false, "{keys}", "semi,%3B,dot,.,comma,%2C"],
