@@ -5,7 +5,8 @@ export type AllowedObject<K extends string = string> = Record<K,
   |Record<string, string|number>
 >
 
-const schemas: Record<string, undefined|Partial<{
+const {isArray: $isArray} = Array
+, schemas: Record<string, undefined|Partial<{
   "lead": string
   "delimiter": string
   "withKeys": boolean
@@ -52,7 +53,7 @@ function stringify(
   data: AllowedObject
 ) {
   const expParser = /\{([+#./;?&]?)([^\}]+)\}/g
-  , keyWithActionsParser = /^(.+)(\+|:(\d+))$/
+  , keyWithActionsParser = /^(.+)(\*|:(\d+))$/
 
   return uri.replace(expParser, (_, schemaKey, exp: string) => {
     const keys: (string|null|undefined)[] = exp.split(",")
@@ -79,16 +80,22 @@ function stringify(
         continue
       }
 
-      const substrLast = actionParsed?.[3]
-      , value = substrLast
-      ? (value_ as string).substring(0,
+      const fn = actionParsed?.[2]
+      , substrLast = actionParsed?.[3]
+      , value = substrLast !== undefined && typeof value_ === "string"
+      ? value_.substring(0,
         //@ts-expect-error
         substrLast
       )
-      : value_
+      : $isArray(value_)
+      ? (
+        fn === "*"
+        ? value_.join(delimiter)
+        : value_.join(",")
+      )
+      : (value_ as string)
 
       if (!withKeys) {
-        //@ts-expect-error
         keys[i] = value
         continue
       }
