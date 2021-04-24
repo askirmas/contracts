@@ -62,32 +62,32 @@ describe(stringify.name, () => {
       "Level1": {
         "Simple string expansion": [
           [true, "{var}"  , "value"],
-          [false, "{hello}", "Hello%20World%21"]    
+          [true, "{hello}", "Hello%20World%21"]    
         ]
       },
       "Level2": {
         "Reserved string expansion": [
           [true, "{+var}"          , "value"],
-          [false, "{+hello}"        , "Hello%20World!"],
+          [true, "{+hello}"        , "Hello%20World!"],
           [true, "{+path}/here"    , "/foo/bar/here"],
           [true, "here?ref={+path}", "here?ref=/foo/bar"],    
         ],
         "Fragment expansion, crosshatch-prefixed": [
           [true, "X{#var}"  , "X#value"],
-          [false, "X{#hello}", "X#Hello%20World!"],    
+          [true, "X{#hello}", "X#Hello%20World!"],    
         ]
       },
       "Level3": {
         "String expansion with multiple variables": [
           [true, "map?{x,y}"  , "map?1024,768"],
-          [false, "{x,hello,y}", "1024,Hello%20World%21,768"],
+          [true, "{x,hello,y}", "1024,Hello%20World%21,768"],
         ],
         "Reserved expansion with multiple variables": [
-          [false, "{+x,hello,y}"  , "1024,Hello%20World!,768"],
+          [true, "{+x,hello,y}"  , "1024,Hello%20World!,768"],
           [true, "{+path,x}/here", "/foo/bar,1024/here"],
         ],
         "Fragment expansion with multiple variables": [
-          [false, "{#x,hello,y}"  , "#1024,Hello%20World!,768"],
+          [true, "{#x,hello,y}"  , "#1024,Hello%20World!,768"],
           [true, "{#path,x}/here", "#/foo/bar,1024/here"],
         ],
         "Label expansion, dot-prefixed": [
@@ -145,7 +145,7 @@ describe(stringify.name, () => {
           [true, "{/var:1,var}", "/v/value"],
           [true, "{/list}", "/red,green,blue"],
           [true, "{/list*}", "/red/green/blue"],
-          [false, "{/list*,path:4}", "/red/green/blue/%2Ffoo"],
+          [true, "{/list*,path:4}", "/red/green/blue/%2Ffoo"],
           [false, "{/keys}", "/semi,%3B,dot,.,comma,%2C"],
           [false, "{/keys*}", "/semi=%3B/dot=./comma=%2C"],
         ],
@@ -176,8 +176,8 @@ describe(stringify.name, () => {
           [true, "{var}", "value"],
           [true, "{var:20}", "value"],
           [true, "{var:3}", "val"],
-          [false, "{semi}", "%3B"],
-          [false, "{semi:2}", "%3B"],
+          [true, "{semi}", "%3B"],
+          [true, "{semi:2}", "%3B"],
         ],
         "Composite Values": [
           [false, "/mapper{?address*}", "/mapper?city=Newport%20Beach&state=CA"],
@@ -197,12 +197,12 @@ describe(stringify.name, () => {
         ],
         "Simple String Expansion: {var}": [
           [true, "{var}", "value"],
-          [false, "{hello}", "Hello%20World%21"],
-          [false, "{half}", "50%25"],
+          [true, "{hello}", "Hello%20World%21"],
+          [true, "{half}", "50%25"],
           [true, "O{empty}X", "OX"],
           [true, "O{undef}X", "OX"],
           [true, "{x,y}", "1024,768"],
-          [false, "{x,hello,y}", "1024,Hello%20World%21,768"],
+          [true, "{x,hello,y}", "1024,Hello%20World%21,768"],
           [true, "?{x,empty}", "?1024,"],
           [true, "?{x,undef}", "?1024"],
           [true, "?{undef,y}", "?768"],
@@ -215,16 +215,16 @@ describe(stringify.name, () => {
         ],
         "Reserved Expansion: {+var}": [
           [true, "{+var}", "value"],
-          [false, "{+hello}", "Hello%20World!"],
-          [false, "{+half}", "50%25"],
-          [false, "{base}index", "http%3A%2F%2F.com%2Fhome%2Findex"],
+          [true, "{+hello}", "Hello%20World!"],
+          [true, "{+half}", "50%25"],
+          [true, "{base}index", "http%3A%2F%2F.com%2Fhome%2Findex"],
           [true, "{+base}index", "http://.com/home/index"],
           [true, "O{+empty}X", "OX"],
           [true, "O{+undef}X", "OX"],
           [true, "{+path}/here", "/foo/bar/here"],
           [true, "here?ref={+path}", "here?ref=/foo/bar"],
           [true, "up{+path}{var}/here", "up/foo/barvalue/here"],
-          [false, "{+x,hello,y}", "1024,Hello%20World!,768"],
+          [true, "{+x,hello,y}", "1024,Hello%20World!,768"],
           [true, "{+path,x}/here", "/foo/bar,1024/here"],
           [true, "{+path:6}/here", "/foo/b/here"],
           [true, "{+list}", "red,green,blue"],
@@ -234,11 +234,11 @@ describe(stringify.name, () => {
         ],
         "Fragment Expansion: {#var}": [
           [true, "{#var}", "#value"],
-          [false, "{#hello}", "#Hello%20World!"],
-          [false, "{#half}", "#50%25"],
+          [true, "{#hello}", "#Hello%20World!"],
+          [true, "{#half}", "#50%25"],
           [true, "foo{#empty}", "foo#"],
           [true, "foo{#undef}", "foo"],
-          [false, "{#x,hello,y}", "#1024,Hello%20World!,768"],
+          [true, "{#x,hello,y}", "#1024,Hello%20World!,768"],
           [true, "{#path,x}/here", "#/foo/bar,1024/here"],
           [true, "{#path:6}/here", "#/foo/b/here"],
           [true, "{#list}", "#red,green,blue"],
@@ -249,7 +249,7 @@ describe(stringify.name, () => {
         "Label Expansion with Dot-Prefix: {.var}": [
           [true, "{.who}", ".fred"],
           [true, "{.who,who}", ".fred.fred"],
-          [false, "{.half,who}", ".50%25.fred"],
+          [true, "{.half,who}", ".50%25.fred"],
           [true, "www{.dom*}", "www..com"],
           [true, "X{.var}", "X.value"],
           [true, "X{.empty}", "X."],
@@ -265,8 +265,8 @@ describe(stringify.name, () => {
         "Path Segment Expansion: {/var}": [
           [true, "{/who}", "/fred"],
           [true, "{/who,who}", "/fred/fred"],
-          [false, "{/half,who}", "/50%25/fred"],
-          [false, "{/who,dub}", "/fred/me%2Ftoo"],
+          [true, "{/half,who}", "/50%25/fred"],
+          [true, "{/who,dub}", "/fred/me%2Ftoo"],
           [true, "{/var}", "/value"],
           [true, "{/var,empty}", "/value/"],
           [true, "{/var,undef}", "/value"],
@@ -274,13 +274,13 @@ describe(stringify.name, () => {
           [true, "{/var:1,var}", "/v/value"],
           [true, "{/list}", "/red,green,blue"],
           [true, "{/list*}", "/red/green/blue"],
-          [false, "{/list*,path:4}", "/red/green/blue/%2Ffoo"],
+          [true, "{/list*,path:4}", "/red/green/blue/%2Ffoo"],
           [false, "{/keys}", "/semi,%3B,dot,.,comma,%2C"],
           [false, "{/keys*}", "/semi=%3B/dot=./comma=%2C"],
         ],
         "Path-Style Parameter Expansion: {;var}": [
           [true, "{;who}", ";who=fred"],
-          [false, "{;half}", ";half=50%25"],
+          [true, "{;half}", ";half=50%25"],
           [true, "{;empty}", ";empty"],
           [true, "{;v,empty,who}", ";v=6;empty;who=fred"],
           [true, "{;v,bar,who}", ";v=6;who=fred"],
@@ -295,7 +295,7 @@ describe(stringify.name, () => {
         ],
         "Form-Style Query Expansion: {?var}": [
           [true, "{?who}", "?who=fred"],
-          [false, "{?half}", "?half=50%25"],
+          [true, "{?half}", "?half=50%25"],
           [true, "{?x,y}", "?x=1024&y=768"],
           [true, "{?x,y,empty}", "?x=1024&y=768&empty="],
           [true, "{?x,y,undef}", "?x=1024&y=768"],
@@ -307,7 +307,7 @@ describe(stringify.name, () => {
         ],
         "Form-Style Query Continuation: {&var}": [
           [true, "{&who}", "&who=fred"],
-          [false, "{&half}", "&half=50%25"],
+          [true, "{&half}", "&half=50%25"],
           [true, "?fixed=yes{&x}", "?fixed=yes&x=1024"],
           [true, "{&x,y,empty}", "&x=1024&y=768&empty="],
           [true, "{&x,y,undef}", "&x=1024&y=768"],
