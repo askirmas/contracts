@@ -1,3 +1,10 @@
+export type AllowedObject<K extends string = string> = Record<K,
+  null
+  |string|number
+  |(string|number)[]
+  |Record<string, string|number>
+>
+
 const schemas: Record<string, undefined|Partial<{
   "lead": string
   "delimiter": string
@@ -40,7 +47,10 @@ export {
 }
 
 /** @see https://tools.ietf.org/html/rfc6570 */
-function stringify(uri: string, data: Record<string, unknown>) {
+function stringify(
+  uri: string,
+  data: AllowedObject
+) {
   const expParser = /\{([+#./;?&]?)([^\}]+)\}/g
   , keyWithActionsParser = /^(.+)(\+|:(\d+))$/
 

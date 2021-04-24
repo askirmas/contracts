@@ -1,4 +1,4 @@
-import { stringify } from "./uri-template"
+import { AllowedObject, stringify } from "./uri-template"
 
 export {}
 
@@ -36,7 +36,7 @@ describe(stringify.name, () => {
   })
 
   describe("Levels", () => {
-    const payload = {
+    const payload: AllowedObject = {
       "var": "value",
       "hello": "Hello World!",
       "path": "/foo/bar",

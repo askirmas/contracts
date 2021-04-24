@@ -32,14 +32,14 @@ declare namespace HTTP {
     interface Connect {}
     interface Trace {}
     
-    type Resource<T, C, P> = Part<{
-        "options": Options<T>
-        "post": Post<C, T>
-        "get": Get<T>
+    type Resource<Type, Submission, Patch> = Part<{
+        "options": Options<Type>
+        "post": Post<Submission, Type>
+        "get": Get<Type>
         "head": Head
-        "put": Put<T>
-        "patch": Patch<P, T>
-        "delete": Delete<T>
+        "put": Put<Type>
+        "patch": Patch<Patch, Type>
+        "delete": Delete<Type>
         "connect": Connect
         "trace": Trace
     }>
