@@ -115,7 +115,11 @@ function stringify(
         case "object":
           if ($isArray(value_)) {
             value = encoding(encode, value_)
-            .join(fn !== "*" ? "," : delimiter)
+            .join(
+              fn !== "*"
+              ? ","
+              : `${delimiter}${withKeys ? `${key}=`: ""}`
+            )
             break
           }
           break
