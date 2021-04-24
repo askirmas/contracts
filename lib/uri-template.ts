@@ -16,7 +16,7 @@ function stringify(
   data: AllowedObject
 ) {
   return uri.replace(expParser, (_, schemaKey: keyof typeof configs, exp: string) => {
-    const keys: (number|string|null|undefined)[] = exp.split(",")
+    const keys: (number|string|undefined)[] = exp.split(",")
     , {length} = keys
     , schema = configs[schemaKey] ?? {}
     , {
@@ -37,7 +37,7 @@ function stringify(
         value_ === undefined
         || value_ === null
       ) {
-        keys[i] = value_
+        keys[i] = undefined
         continue
       }
 
@@ -56,19 +56,17 @@ function stringify(
             encode,
             substrLast === undefined ? value_
             : value_.substring(0,
-              //@ts-expect-error
-              substrLast
+              substrLast as unknown as string extends typeof substrLast ? number : object
           ))
           break
         case "object":
-          if ($isArray(value_)) {
+          if ($isArray(value_))
             value = encoding(encode, value_)
             .join(
-              !explode
-              ? ","
+              !explode ? ","
               : `${sep}${named ? `${key}=`: ""}`
             )
-          } else {
+          else {
             const entries: string[] = []
             , kvDel = explode ? "=" : ","
   
@@ -102,7 +100,7 @@ function stringify(
       }${value}`
     }
 
-    const filtered = keys.filter(v => v !== undefined && v !== null)
+    const filtered = keys.filter(v => v !== undefined)
 
     return `${
       filtered.length !== 0 ? first : ""
@@ -123,7 +121,7 @@ function encoding(level: boolean, source: number|string|(number|string)[]): numb
   }
 
   const {length} = source
-  , encoded = new Array<string|number>(length)
+  , encoded: Array<string|number> = []
 
   for (let i = length; i--;) {
     const value = source[i]
@@ -141,7 +139,7 @@ function encodeComponent(level: boolean, input: string) {
 
   if (!level)
     return encoded
-    
+
   return encoded.replace(
     reserved,
     escaper
