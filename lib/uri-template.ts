@@ -48,7 +48,7 @@ function stringify(
       , explode = fn === "*"
       , substrLast = actionParsed?.[3]
 
-      let value: string|number = ""
+      let value: undefined|string|number = undefined
 
       switch (typeof value_) {
         case "number": 
@@ -71,7 +71,6 @@ function stringify(
               ? ","
               : `${sep}${named ? `${key}=`: ""}`
             )
-            break
           } else {
             const entries: string[] = []
             , kvDel = explode ? "=" : ","
@@ -85,14 +84,15 @@ function stringify(
                 encode ? encoding(encode, value_[key]) : value_[key]
               }`)
   
-            value = entries.join(sep)
+            value = entries.join(explode ? sep : ",")
+              
+            if (value === "")
+              value = undefined
 
             if (explode) {
               keys[i] = value
               continue
             }
-              
-            break
           }
       }
 
