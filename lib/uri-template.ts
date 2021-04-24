@@ -72,30 +72,33 @@ function stringify(
               : `${sep}${named ? `${key}=`: ""}`
             )
             break
+          } else {
+            const entries: string[] = []
+            , kvDel = explode ? "=" : ","
+  
+            for (const key in value_)
+              entries.push(`${
+                key
+              }${
+                kvDel
+              }${
+                encode ? encoding(encode, value_[key]) : value_[key]
+              }`)
+  
+            value = entries.join(sep)
+
+            if (explode) {
+              keys[i] = value
+              continue
+            }
+              
+            break
           }
-
-          const entries: string[] = []
-          , kvDel = explode ? "=" : ","
-
-          for (const key in value_)
-            entries.push(`${
-              key
-            }${
-              kvDel
-            }${
-              encoding(encode, value_[key])
-            }`)
-
-          keys[i] = entries.join(sep)
-          continue
       }
 
-      if (!named) {
-        keys[i] = value
-        continue
-      }
-
-      keys[i] = `${key}${
+      keys[i] = !named
+      ? value
+      : `${key}${
         value !== "" || foremp
         ? "="
         : ""
