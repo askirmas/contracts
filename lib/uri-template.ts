@@ -16,22 +16,22 @@ const schemas: Record<string, undefined|Partial<{
     "lead": "#"
   },
   "?": {
+    "lead": "?",
+    "delimiter": "&",
     "withKeys": true,
     "kvOnEmpty": true,
-    "lead": "?",
-    "delimiter": "&"
   },
   "&": {
+    "lead": "&",
+    "delimiter": "&",
     "withKeys": true,
     "kvOnEmpty": true,
-    "lead": "&",
-    "delimiter": "&"
   },
   ";": {
+    "lead": ";",
+    "delimiter": ";",
     "withKeys": true,
     "kvOnEmpty": false,
-    "lead": ";",
-    "delimiter": ";"
   }  
 }
 
@@ -48,8 +48,9 @@ function stringify(uri: string, data: Record<string, unknown>) {
     , {length} = keys
     , schema = schemas[schemaKey] ?? {}
     , {
-      // lead = "",
+      lead = "",
       delimiter = ",",
+      withKeys = false,
       kvOnEmpty = false
     } = schema
 
@@ -60,7 +61,7 @@ function stringify(uri: string, data: Record<string, unknown>) {
       if (
         value === undefined
         || value === null
-        || !schema?.withKeys
+        || !withKeys
       ) {
         //@ts-expect-error
         keys[i] = value
@@ -77,7 +78,7 @@ function stringify(uri: string, data: Record<string, unknown>) {
     const filtered = keys.filter(v => v !== undefined && v !== null)
 
     return `${
-      filtered.length !== 0 && schema?.lead || ""
+      filtered.length !== 0 ? lead : ""
     }${
       filtered.join(delimiter)
     }`
