@@ -4,10 +4,7 @@ import { configs } from "./uri-template.config"
 const {isArray: $isArray} = Array
 , expParser = /\{([+#./;?&]?)([^\}]+)\}/g
 , keyWithActionsParser = /^(.+)(\*|:(\d+))$/
-, escapes = [
-  /[% ;,]/g,
-  /[% ;,:/!]/g
-] as const
+, reserved = /[/!;,:]/g
 
 export {
   stringify
@@ -140,8 +137,13 @@ function encoding(level: boolean, source: number|string|(number|string)[]): numb
 }
 
 function encodeComponent(level: boolean, input: string) {
-  return input.replace(
-    escapes[level ? 1 : 0],
+  const encoded = encodeURI(input)
+
+  if (!level)
+    return encoded
+    
+  return encoded.replace(
+    reserved,
     escaper
   )
 }
