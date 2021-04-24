@@ -31,9 +31,9 @@ export type SchemaKeys = "" | "." | "/" | ";" | "?" | "&" | "#" | "+"
 }
 
 export type value = string|number|null|undefined
-type structure = value[] | Record<string, value>
+export type structure = value[] | Record<string, value>
 
-export type AllowedObject<UriPattern extends string> = 
+export type Payload<UriPattern extends string> = 
 string extends UriPattern
 ? Record<string, value|structure>
 : Shape<VarSpecs<UriPattern>>

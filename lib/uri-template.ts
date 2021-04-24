@@ -1,4 +1,4 @@
-import type { AllowedObject, value } from "./uri-template.types"
+import type { Payload, value } from "./uri-template.types"
 import { configs } from "./uri-template.config"
 
 const {isArray: $isArray} = Array
@@ -11,8 +11,8 @@ export {
 }
 
 /** @see https://tools.ietf.org/html/rfc6570 */
-function stringify<UriTemplate extends string>(uriTemplate: UriTemplate, data: AllowedObject<UriTemplate>): string
-function stringify(uriTemplate: string, data: AllowedObject<string>): string {
+function stringify<UriTemplate extends string>(uriTemplate: UriTemplate, data: Payload<UriTemplate>): string
+function stringify(uriTemplate: string, data: Payload<string>): string {
   return uriTemplate.replace(expParser, (_, schemaKey: keyof typeof configs, exp: string) => {
     const keys: value[] = exp.split(",")
     , {length} = keys
@@ -54,7 +54,7 @@ function stringify(uriTemplate: string, data: AllowedObject<string>): string {
             encode,
             substrLast === undefined ? value_
             : value_.substring(0,
-              substrLast as unknown as string extends typeof substrLast ? number : object
+              +substrLast
           ))
           break
         case "object":
