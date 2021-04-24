@@ -17,12 +17,10 @@ const {isArray: $isArray} = Array
     "encode": true
   },
   "+": {
-    "encode": false
   },  
   ".": {
     "lead": ".",
     "delimiter": ".",
-    "encode": false
   },
   "/": {
     "lead": "/",
@@ -33,8 +31,6 @@ const {isArray: $isArray} = Array
     "lead": ";",
     "delimiter": ";",
     "withKeys": true,
-    "kvOnEmpty": false,
-    "encode": false
   },  
   "#": {
     "lead": "#",
@@ -45,14 +41,12 @@ const {isArray: $isArray} = Array
     "delimiter": "&",
     "withKeys": true,
     "kvOnEmpty": true,
-    "encode": false
   },
   "&": {
     "lead": "&",
     "delimiter": "&",
     "withKeys": true,
     "kvOnEmpty": true,
-    "encode": false
   },
 }
 
@@ -122,6 +116,20 @@ function stringify(
             )
             break
           }
+
+          const entries: string[] = []
+          , kvDel = fn === "*" ? "=" : ","
+
+          for (const key in value_)
+            entries.push(`${
+              key
+            }${
+              kvDel
+            }${
+              encoding(encode, value_[key])
+            }`)
+
+          value = entries.join(delimiter)
           break
       }
 
@@ -174,8 +182,8 @@ function encodeComponent(level: boolean, input: string) {
   
   return input.replace(
     level === false
-    ? /[% ;]/g
-    : /[% ;:/!]/g,
+    ? /[% ;,]/g
+    : /[% ;,:/!]/g,
     v => `%${v.charCodeAt(0).toString(16).toUpperCase()}`
   )
 
