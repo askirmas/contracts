@@ -1,5 +1,7 @@
-import type { Payload, value } from "./uri-template.types"
+import type { Payload, SchemaKeys, value } from "./uri-template.types"
 import { configs } from "./uri-template.config"
+
+type Action = ReturnType<typeof parseAction>
 
 const {isArray: $isArray} = Array
 , expParser = /\{([+#./;?&]?)([^\}]+)\}/g
@@ -7,16 +9,17 @@ const {isArray: $isArray} = Array
 , reserved = /[/!;,:]/g
 
 export {
-  stringify
+  stringify,
+  parse
 }
 
 /** @see https://tools.ietf.org/html/rfc6570 */
 function stringify<UriTemplate extends string>(uriTemplate: UriTemplate, data: Payload<UriTemplate>): string
 function stringify(uriTemplate: string, data: Payload<string>): string {
   return uriTemplate.replace(expParser, (_, schemaKey: keyof typeof configs, exp: string) => {
-    const keys: value[] = exp.split(",")
-    , {length} = keys
-    , schema = configs[schemaKey] ?? {}
+    const varSpecs: value[] = exp.split(",")
+    , {length} = varSpecs
+    , schema = configs[schemaKey]
     , {
       first = "",
       sep = ",",
@@ -26,22 +29,22 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
     } = schema
 
     for (let i = length; i--;) {
-      const action = keys[i] as string
-      , actionParsed = action.match(keyWithActionsParser)
-      , key = actionParsed?.[1] ?? action
+      const action = parseAction(varSpecs[i] as string)
+      , { key } = action
       , value_ = data[key as keyof typeof data]
 
       if (
         value_ === undefined
         || value_ === null
       ) {
-        keys[i] = undefined
+        varSpecs[i] = undefined
         continue
       }
 
-      const fn = actionParsed?.[2]
-      , explode = fn === "*"
-      , substrLast = actionParsed?.[3]
+      const {
+        last,
+        explode
+      } = action
 
       let value: value = undefined
 
@@ -52,10 +55,9 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
         case "string":
           value = encoding(
             encode,
-            substrLast === undefined ? value_
-            : value_.substring(0,
-              +substrLast
-          ))
+            last === undefined ? value_
+            : value_.substring(0, last)
+          )
           break
         case "object":
           if ($isArray(value_))
@@ -83,13 +85,13 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
               value = undefined
 
             if (explode) {
-              keys[i] = value
+              varSpecs[i] = value
               continue
             }
           }
       }
 
-      keys[i] = !named
+      varSpecs[i] = !named
       ? value
       : `${key}${
         value !== "" || foremp
@@ -98,7 +100,7 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
       }${value}`
     }
 
-    const filtered = keys.filter(v => v !== undefined && v !== null)
+    const filtered = varSpecs.filter(v => v !== undefined && v !== null)
 
     return `${
       filtered.length !== 0 ? first : ""
@@ -106,6 +108,76 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
       filtered.join(sep)
     }`
   })
+}
+
+function parse(uriTemplate: string, uri: string) {
+  const $return: Payload<string> = {}
+
+  let iter: ReturnType<RegExp["exec"]>
+  , uriIndex = 0
+  , preIndex = 0
+  , hasExpressions = false
+
+  while (iter = expParser.exec(uriTemplate)) {
+    hasExpressions = true
+
+    const {index, 1: schemaKey, 2: exp} = iter
+    , conf = configs[schemaKey as SchemaKeys]
+    , { first } = conf
+
+    uriIndex += index - preIndex
+
+    if (first !== "") {
+      if (uri[uriIndex] !== first)
+        continue
+
+      uriIndex++
+    }
+
+    const exps = exp.split(",")
+    , actions: Record<string, Action> = {}
+    , {length} = exps
+
+    for (let i = length; i--; ) {
+      const action = parseAction(exps[i])
+      actions[action.key] = action
+    }
+
+    const {
+      sep,
+      named
+    } = conf
+    , kvParser = new RegExp(`[^${sep}]+`, "g")
+    
+    kvParser.lastIndex = uriIndex
+
+    let kv: ReturnType<RegExp["exec"]>
+
+    while (kv = kvParser.exec(uri)) {
+      const {0: record} = kv
+      , eqPos = named ? record.indexOf("=") : -1
+      , key = !named ? "..." : eqPos === -1 ? record : record.substr(0, eqPos)
+      , value = !named ? record : eqPos === -1 ? "" : record.substr(1 + eqPos)
+
+      $return[key] = value
+    }
+  }
+
+  return hasExpressions ? $return : undefined
+}
+
+function parseAction(action: string) {
+  const actionParsed = action.match(keyWithActionsParser)
+  , key = actionParsed?.[1] ?? action
+  , fn = actionParsed?.[2]
+  , explode = fn === "*"
+  , substrLast = actionParsed?.[3]
+
+  return {
+    key,
+    explode,
+    last: substrLast === undefined ? undefined : +substrLast
+  }
 }
 
 function encoding(level: boolean, source: value): value

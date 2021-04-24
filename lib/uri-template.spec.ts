@@ -1,4 +1,4 @@
-import { stringify } from "./uri-template"
+import { parse, stringify } from "./uri-template"
 
 const {
   keys: $keys,
@@ -10,6 +10,9 @@ const examples = {
     "http://www..com/foo?query=mycelium&number=100": {
       "query": "mycelium",
       "number": 100
+    },
+    "http://www..com/foo?query=mycelium": {
+      "query": "mycelium"
     },
     "http://www..com/foo?number=100": {
       "number": 100
@@ -326,4 +329,31 @@ describe(stringify.name, () => {
       ))
     ))
   })
+})
+
+describe(parse.name, () => {
+  it("1", () => expect(parse(
+    "http://www..com/foo{?query,number}",
+    "http://www..com/foo?query=mycelium&number=100"
+  )).toStrictEqual({
+    "query": "mycelium",
+    "number": "100"
+  }))
+  it("2", () => expect(parse(
+    "http://www..com/foo{?query,number}",
+    "http://www..com/foo?query=mycelium"
+  )).toStrictEqual({
+    "query": "mycelium"
+  }))
+  it("4", () => expect(parse(
+    "http://www..com/foo{?query,number}",
+    "http://www..com/foo?number=100"
+  )).toStrictEqual({
+    "number": "100"
+  }))
+  it("3", () => expect(parse(
+    "http://www..com/foo{?query,number}",
+    "http://www..com/foo"
+  )).toStrictEqual({
+  }))
 })
