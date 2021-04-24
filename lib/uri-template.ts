@@ -1,54 +1,13 @@
-export type AllowedObject<K extends string = string> = Record<K,
-  null
-  |string|number
-  |(string|number)[]
-  |Record<string, string|number>
->
+import type { AllowedObject } from "./uri-template.types"
+import { schemas } from "./uri-template.config"
 
 const {isArray: $isArray} = Array
-, schemas: Record<string, undefined|Partial<{
-  "lead": string
-  "delimiter": string
-  "withKeys": boolean
-  "kvOnEmpty": boolean
-  "encode": boolean
-}>>= {
-  "": {
-    "encode": true
-  },
-  "+": {
-  },  
-  ".": {
-    "lead": ".",
-    "delimiter": ".",
-  },
-  "/": {
-    "lead": "/",
-    "delimiter": "/",
-    "encode": true
-  },
-  ";": {
-    "lead": ";",
-    "delimiter": ";",
-    "withKeys": true,
-  },  
-  "#": {
-    "lead": "#",
-    "encode": false
-  },
-  "?": {
-    "lead": "?",
-    "delimiter": "&",
-    "withKeys": true,
-    "kvOnEmpty": true,
-  },
-  "&": {
-    "lead": "&",
-    "delimiter": "&",
-    "withKeys": true,
-    "kvOnEmpty": true,
-  },
-}
+, expParser = /\{([+#./;?&]?)([^\}]+)\}/g
+, keyWithActionsParser = /^(.+)(\*|:(\d+))$/
+, escapes = [
+  /[% ;,]/g,
+  /[% ;,:/!]/g
+] as const
 
 export {
   stringify
@@ -59,9 +18,6 @@ function stringify(
   uri: string,
   data: AllowedObject
 ) {
-  const expParser = /\{([+#./;?&]?)([^\}]+)\}/g
-  , keyWithActionsParser = /^(.+)(\*|:(\d+))$/
-
   return uri.replace(expParser, (_, schemaKey, exp: string) => {
     const keys: (number|string|null|undefined)[] = exp.split(",")
     , {length} = keys
@@ -158,16 +114,19 @@ function stringify(
 function encoding(level: boolean, source: number|string): number|string
 function encoding(level: boolean, source: (number|string)[]): (number|string)[] 
 function encoding(level: boolean, source: number|string|(number|string)[]): number|string|(number|string)[] {
-  if (typeof source === "number")
-    return source
-  if (typeof source === "string")
-    return encodeComponent(level, source)
+  switch(typeof source) {
+    case "number":
+      return source
+    case "string":
+      return encodeComponent(level, source)
+  }
 
   const {length} = source
   , encoded = new Array<string|number>(length)
 
   for (let i = length; i--;) {
     const value = source[i]
+
     encoded[i] = typeof value !== "string"
     ? value
     : encodeComponent(level, value)
@@ -177,14 +136,12 @@ function encoding(level: boolean, source: number|string|(number|string)[]): numb
 }
 
 function encodeComponent(level: boolean, input: string) {
-  // if (typeof input === "number")
-  //   return input
-  
   return input.replace(
-    level === false
-    ? /[% ;,]/g
-    : /[% ;,:/!]/g,
-    v => `%${v.charCodeAt(0).toString(16).toUpperCase()}`
+    escapes[level ? 1 : 0],
+    escaper
   )
+}
 
+function escaper(v: string) {
+  return `%${v.charCodeAt(0).toString(16).toUpperCase()}`
 }

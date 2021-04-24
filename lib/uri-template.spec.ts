@@ -1,6 +1,5 @@
-import { AllowedObject, stringify } from "./uri-template"
-
-export {}
+import { stringify } from "./uri-template"
+import type { AllowedObject } from "./uri-template.types"
 
 const {entries: $entries} = Object
 
