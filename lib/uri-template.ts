@@ -59,8 +59,15 @@ function stringify(uri: string, data: Record<string, unknown>) {
       const action = keys[i] as string
       , actionParsed = action.match(keyWithActionsParser)
       , key = actionParsed?.[1] ?? action
-      , value = data[key]
-      
+      , value_ = data[key]
+      , substrLast = actionParsed?.[3]
+      , value = substrLast
+      ? (value_ as string).substring(0,
+        //@ts-expect-error
+        substrLast
+      )
+      : value_
+
       if (
         value === undefined
         || value === null
