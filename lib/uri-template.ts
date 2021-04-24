@@ -5,12 +5,21 @@ type Action = ReturnType<typeof parseAction>
 
 const {isArray: $isArray} = Array
 , expParser = /\{([+#./;?&]?)([^\}]+)\}/g
+// , expSplit = /(?:(\{[+#./;?&]?[^\}]+\}))/
+, regexEscape = new RegExp(`[\\${
+    "-[]/{}()*+?.\\^$|"
+    .split("")
+    .join("\\")
+  }]`,
+  "g"
+)
 , keyWithActionsParser = /^(.+)(\*|:(\d+))$/
 , reserved = /[/!;,:]/g
 
 export {
   stringify,
-  parse
+  parse,
+  fullParser
 }
 
 /** @see https://tools.ietf.org/html/rfc6570 */
@@ -166,6 +175,43 @@ function parse(uriTemplate: string, uri: string) {
   return hasExpressions ? $return : undefined
 }
 
+function fullParser(uriTemplate: string) {
+  const {length} = uriTemplate
+  , chunks: any[] = []
+  , expressions: [schemaKey: string, expression: string][] = []
+
+  let parsed: ReturnType<RegExp["exec"]>
+  , preEnd = 0
+
+  while (parsed = expParser.exec(uriTemplate)) {
+    const {index} = parsed
+    if (index !== preEnd)
+      chunks.push(`(?:${escape4Regex(
+        uriTemplate.substring(preEnd, index)
+      )})`)
+
+    const {length} = parsed[0]
+    , schemaKey = parsed[1]
+    , expression = parsed[2]
+
+    expressions.push([schemaKey, expression])
+    chunks.push(`(${escape4Regex(schemaKey)}.+)?`)
+
+    preEnd = index + length
+  }
+
+  if (preEnd < length)
+    chunks.push(`(?:${escape4Regex(
+      uriTemplate.substring(preEnd)
+    )})`)
+
+  return [
+    new RegExp(`^${chunks.join("")}$`),
+    expressions
+  ] as const
+}
+
+
 function parseAction(action: string) {
   const actionParsed = action.match(keyWithActionsParser)
   , key = actionParsed?.[1] ?? action
@@ -210,10 +256,14 @@ function encodeComponent(level: boolean, input: string) {
 
   return encoded.replace(
     reserved,
-    escaper
+    codeChar4Uri
   )
 }
 
-function escaper(v: string) {
+function codeChar4Uri(v: string) {
   return `%${v.charCodeAt(0).toString(16).toUpperCase()}`
+}
+
+function escape4Regex(v: string) {
+  return v.replace(regexEscape, "\\$&")
 }
