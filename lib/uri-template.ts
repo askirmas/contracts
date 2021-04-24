@@ -70,7 +70,16 @@ function stringify(
       , actionParsed = action.match(keyWithActionsParser)
       , key = actionParsed?.[1] ?? action
       , value_ = data[key]
-      , substrLast = actionParsed?.[3]
+
+      if (
+        value_ === undefined
+        || value_ === null
+      ) {
+        keys[i] = value_
+        continue
+      }
+
+      const substrLast = actionParsed?.[3]
       , value = substrLast
       ? (value_ as string).substring(0,
         //@ts-expect-error
@@ -78,11 +87,7 @@ function stringify(
       )
       : value_
 
-      if (
-        value === undefined
-        || value === null
-        || !withKeys
-      ) {
+      if (!withKeys) {
         //@ts-expect-error
         keys[i] = value
         continue
