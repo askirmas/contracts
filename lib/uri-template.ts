@@ -1,5 +1,5 @@
 import type { AllowedObject } from "./uri-template.types"
-import { schemas } from "./uri-template.config"
+import { configs } from "./uri-template.config"
 
 const {isArray: $isArray} = Array
 , expParser = /\{([+#./;?&]?)([^\}]+)\}/g
@@ -18,15 +18,15 @@ function stringify(
   uri: string,
   data: AllowedObject
 ) {
-  return uri.replace(expParser, (_, schemaKey, exp: string) => {
+  return uri.replace(expParser, (_, schemaKey: keyof typeof configs, exp: string) => {
     const keys: (number|string|null|undefined)[] = exp.split(",")
     , {length} = keys
-    , schema = schemas[schemaKey] ?? {}
+    , schema = configs[schemaKey] ?? {}
     , {
-      lead = "",
-      delimiter = ",",
-      withKeys = false,
-      kvOnEmpty = false,
+      first = "",
+      sep = ",",
+      named = false,
+      foremp =false,
       encode = false
     } = schema
 
@@ -68,7 +68,7 @@ function stringify(
             .join(
               fn !== "*"
               ? ","
-              : `${delimiter}${withKeys ? `${key}=`: ""}`
+              : `${sep}${named ? `${key}=`: ""}`
             )
             break
           }
@@ -85,28 +85,28 @@ function stringify(
               encoding(encode, value_[key])
             }`)
 
-          keys[i] = entries.join(delimiter)
+          keys[i] = entries.join(sep)
           continue
       }
 
-      if (!withKeys) {
+      if (!named) {
         keys[i] = value
         continue
       }
 
       keys[i] = `${key}${
-        !kvOnEmpty && value === "" 
-        ? ""
-        : `=${value}`
-      }`
+        value !== "" || foremp
+        ? "="
+        : ""
+      }${value}`
     }
 
     const filtered = keys.filter(v => v !== undefined && v !== null)
 
     return `${
-      filtered.length !== 0 ? lead : ""
+      filtered.length !== 0 ? first : ""
     }${
-      filtered.join(delimiter)
+      filtered.join(sep)
     }`
   })
 }
