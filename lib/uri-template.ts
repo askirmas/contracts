@@ -45,6 +45,7 @@ function stringify(
       }
 
       const fn = actionParsed?.[2]
+      , explode = fn === "*"
       , substrLast = actionParsed?.[3]
 
       let value: string|number = ""
@@ -66,7 +67,7 @@ function stringify(
           if ($isArray(value_)) {
             value = encoding(encode, value_)
             .join(
-              fn !== "*"
+              !explode
               ? ","
               : `${sep}${named ? `${key}=`: ""}`
             )
@@ -74,7 +75,7 @@ function stringify(
           }
 
           const entries: string[] = []
-          , kvDel = fn === "*" ? "=" : ","
+          , kvDel = explode ? "=" : ","
 
           for (const key in value_)
             entries.push(`${
