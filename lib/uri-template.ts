@@ -1,4 +1,4 @@
-import type { AllowedObject } from "./uri-template.types"
+import type { AllowedObject, value } from "./uri-template.types"
 import { configs } from "./uri-template.config"
 
 const {isArray: $isArray} = Array
@@ -11,12 +11,10 @@ export {
 }
 
 /** @see https://tools.ietf.org/html/rfc6570 */
-function stringify(
-  uri: string,
-  data: AllowedObject
-) {
-  return uri.replace(expParser, (_, schemaKey: keyof typeof configs, exp: string) => {
-    const keys: (number|string|undefined)[] = exp.split(",")
+function stringify<UriTemplate extends string>(uriTemplate: UriTemplate, data: AllowedObject<UriTemplate>): string
+function stringify(uriTemplate: string, data: AllowedObject<string>): string {
+  return uriTemplate.replace(expParser, (_, schemaKey: keyof typeof configs, exp: string) => {
+    const keys: value[] = exp.split(",")
     , {length} = keys
     , schema = configs[schemaKey] ?? {}
     , {
@@ -31,7 +29,7 @@ function stringify(
       const action = keys[i] as string
       , actionParsed = action.match(keyWithActionsParser)
       , key = actionParsed?.[1] ?? action
-      , value_ = data[key]
+      , value_ = data[key as keyof typeof data]
 
       if (
         value_ === undefined
@@ -45,7 +43,7 @@ function stringify(
       , explode = fn === "*"
       , substrLast = actionParsed?.[3]
 
-      let value: undefined|string|number = undefined
+      let value: value = undefined
 
       switch (typeof value_) {
         case "number": 
@@ -100,7 +98,7 @@ function stringify(
       }${value}`
     }
 
-    const filtered = keys.filter(v => v !== undefined)
+    const filtered = keys.filter(v => v !== undefined && v !== null)
 
     return `${
       filtered.length !== 0 ? first : ""
@@ -110,18 +108,16 @@ function stringify(
   })
 }
 
-function encoding(level: boolean, source: number|string): number|string
-function encoding(level: boolean, source: (number|string)[]): (number|string)[] 
-function encoding(level: boolean, source: number|string|(number|string)[]): number|string|(number|string)[] {
-  switch(typeof source) {
-    case "number":
-      return source
-    case "string":
-      return encodeComponent(level, source)
-  }
-
+function encoding(level: boolean, source: value): value
+function encoding(level: boolean, source: value[]): value[] 
+function encoding(level: boolean, source: value|value[]): value|value[] {
+  if (source === undefined || source === null || typeof source === "number")
+    return source
+  if (typeof source === "string")
+    return encodeComponent(level, source)
+  
   const {length} = source
-  , encoded: Array<string|number> = []
+  , encoded: value[] = []
 
   for (let i = length; i--;) {
     const value = source[i]

@@ -1,5 +1,4 @@
 import { stringify } from "./uri-template"
-import type { AllowedObject } from "./uri-template.types"
 
 const {entries: $entries} = Object
 
@@ -35,7 +34,7 @@ describe(stringify.name, () => {
   })
 
   describe("Levels", () => {
-    const payload: AllowedObject = {
+    const payload = {
       "var": "value",
       "hello": "Hello World!",
       "path": "/foo/bar",
