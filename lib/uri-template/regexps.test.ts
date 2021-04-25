@@ -1,16 +1,16 @@
-import { integerPattern } from "./regexps"
+import { integerPattern as int } from "./regexps"
 
 const {stringify: $stringify} = JSON
 , {fromEntries: $fromEntries} = Object
 
 describe("integer", () => {
-  itMatch("any", integerPattern(), [0, "0", 1, -1], ["-0", 0.1])
-  itMatch(">=0", integerPattern({minimum: 0}), [2, 1, 0], [-1, -2])
-  itMatch(">=0.5", integerPattern({minimum: 0.5}), [2, 1], [0, -1, -2])
-  itMatch(">=1", integerPattern({minimum: 1}), [2, 1], [0, -1, -2])
-  itMatch("<=0", integerPattern({maximum: 0}), [-2, -1, 0], [1, 2])
-  itMatch("<=-0.5", integerPattern({maximum: -0.5}), [-2, -1], [0, 1, 2])
-  itMatch("<=-1", integerPattern({maximum: -1}), [-2, -1], [0, 1, 2])
+  itMatch("any"   , int()               , [ 0,  1, -1], ["-0", 0.1])
+  itMatch(">=0"   , int({minimum: 0})   , [ 2,  1, 0] , [-1, -2])
+  itMatch(">=0.5" , int({minimum: 0.5}) , [ 2,  1]    , [0, -1, -2])
+  itMatch(">=1"   , int({minimum: 1})   , [ 2,  1]    , [0, -1, -2])
+  itMatch("<=0"   , int({maximum: 0})   , [-2, -1, 0] , [1, 2])
+  itMatch("<=-0.5", int({maximum: -0.5}), [-2, -1]    , [0, 1, 2])
+  itMatch("<=-1"  , int({maximum: -1})  , [-2, -1]    , [0, 1, 2])
 })
 
 function itMatch(title: string, pattern: string, trues: any[], falses: any[]) {
