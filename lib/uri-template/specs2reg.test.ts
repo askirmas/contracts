@@ -16,7 +16,13 @@ describe(groupBased.name, () => {
         "query=mycelium"           : {"query": "mycelium"},
         "number=100"               : {"number": 100},
         ""                         : {},
-        "query="                   : {"query": ""}
+        "query="                   : {"query": ""},
+        "query"                    : errors.NotMatch
+      },
+      ";": {
+        "query=mycelium;number=100": {"query": "mycelium", "number": 100},
+        "query="                   : {"query": ""}, // ? errors.NotMatch
+        "query"                    : {"query": ""},
       }
     },
     "query,query,query": {
@@ -24,7 +30,7 @@ describe(groupBased.name, () => {
         "query=X&query=X&query=X": {"query": "X"},
         "query=A&query=B"        : errors.NotMatch
       }
-    } 
+    }
   }
   
   for (const _varSpecs in suites) {
