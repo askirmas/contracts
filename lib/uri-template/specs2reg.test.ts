@@ -1,5 +1,5 @@
 import { configs } from "./consts";
-import { groupBased, JsonSchema } from "./specs2reg";
+import { errors, groupBased, JsonSchema } from "./specs2reg";
 
 describe(groupBased.name, () => {
   const schema: JsonSchema = {
@@ -9,9 +9,6 @@ describe(groupBased.name, () => {
     }
   }
   , suites = {
-    "query,query,query": {
-      "?": SyntaxError
-    },
     "query,number": {
       "?": {
         "query=mycelium&number=100": {
@@ -26,7 +23,15 @@ describe(groupBased.name, () => {
         },
         "": {}  
       }
-    }
+    },
+    "query,query,query": {
+      "?": {
+        "query=mycelium&query=mycelium&query=mycelium": {
+          "query": "mycelium"
+        },
+        "query=A&query=B": errors.NotMatch
+      }
+    } 
   }
   
   for (const _varSpecs in suites) {

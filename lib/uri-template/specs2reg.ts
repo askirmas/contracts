@@ -1,6 +1,10 @@
 import type { Config } from "./types";
 import { parseAction } from "./utils";
 
+const errors = {
+  "NotMatch": Error("Not match")
+}
+
 export type JsonSchema = {
   properties: {
     [property: string]: {
@@ -10,6 +14,7 @@ export type JsonSchema = {
 }
 
 export {
+  errors,
   groupBased
 }
 
@@ -24,16 +29,26 @@ function groupBased(
   const tokens: string[] = []
   , specs = varSpecs.split(",")
   , {length} = specs
+  , actioned = new Set<string>()
 
   for (let i = 0; i< length; i++) {
-    const {key} = parseAction(specs[i])
+    const action = specs[i]
+    , captured = actioned.has(action)
+    , {key} = parseAction(action)
     , {type} = properties[key]
+    
 
     tokens.push(
-      `((?:${key}=${foremp ? "" : "?"})(?<${key}>${
-        type === "integer" ? "\\d+" : `[^${sep}]+`
-      })?(?:${sep}|$))?`
+      `(${key}=${foremp ? "" : "?"}(${
+        captured
+        ? `\\k<${key}>`
+        : `?<${key}>${
+          type === "integer" ? "\\d+" : `[^${sep}]+`
+        }`
+      })?(${sep}|$))?`
     )
+
+    actioned.add(action)
   }
 
   const parser = new RegExp(`^${tokens.join("")}$`)
@@ -41,7 +56,7 @@ function groupBased(
     const groups = input.match(parser)?.groups
     
     if (groups === undefined)
-      throw Error("Not match")
+      throw errors.NotMatch
 
     const out: Record<string, any> = {}
 
