@@ -1,3 +1,4 @@
 [submodule "configs"]
 	url = git@github.com:askirmas/template.git
 	branch = master
+	path = configs
