@@ -21,7 +21,7 @@ function integerPattern({
 
   if (min! > max!)
     throw Error(`Min>Max: '${min}' '${max}'`)
-    
+
   if (min !== undefined && min === max)
     return min
 
@@ -29,8 +29,8 @@ function integerPattern({
     min! > 0 ? ""
     : max! < 0 ? "-"
     : `0|${
-      minimum === 0 ? ""
-      : maximum === 0 ? "-"
+      min === 0 ? ""
+      : max === 0 ? "-"
       : "-?"
     }`
   }[1-9][0-9]*`
