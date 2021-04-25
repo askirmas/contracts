@@ -5,8 +5,9 @@
   "scripts": {
     "setup": "git-hooks-wrapper init",
     "test": "npm run jest",
+    "test.clear": "jest --clearCache",
     "build": "echo 'npm run build/status'",
-    "prebuild": "npm run test",
+    "prebuild": "npm run test.clear && npm run test",
     "tsc": "tsc",
     "jest": "jest --config jest.config.json --runInBand",
     "dev": "npm run jest -- --watch --verbose=false",
