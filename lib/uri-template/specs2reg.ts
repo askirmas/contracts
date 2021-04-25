@@ -20,6 +20,7 @@ export {
 
 function groupBased(
   {
+    named = false,
     sep = ",",
     foremp = false
   }: Partial<Config>,
@@ -39,13 +40,17 @@ function groupBased(
     
 
     tokens.push(
-      `(${key}=${foremp ? "" : "?"}(${
+      `(${
+        named
+        ? `${key}=${foremp ? "" : "?"}`
+        : ""
+      }(${
         captured
         ? `\\k<${key}>`
         : `?<${key}>${
-          type === "integer" ? "\\d*" : `[^${sep}]*`
+          type === "integer" ? "\\d+" : `[^${sep}]*`
         }`
-      })(${sep}|$))?`
+      })(${sep}|$))?` // ?? vs ?
     )
 
     actioned.add(action)

@@ -17,12 +17,19 @@ describe(groupBased.name, () => {
         "number=100"               : {"number": 100},
         ""                         : {},
         "query="                   : {"query": ""},
-        "query"                    : errors.NotMatch
+        "query"                    : errors.NotMatch,
+        "number="                  : errors.NotMatch,
       },
       ";": {
         "query=mycelium;number=100": {"query": "mycelium", "number": 100},
-        "query="                   : {"query": ""}, // ? errors.NotMatch
+        "query="                   : {"query": ""}, // TODO Consider errors.NotMatch
         "query"                    : {"query": ""},
+      },
+      "#": {
+        "mycelium,100": {"query": "mycelium", "number": 100},
+        ",100": {"query": "", "number": 100},
+        "100": {"query": "100"},
+        "100,": {"query": "100"} // TODO consider errors.NotMatch
       }
     },
     "query,query,query": {

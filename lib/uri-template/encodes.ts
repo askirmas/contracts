@@ -40,6 +40,7 @@ function encodeComponent(level: boolean, input: string) {
   )
 }
 
+// Consider `escape()`
 function codeChar4Uri(v: string) {
   return `%${v.charCodeAt(0).toString(16).toUpperCase()}`
 }
