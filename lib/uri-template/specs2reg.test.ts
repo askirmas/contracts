@@ -15,7 +15,8 @@ describe(groupBased.name, () => {
         "number=100&query=mycelium": errors.NotMatch,
         "query=mycelium"           : {"query": "mycelium"},
         "number=100"               : {"number": 100},
-        ""                         : {}
+        ""                         : {},
+        "query="                   : {"query": ""}
       }
     },
     "query,query,query": {

@@ -43,9 +43,9 @@ function groupBased(
         captured
         ? `\\k<${key}>`
         : `?<${key}>${
-          type === "integer" ? "\\d+" : `[^${sep}]+`
+          type === "integer" ? "\\d*" : `[^${sep}]*`
         }`
-      })?(${sep}|$))?`
+      })(${sep}|$))?`
     )
 
     actioned.add(action)
