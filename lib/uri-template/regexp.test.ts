@@ -1,4 +1,4 @@
-import { integerStats } from "./regexps";
+import { integerStats, $max } from "./regexps";
 
 describe(integerStats.name, () => {
   describe("empties", () => {
@@ -6,14 +6,18 @@ describe(integerStats.name, () => {
     )).toStrictEqual({
       min: undefined,
       max: undefined,
-      withZero: true
+      withZero: true,
+      minNotLeadDigits: 0,
+      maxNotLeadDigits: undefined
     }))
   
     it("{}", () => expect(integerStats({
     })).toStrictEqual({
       min: undefined,
       max: undefined,
-      withZero: true
+      withZero: true,
+      minNotLeadDigits: 0,
+      maxNotLeadDigits: undefined
     }))    
   })
 
@@ -37,7 +41,9 @@ describe(integerStats.name, () => {
     })).toStrictEqual({
       min: 11,
       max: undefined,
-      withZero: false
+      withZero: false,
+      minNotLeadDigits: 1,
+      maxNotLeadDigits: undefined
     }))
   
     it(">=-10.5", () => expect(integerStats({
@@ -45,7 +51,9 @@ describe(integerStats.name, () => {
     })).toStrictEqual({
       min: -10,
       max: undefined,
-      withZero: true
+      withZero: true,
+      minNotLeadDigits: 0,
+      maxNotLeadDigits: undefined
     }))
   
     it("<=10.5", () => expect(integerStats({
@@ -53,7 +61,9 @@ describe(integerStats.name, () => {
     })).toStrictEqual({
       min: undefined,
       max: 10,
-      withZero: true
+      withZero: true,
+      minNotLeadDigits: 0,
+      maxNotLeadDigits: undefined
     }))
   
     it("<=-10.5", () => expect(integerStats({
@@ -61,7 +71,9 @@ describe(integerStats.name, () => {
     })).toStrictEqual({
       min: undefined,
       max: -11,
-      withZero: false
+      withZero: false,
+      minNotLeadDigits: 1,
+      maxNotLeadDigits: undefined
     }))
   })
 
@@ -71,7 +83,9 @@ describe(integerStats.name, () => {
     })).toStrictEqual({
       min: -20,
       max: 20,
-      withZero: true
+      withZero: true,
+      minNotLeadDigits: 0,
+      maxNotLeadDigits: 1
     }))
 
     it("[20,2000]", () => expect(integerStats({
@@ -79,7 +93,9 @@ describe(integerStats.name, () => {
     })).toStrictEqual({
       min: 20,
       max: 2000,
-      withZero: false
+      withZero: false,
+      minNotLeadDigits: 1,
+      maxNotLeadDigits: 3
     }))
 
     it("[-2000,-20]", () => expect(integerStats({
@@ -87,7 +103,16 @@ describe(integerStats.name, () => {
     })).toStrictEqual({
       min: -2000,
       max: -20,
-      withZero: false
+      withZero: false,
+      minNotLeadDigits: 1,
+      maxNotLeadDigits: 3
     }))
   })
+})
+
+
+describe($max.name, () => {
+  it("NaN", () => expect($max(NaN, 0)).toBe(0))
+  it("undefined,NaN", () => expect($max(NaN, undefined)).toBe(undefined))
+  it("NaN,NaN", () => expect($max(NaN, NaN)).toBe(undefined))
 })
