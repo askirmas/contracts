@@ -6,7 +6,6 @@ describe(groupBased.name, () => {
     "properties": {
       "query": {"type": "string"},
       "number": {"type": "integer"},
-      //@ts-expect-error //TODO
       "list": {"type": "array"}
     }
   }
@@ -56,7 +55,7 @@ describe(groupBased.name, () => {
       }
     },
     // "query:5,query:3": {}
-    "list"      : {"&": {"list=r,g,b"            : {"list": "r,g,b"} /* TODO {"list": ["r", "g", "b"]} */ }},
+    "list"      : {"&": {"list=r,g,b"            : {"list": ["r", "g", "b"]}}},
     "list*"     : {"&": {"list=r&list=g&list=b"  : errors.NotMatch /* TODO {"list": ["r", "g", "b"]} */ }},
     "list,list*": {"&": {"list=r,g&list=r&list=g": errors.NotMatch /* TODO {"list": ["r", "g"]} */ }}
   }

@@ -9,7 +9,7 @@ const errors = {
 export type JsonSchema = {
   properties: {
     [property: string]: {
-      type: "string"|"integer"
+      type: "string"|"integer"|"array"
     }
   }
 }
@@ -89,7 +89,16 @@ function groupBased(
       const key = escapes.get(groupName) ?? groupName
       , {type} = properties[key]
       
-      out[key] = type === "integer" ? +value : value
+      switch (type) {
+        case "integer": 
+          out[key] = +value
+          break
+        case "array":
+          out[key] = value.split(",")
+          break
+        default:
+          out[key] = value    
+      }
     }
 
     return out
