@@ -26,9 +26,10 @@ function groupBased(
     foremp = false
   }: Partial<Config>,
   varSpecs: string,
-  {properties}: JsonSchema
+  schema: JsonSchema
 ) {
-  const tokens: string[] = []
+  const {properties} = schema
+  , tokens: string[] = []
   , specs = varSpecs.split(",")
   , {length} = specs
   , escapes = new Map<string, string>()
@@ -62,47 +63,54 @@ function groupBased(
       })(${sep}|$))?` // ?? vs ?
     )
 
-    if (!captured) {
+    if (!captured)
       if (action === escaped)
         actioned.add(escaped)
       else
         escapes.set(escaped, key)
-    }
-    
   }
 
-  const parser = new RegExp(`^${tokens.join("")}$`)
-  , processor = (input: string) => {
-    const groups = input.match(parser)?.groups
+  return (input: string) => processor(
+    input,
+    schema,
+    new RegExp(`^${tokens.join("")}$`),
+    escapes.size === 0 ? undefined : escapes
+  )
+}
+
+function processor(
+  input: string,
+  {properties}: JsonSchema,
+  parser: RegExp,
+  escapes: undefined|Map<string, string>,
+) {
+  const groups = input.match(parser)?.groups
     
-    if (groups === undefined)
-      throw errors.NotMatch
+  if (groups === undefined)
+    throw errors.NotMatch
 
-    const out: Record<string, any> = {}
+  const out: Record<string, any> = {}
 
-    for (const groupName in groups) {
-      const value = groups[groupName]
+  for (const groupName in groups) {
+    const value = groups[groupName]
 
-      if (value === undefined)
-        continue
-      
-      const key = escapes.get(groupName) ?? groupName
-      , {type} = properties[key]
-      
-      switch (type) {
-        case "integer": 
-          out[key] = +value
-          break
-        case "array":
-          out[key] = value.split(",")
-          break
-        default:
-          out[key] = value    
-      }
+    if (value === undefined)
+      continue
+    
+    const key = escapes?.get(groupName) ?? groupName
+    , {type} = properties[key]
+    
+    switch (type) {
+      case "integer": 
+        out[key] = +value
+        break
+      case "array":
+        out[key] = value.split(",")
+        break
+      default:
+        out[key] = value    
     }
-
-    return out
   }
-  
-  return processor
+
+  return out  
 }
