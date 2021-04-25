@@ -6,6 +6,8 @@ type IntegerSchema = {
   // exclusiveMaximum: number
 }
 
+const {floor: $floor, ceil: $ceil} = Math
+
 export {
   integerPattern
 }
@@ -14,9 +16,12 @@ function integerPattern({
   minimum,
   maximum
 }: Partial<IntegerSchema> = {}) {
+  const min = minimum && $ceil(minimum)
+  , max = maximum && $floor(maximum)
+
   return `${
-    minimum! > 0 ? ""
-    : maximum! < 0 ? "-"
+    min! > 0 ? ""
+    : max! < 0 ? "-"
     : `0|${
       minimum === 0 ? ""
       : maximum === 0 ? "-"

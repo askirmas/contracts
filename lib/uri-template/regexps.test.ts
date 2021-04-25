@@ -6,8 +6,10 @@ const {stringify: $stringify} = JSON
 describe("integer", () => {
   itMatch("any", integerPattern(), [0, "0", 1, -1], ["-0", 0.1])
   itMatch(">=0", integerPattern({minimum: 0}), [2, 1, 0], [-1, -2])
+  itMatch(">=0.5", integerPattern({minimum: 0.5}), [2, 1], [0, -1, -2])
   itMatch(">=1", integerPattern({minimum: 1}), [2, 1], [0, -1, -2])
   itMatch("<=0", integerPattern({maximum: 0}), [-2, -1, 0], [1, 2])
+  itMatch("<=-0.5", integerPattern({maximum: -0.5}), [-2, -1], [0, 1, 2])
   itMatch("<=-1", integerPattern({maximum: -1}), [-2, -1], [0, 1, 2])
 })
 
