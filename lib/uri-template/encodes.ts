@@ -3,7 +3,8 @@ import type { value } from "./types"
 
 export {
   encoding,
-  escape4Regex
+  escape4Regex,
+  escapeVar
 }
 
 function encoding(level: boolean, source: value): value
@@ -47,4 +48,8 @@ function codeChar4Uri(v: string) {
 
 function escape4Regex(v: string) {
   return v.replace(regexEscape, "\\$&")
+}
+
+function escapeVar(v: string) {
+  return v.replace(/[:\*]/, c => `_u${c.charCodeAt(0).toString(16).toUpperCase()}`)
 }

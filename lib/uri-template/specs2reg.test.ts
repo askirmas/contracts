@@ -5,7 +5,9 @@ describe(groupBased.name, () => {
   const schema: JsonSchema = {
     "properties": {
       "query": {"type": "string"},
-      "number": {"type": "integer"}
+      "number": {"type": "integer"},
+      //@ts-expect-error //TODO
+      "list": {"type": "array"}
     }
   }
   , suites = {
@@ -29,7 +31,7 @@ describe(groupBased.name, () => {
         "mycelium,100": {"query": "mycelium", "number": 100},
         ",100": {"query": "", "number": 100},
         "100": {"query": "100"},
-        "100,": {"query": "100"} // TODO consider errors.NotMatch
+        "100,": {"query": "100"} // TODO Consider errors.NotMatch
       }
     },
     "query,query,query": {
@@ -37,7 +39,27 @@ describe(groupBased.name, () => {
         "query=X&query=X&query=X": {"query": "X"},
         "query=A&query=B"        : errors.NotMatch
       }
-    }
+    },
+    "query:3": {
+      "?": {
+        "query=123" : {"query": "123"},
+        "query=1234": {"query": "1234"} // TODO Consider errors.NotMatch
+      }
+    },
+    "query,query:3": {
+      "?": {
+        "query=123"           : {"query": "123"},
+        "query=123&query=123" : {"query": "123"},
+        "query=123&query=1234" : {"query": "1234"}, // TODO errors.NotMatch
+        "query=1123&query=123": {"query": "123"}, // TODO errors.NotMatch
+        "query=123&query=12"  : {"query": "12"}, // TODO {"query": "123"},
+        "query=12&query=123"  : {"query": "123"}, // TODO errors.NotMatch
+      }
+    },
+    // "query:5,query:3": {}
+    "list"      : {"&": {"list=r,g,b"            : {"list": "r,g,b"} /* TODO {"list": ["r", "g", "b"]} */ }},
+    "list*"     : {"&": {"list=r&list=g&list=b"  : errors.NotMatch /* TODO {"list": ["r", "g", "b"]} */ }},
+    "list,list*": {"&": {"list=r,g&list=r&list=g": errors.NotMatch /* TODO {"list": ["r", "g"]} */ }}
   }
   
   for (const _varSpecs in suites) {
@@ -54,14 +76,14 @@ describe(groupBased.name, () => {
         if (
           Object.getPrototypeOf(inputs).name === "Error" // typeof inputs === "function"
         ) {
-          //@ts-expect-error
+          
           it(configName, () => expect(processing).toThrow(inputs))
           return
         }
 
         describe(configName, () => {
           const processor = processing()
-          
+          //@ts-expect-error
           for (const _input in inputs) {
             const input = _input as keyof typeof inputs
             , output = inputs[input]

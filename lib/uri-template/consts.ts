@@ -4,9 +4,7 @@ const regexEscape = new RegExp(`[\\${
   "-[]/{}()*+?.\\^$|"
   .split("")
   .join("\\")
-}]`,
-"g"
-)
+}]`, "g")
 , reserved = /[/!;,:]/g
 , expParser = /\{([+#./;?&]?)([^\}]+)\}/g
 // TODO replace `.+` with var pattern and without `^$`

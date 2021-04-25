@@ -1,3 +1,4 @@
+import { escapeVar } from "./encodes";
 import type { Config } from "./types";
 import { parseAction } from "./utils";
 
@@ -30,14 +31,15 @@ function groupBased(
   const tokens: string[] = []
   , specs = varSpecs.split(",")
   , {length} = specs
+  , escapes = new Map<string, string>()
   , actioned = new Set<string>()
 
   for (let i = 0; i< length; i++) {
     const action = specs[i]
-    , captured = actioned.has(action)
     , {key} = parseAction(action)
     , {type} = properties[key]
-    
+    , escaped = escapeVar(action)
+    , captured = actioned.has(escaped) || escapes.has(escaped)
 
     tokens.push(
       `(${
@@ -46,14 +48,20 @@ function groupBased(
         : ""
       }(${
         captured
-        ? `\\k<${key}>`
-        : `?<${key}>${
+        ? `\\k<${escaped}>`
+        : `?<${escaped}>${
           type === "integer" ? "\\d+" : `[^${sep}]*`
         }`
       })(${sep}|$))?` // ?? vs ?
     )
 
-    actioned.add(action)
+    if (!captured) {
+      if (action === escaped)
+        actioned.add(escaped)
+      else
+        escapes.set(escaped, key)
+    }
+    
   }
 
   const parser = new RegExp(`^${tokens.join("")}$`)
@@ -65,12 +73,16 @@ function groupBased(
 
     const out: Record<string, any> = {}
 
-    for (const key in groups) {
-      const value = groups[key]
+    for (const groupName in groups) {
+      const value = groups[groupName]
+
       if (value === undefined)
         continue
       
-      out[key] = properties[key].type === "integer" ? +value : value
+      const key = escapes.get(groupName) ?? groupName
+      , {type} = properties[key]
+      
+      out[key] = type === "integer" ? +value : value
     }
 
     return out
