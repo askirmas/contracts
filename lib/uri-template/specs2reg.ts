@@ -1,6 +1,6 @@
 import { escapeVar } from "./encodes";
 import type { Config } from "./types";
-import { parseAction } from "./utils";
+import { Action, parseAction } from "./utils";
 
 const errors = {
   "NotMatch": Error("Not match")
@@ -32,57 +32,62 @@ function groupBased(
   , tokens: string[] = []
   , specs = varSpecs.split(",")
   , {length} = specs
-  , escapes = new Map<string, string>()
-  , actioned = new Set<string>()
+  , group2action = new Map<string, Action>()
 
-  for (let i = 0; i< length; i++) {
-    const action = specs[i]
-    , {
+  for (let i = 0; i < length; i++) {
+    const spec = specs[i]
+    , escaped = escapeVar(spec)
+    , captured = group2action.has(escaped)
+
+    let action: Action
+    if (captured)
+      action = group2action.get(escaped)!
+    else {
+      action = parseAction(spec)
+      group2action.set(escaped, action)
+    }
+
+    const {
       key,
       last
-    } = parseAction(action)
-    , {type} = properties[key]
-    , escaped = escapeVar(action)
-    , captured = actioned.has(escaped) || escapes.has(escaped)
+    } = action
+    , {
+      type
+    } = properties[key]
+    , keyInPattern = !named ? "" : `${key}=${foremp ? "" : "?"}`
+    , charPattern = `[^${sep}]`
+    , endPattern = `(${sep}|$)`
+    , groupPattern = captured ? `\\k<${escaped}>`
+    : `?<${escaped}>${
+      type === "integer"
+      ? "\\d+"
+      : `${charPattern}${
+        last === undefined ? "*" : `{0,${last}}`
+      }`
+    }`
 
     tokens.push(
-      `(${
-        named
-        ? `${key}=${foremp ? "" : "?"}`
-        : ""
-      }(${
-        captured
-        ? `\\k<${escaped}>`
-        : `?<${escaped}>${
-          type === "integer"
-          ? "\\d+"
-          : `[^${sep}]${
-            last === undefined ? "*" : `{0,${last}}`
-          }`
-        }`
-      })(${sep}|$))?` // ?? vs ?
+      `(${keyInPattern}(${groupPattern})${endPattern})?` // ?? vs ?
     )
-
-    if (!captured)
-      if (action === escaped)
-        actioned.add(escaped)
-      else
-        escapes.set(escaped, key)
   }
+
+  const config2proc = {sep}
 
   return (input: string) => processor(
     input,
     schema,
+    config2proc,
     new RegExp(`^${tokens.join("")}$`),
-    escapes.size === 0 ? undefined : escapes
+    group2action
   )
 }
 
 function processor(
   input: string,
   {properties}: JsonSchema,
+  _: Pick<Config, "sep">,
   parser: RegExp,
-  escapes: undefined|Map<string, string>,
+  escapes: Map<string, Action>,
 ) {
   const groups = input.match(parser)?.groups
     
@@ -97,7 +102,10 @@ function processor(
     if (value === undefined)
       continue
     
-    const key = escapes?.get(groupName) ?? groupName
+    const {
+      key,
+      // explode
+    } = escapes.get(groupName)!
     , {type} = properties[key]
     
     switch (type) {
@@ -105,7 +113,11 @@ function processor(
         out[key] = +value
         break
       case "array":
-        out[key] = value.split(",")
+        out[key] = value.split(
+          /* explode
+           ? `${sep}${key}=`
+          :*/ ","
+        )
         break
       default:
         out[key] = value    
