@@ -1,4 +1,5 @@
-import { parse, stringify } from "./uri-template"
+import { parse } from "./parse"
+import { stringify } from "./stringify"
 
 const {
   keys: $keys,

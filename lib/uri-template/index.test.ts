@@ -1,4 +1,4 @@
-import {fullParser} from "./uri-template"
+import {fullParser} from "./parse"
 
 describe(fullParser.name, () => {
   describe("1", () => {

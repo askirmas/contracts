@@ -1,6 +1,17 @@
-import type {SchemaKeys, Config} from "./uri-template.types"
+import type {SchemaKeys, Config} from "./types"
 
-const configs: Record<SchemaKeys, Partial<Config>>= {
+const regexEscape = new RegExp(`[\\${
+  "-[]/{}()*+?.\\^$|"
+  .split("")
+  .join("\\")
+}]`,
+"g"
+)
+, keyWithActionsParser = /^(.+)(\*|:(\d+))$/
+, reserved = /[/!;,:]/g
+, expParser = /\{([+#./;?&]?)([^\}]+)\}/g
+// , expSplit = /(?:(\{[+#./;?&]?[^\}]+\}))/
+, configs: Record<SchemaKeys, Partial<Config>>= {
   "":  {                                                          "encode": true},
   "+": {                                                                        },  
   ".": {"first": ".", "sep": ".",                                 "encode": true},
@@ -21,5 +32,9 @@ const configs: Record<SchemaKeys, Partial<Config>>= {
 // "#": {"first": "#", "sep": ",", "named": false, "ifemp": "=", "allow": true }
 
 export {
+  regexEscape,
+  reserved,
   configs,
+  expParser,
+  keyWithActionsParser
 }
