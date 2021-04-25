@@ -1,4 +1,5 @@
 import type { Config } from "./types";
+import { parseAction } from "./utils";
 
 export type JsonSchema = {
   properties: {
@@ -9,7 +10,7 @@ export type JsonSchema = {
 }
 
 export {
-  groupBased as groupBased  
+  groupBased
 }
 
 function groupBased(
@@ -17,13 +18,16 @@ function groupBased(
     sep = ",",
     foremp = false
   }: Partial<Config>,
-  _: string,
+  varSpecs: string,
   {properties}: JsonSchema
 ) {
   const tokens: string[] = []
+  , specs = varSpecs.split(",")
+  , {length} = specs
 
-  for (const key in properties) {
-    const {type} = properties[key]
+  for (let i = 0; i< length; i++) {
+    const {key} = parseAction(specs[i])
+    , {type} = properties[key]
 
     tokens.push(
       `((?:${key}=${foremp ? "" : "?"})(?<${key}>${
