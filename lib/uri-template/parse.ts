@@ -6,7 +6,7 @@ import { parseAction } from "./utils"
 
 export {
   parse,
-  fullParser
+  template2regex
 }
 
 function parse(uriTemplate: string, uri: string) {
@@ -65,7 +65,7 @@ function parse(uriTemplate: string, uri: string) {
   return hasExpressions ? $return : undefined
 }
 
-function fullParser(uriTemplate: string) {
+function template2regex(uriTemplate: string) {
   const {length} = uriTemplate
   , chunks: any[] = []
   , expressions: [schemaKey: string, expression: string][] = []

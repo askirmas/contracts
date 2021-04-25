@@ -7,9 +7,10 @@ const regexEscape = new RegExp(`[\\${
 }]`,
 "g"
 )
-, keyWithActionsParser = /^(.+)(\*|:(\d+))$/
 , reserved = /[/!;,:]/g
 , expParser = /\{([+#./;?&]?)([^\}]+)\}/g
+// TODO replace `.+` with var pattern and without `^$`
+, keyWithActionsParser = /^(.+)(\*|:(\d+))$/
 // , expSplit = /(?:(\{[+#./;?&]?[^\}]+\}))/
 , configs: Record<SchemaKeys, Partial<Config>>= {
   "":  {                                                          "encode": true},
