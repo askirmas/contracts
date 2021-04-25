@@ -43,14 +43,13 @@ describe(groupBased.name, () => {
     "query:3": {
       "?": {
         "query=123" : {"query": "123"},
-        "query=1234": {"query": "1234"} // TODO Consider errors.NotMatch
+        "query=1234": errors.NotMatch
       }
     },
     "query,query:3": {
       "?": {
         "query=123"           : {"query": "123"},
         "query=123&query=123" : {"query": "123"},
-        "query=123&query=1234" : {"query": "1234"}, // TODO errors.NotMatch
         "query=1123&query=123": {"query": "123"}, // TODO errors.NotMatch
         "query=123&query=12"  : {"query": "12"}, // TODO {"query": "123"},
         "query=12&query=123"  : {"query": "123"}, // TODO errors.NotMatch

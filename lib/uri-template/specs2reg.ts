@@ -36,7 +36,10 @@ function groupBased(
 
   for (let i = 0; i< length; i++) {
     const action = specs[i]
-    , {key} = parseAction(action)
+    , {
+      key,
+      last
+    } = parseAction(action)
     , {type} = properties[key]
     , escaped = escapeVar(action)
     , captured = actioned.has(escaped) || escapes.has(escaped)
@@ -50,7 +53,11 @@ function groupBased(
         captured
         ? `\\k<${escaped}>`
         : `?<${escaped}>${
-          type === "integer" ? "\\d+" : `[^${sep}]*`
+          type === "integer"
+          ? "\\d+"
+          : `[^${sep}]${
+            last === undefined ? "*" : `{0,${last}}`
+          }`
         }`
       })(${sep}|$))?` // ?? vs ?
     )
