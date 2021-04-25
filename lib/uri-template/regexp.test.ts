@@ -107,6 +107,58 @@ describe(integerStats.name, () => {
       minNotLeadDigits: 1,
       maxNotLeadDigits: 3
     }))
+
+    describe("TBD predicted start", () => {
+      it("[2000,3000]", () => expect(integerStats({
+        minimum: 2000, maximum: 3000
+      })).toStrictEqual({
+        min: 2000,
+        max: 3000,
+        withZero: false,
+        minNotLeadDigits: 3,
+        maxNotLeadDigits: 3  
+      }))
+
+      it("[-3000,-2000]", () => expect(integerStats({
+        minimum: -3000, maximum: -2000
+      })).toStrictEqual({
+        min: -3000,
+        max: -2000,
+        withZero: false,
+        minNotLeadDigits: 3,
+        maxNotLeadDigits: 3  
+      }))
+
+      it("[2001,2008]", () => expect(integerStats({
+        minimum: 2001, maximum: 2008
+      })).toStrictEqual({
+        min: 2001,
+        max: 2008,
+        withZero: false,
+        minNotLeadDigits: 3,
+        maxNotLeadDigits: 3
+      }))
+
+      it("[-2008,-2001]", () => expect(integerStats({
+        minimum: -2008, maximum: -2001
+      })).toStrictEqual({
+        min: -2008,
+        max: -2001,
+        withZero: false,
+        minNotLeadDigits: 3,
+        maxNotLeadDigits: 3
+      }))     
+
+      it("[-2001,2008]", () => expect(integerStats({
+        minimum: -2001, maximum: 2008
+      })).toStrictEqual({
+        min: -2001,
+        max: 2008,
+        withZero: true,
+        minNotLeadDigits: 0,
+        maxNotLeadDigits: 3
+      }))
+    })
   })
 })
 
