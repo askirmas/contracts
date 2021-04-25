@@ -19,6 +19,12 @@ function integerPattern({
   const min = minimum && $ceil(minimum)
   , max = maximum && $floor(maximum)
 
+  if (min! > max!)
+    throw Error(`Min>Max: '${min}' '${max}'`)
+    
+  if (min !== undefined && min === max)
+    return min
+
   return `${
     min! > 0 ? ""
     : max! < 0 ? "-"
