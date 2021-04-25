@@ -11,26 +11,17 @@ describe(groupBased.name, () => {
   , suites = {
     "query,number": {
       "?": {
-        "query=mycelium&number=100": {
-          "query": "mycelium",
-          "number": 100
-        },
-        "query=mycelium": {
-          "query": "mycelium"
-        },
-        "number=100": {
-          "number": 100
-        },
-        "": {},
-        "number=100&query=mycelium": errors.NotMatch
+        "query=mycelium&number=100": {"query": "mycelium", "number": 100},
+        "number=100&query=mycelium": errors.NotMatch,
+        "query=mycelium"           : {"query": "mycelium"},
+        "number=100"               : {"number": 100},
+        ""                         : {}
       }
     },
     "query,query,query": {
       "?": {
-        "query=mycelium&query=mycelium&query=mycelium": {
-          "query": "mycelium"
-        },
-        "query=A&query=B": errors.NotMatch
+        "query=X&query=X&query=X": {"query": "X"},
+        "query=A&query=B"        : errors.NotMatch
       }
     } 
   }
