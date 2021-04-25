@@ -9,3 +9,5 @@ exp<IsEqual<Payload<"{never*,never:5}">["never"], undefined>>(true);
 
 function exp<T1>(target: T1) {return target}
 // function tscheck<T>(checks: Record<string, T>) {return checks}
+
+it("1", () => expect(1).toBe(1))

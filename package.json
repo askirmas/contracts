@@ -4,12 +4,13 @@
   "description": "",
   "scripts": {
     "setup": "git-hooks-wrapper init",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build/status",
+    "test": "npm run jest",
+    "build": "echo 'npm run build/status'",
+    "prebuild": "npm run test",
     "tsc": "tsc",
     "jest": "jest --config jest.config.json --runInBand",
     "dev": "npm run jest -- --watch --verbose=false",
-    "build/status": "./scripts/status.mapper.js > data/statuses.json"
+    "-build/status": "./scripts/status.mapper.js > data/statuses.json"
   },
   "repository": {
     "type": "git",
