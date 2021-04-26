@@ -59,24 +59,79 @@ function integerStats({
   
   const signOfMin = $sign(min)
   , signOfMax = $sign(max)
+  , minusLength = signOfMax === -1 ? 1 : 0
   , withZero = !(signOfMin === 1 || signOfMax === -1 || signOfMin === signOfMax)
   , notLeadMin = notLeadDigits(min)
   , notLeadMax = notLeadDigits(max)
-  , minNotLeadDigits = withZero ? 0
+
+  let minNotLeadDigits = (withZero ? 0
   : signOfMin === 1 ? notLeadMin
-  : signOfMax === -1
-  ? notLeadMax
+  : signOfMax === -1 ? notLeadMax
   // istanbul ignore next - Imposibru
-  : 0
+  : 0)!
   , maxNotLeadDigits = isNaN(signOfMin * signOfMax) ? undefined : $max(notLeadMin, notLeadMax)
 
-  return {
+  let commonStart: string|undefined = undefined
+  , predictedStart: string|undefined = undefined
+
+  if (signOfMin === signOfMax && minNotLeadDigits === maxNotLeadDigits) {
+    
+    const minStr = `${min}`
+    , maxStr = `${max}`
+    , length = minStr.length
+
+    for (let i = 0; i < length; i++) {
+      const minChar = minStr[i]
+      , maxChar = maxStr[i]
+
+      if (minChar === maxChar) {
+        commonStart = (commonStart ?? "") + minChar
+        continue
+      }
+      
+      const commonLengthMinus1 = (commonStart?.length ?? 0) - minusLength - 1
+      minNotLeadDigits -= commonLengthMinus1
+      maxNotLeadDigits -= commonLengthMinus1
+
+      const bottomChar = signOfMax === 1 ? minChar : maxChar
+      , topChar = signOfMax === 1 ? maxChar : minChar
+
+      if (bottomChar !== "0" || topChar !== "9") {
+        minNotLeadDigits--
+        maxNotLeadDigits--
+
+        predictedStart = `[${bottomChar}${
+          //@ts-expect-error
+          topChar - bottomChar === 1 ? "" : "-"
+        }${topChar}]`
+      }
+      
+      
+      break
+    }
+  }
+
+  return filterUndef({
     min: undefOnNan(min),
     max: undefOnNan(max),
     withZero,
     minNotLeadDigits,
-    maxNotLeadDigits
+    maxNotLeadDigits,
+    commonStart,
+    predictedStart
+  })
+}
+
+function filterUndef<T extends Record<string, unknown>>(source: T): {[K in keyof T]?: Exclude<T[K], undefined>} {
+  const $return: Partial<ReturnType<typeof filterUndef>> = {}
+  for (const key in source) {
+    const value = source[key]
+    if (value === undefined)
+      continue
+    $return[key] = value
   }
+  //@ts-expect-error
+  return $return 
 }
 
 function undefOnNan<T>(x: T) {
