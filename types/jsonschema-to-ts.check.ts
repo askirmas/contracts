@@ -1,0 +1,261 @@
+import {
+  desc,
+  tscompare
+} from "../utils/checking";
+import { JsonSchema2Ts } from "./jsonschema-to-ts.types";
+
+desc("general", () => {
+  tscompare<JsonSchema2Ts<false>, never>("=")
+  tscompare<JsonSchema2Ts<true>, any>("=")
+  tscompare<JsonSchema2Ts<{}>, any>("=")
+})
+
+desc("pre-defined", () => {
+  tscompare<JsonSchema2Ts<{const: 1}>, 1>("=")
+  tscompare<JsonSchema2Ts<{enum: [1, 2]}>, 1|2>("=")
+  tscompare<JsonSchema2Ts<{const: 1, enum: [1, 2]}>, 1>("=")
+  tscompare<JsonSchema2Ts<{const: 0, enum: [1, 2]}>, never>("=")
+})
+
+desc("primitive", () => {
+  desc("boolean", () => {
+    tscompare<boolean, JsonSchema2Ts<{type: "boolean"}>>("=")
+    tscompare<boolean, JsonSchema2Ts<{examples: [boolean]}>>("=")
+    tscompare<boolean, JsonSchema2Ts<{type: string[], examples: [boolean]}>>("=")
+  })
+
+  desc("null", () => {
+    tscompare<JsonSchema2Ts<{type: "null"}>, null>("=")
+    tscompare<JsonSchema2Ts<{type: ["null"]}>, null>("=")
+    tscompare<JsonSchema2Ts<{examples: [null]}>, null>("=")
+    //@ts-expect-error //TODO
+    tscompare<JsonSchema2Ts<{example: null}>, null>("=")
+    //@ts-expect-error //TODO
+    tscompare<JsonSchema2Ts<{nullable: true}>, null>("=")
+    //@ts-expect-error //TODO
+    tscompare<JsonSchema2Ts<{nullable: boolean}>, null>("=")
+  })
+})
+
+desc("array", () => {
+  tscompare<string[], JsonSchema2Ts<{
+    type: "array",
+    items: {type: "string"}
+  }>>("=")
+  
+  tscompare<unknown[], JsonSchema2Ts<{
+    type: "array",
+    additionalItems: {type: "string"}
+  }>>("=")
+
+  // TODO Accuracy
+  tscompare<(string|number)[], JsonSchema2Ts<{
+    type: "array",
+    items: {type: "number"}[],
+    additionalItems: {type: "string"}
+  }>>("=")
+})
+
+desc("object", () => {
+  desc("one rule", () => {
+    tscompare<{a: unknown, b: unknown}, JsonSchema2Ts<{
+      type: "object",
+      required: ["a", "b"]
+    }>>("=")
+  
+    tscompare<{a?: unknown, b?: unknown}, JsonSchema2Ts<{
+      type: "object",
+      propertyNames: {enum: ["a", "b"]}
+    }>>("=")
+  
+    tscompare<{a?: string, b?: number}, JsonSchema2Ts<{
+      type: "object",
+      properties: {
+        a: {type: "string"},
+        b: {type: "number"}
+      }
+    }>>("=")
+  
+    tscompare<Record<string, string>, JsonSchema2Ts<{
+      type: "object",
+      additionalProperties: {type: "string"} 
+    }>>("=")
+  })
+
+  desc("doubles", () => {
+    {tscompare<
+      JsonSchema2Ts<{
+        type: "object",
+        required: ["a", "b"],
+        propertyNames: {enum: ["a", "c"]}
+      }>,
+      {
+        a: unknown
+        b: never
+        c?: unknown
+      }
+    >("=")}
+
+    {tscompare<
+      JsonSchema2Ts<{
+        type: "object",
+        required: ["a", "b"],
+        properties: {
+          a: {type: "string"},
+          c: {type: "number"}  
+        }
+      }>,
+      {
+        a: string
+        b: unknown
+        c?: number
+      }
+    >("=")}
+
+    {tscompare<
+      JsonSchema2Ts<{
+        type: "object",
+        required: ["a", "b"],
+        additionalProperties: {type: "string"}
+      }>,
+      {
+        a: string
+        b: string
+        [etc: string]: string
+      }
+    >("=")}
+
+    {tscompare<
+      JsonSchema2Ts<{
+        type: "object",
+        propertyNames: {enum: ["a", "b"]},
+        properties: {
+          a: {type: "string"},
+          c: {type: "number"}  
+        }
+      }>,
+      {
+        a?: string
+        b?: unknown
+        c?: never
+      }
+    >("=")}
+
+    {tscompare<
+      JsonSchema2Ts<{
+        type: "object",
+        propertyNames: {enum: ["a", "b"]},
+        additionalProperties: {type: "string"}
+      }>,
+      {
+        a?: string
+        b?: string
+      }
+    >("=")}
+    
+    {tscompare<
+      JsonSchema2Ts<{
+        type: "object",
+        properties: {
+          a: {type: "string"},
+          c: {type: "number"},
+        },
+        additionalProperties: {type: "boolean"}
+      }>,
+      {
+        a?: string,
+        c?: number
+      } & {
+        [k: string]: string|number|boolean
+      }
+    >("=")}
+  })
+
+  desc("3", () => {
+    tscompare<JsonSchema2Ts<{
+      type: "object",
+      propertyNames: {enum: ["a", "b"]},
+      required: ["a", "c"],
+      additionalProperties: {type: "string"}
+    }>, {
+      a: string,
+      b?: string
+      c: never
+    }>("=")
+
+    tscompare<JsonSchema2Ts<{
+      type: "object",
+      propertyNames: {enum: ["a", "b"]},
+      required: ["a", "c"],
+      properties: {
+        b: {type: "string"},
+        c: {type: "number"}
+      }
+    }>, {
+      a: unknown,
+      b?: string
+      c: never
+    }>("=")
+
+    tscompare<JsonSchema2Ts<{
+      type: "object",
+      propertyNames: {enum: ["a", "b"]},
+      properties: {
+        b: {type: "string"},
+        c: {type: "number"}
+      }
+      additionalProperties: {type: "boolean"}
+    }>, {
+      a?: boolean,
+      b?: string
+    }>("=")    
+
+    tscompare<JsonSchema2Ts<{
+      type: "object",
+      required: ["a", "b"],
+      properties: {
+        b: {type: "string"},
+        c: {type: "number"}
+      }
+      additionalProperties: {type: "boolean"}
+    }>, {
+      a: boolean,
+      b: string
+      c?: number
+    }>("=")    
+  })
+
+  desc("4", () => {
+    tscompare<JsonSchema2Ts<{
+      type: "object",
+      propertyNames: {enum: [
+        "n+ r- p-",
+        "n+ r- p+",
+        "n+ r+ p-",
+        "n+ r+ p+",
+      ]},
+      required: [
+        "n- r+ p-",
+        "n- r+ p+",
+        "n+ r+ p-",
+        "n+ r+ p+",
+      ],
+      properties: {
+        "n- r- p+": {type: "string"},
+        "n- r+ p+": {type: "string"},
+        "n+ r- p+": {type: "string"},
+        "n+ r+ p+": {type: "string"},
+      },
+      additionalProperties: {type: "number"}
+    }>, {
+      // "n- r- p-"?: never,
+      // "n- r- p+"?: never,
+      "n- r+ p-": never,
+      "n- r+ p+": never,
+      "n+ r- p+"?: string,
+      "n+ r+ p+": string,
+      "n+ r- p-"?: number,
+      "n+ r+ p-": number,
+    }>("=")
+  })
+})

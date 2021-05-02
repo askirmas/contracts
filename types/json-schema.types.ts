@@ -1,4 +1,4 @@
-import { AnyObject, EmptyObject } from "./ts-swiss.types"
+import { AnyObject } from "./ts-swiss.types"
 
 interface PrimitiveTypes {
   "null": null
@@ -9,12 +9,15 @@ interface PrimitiveTypes {
 }
 
 export type Schema2TS<S = unknown>
-= S extends false ? never
+= [S] extends [never] ? unknown
+: unknown extends S ? unknown
+: S extends false ? never
+: S extends undefined ? any
 : S extends true ? any
-: S extends EmptyObject ? any
 : S extends AnyObject
   ? (
-    Strict2TS<S>
+    [keyof S] extends [never] ? any
+    : Strict2TS<S>
     & (
       TypePrimitive2TS<S>
       | BuildObject<S>
@@ -55,32 +58,36 @@ export type TypePrimitive2TS<S> = (
 )
 
 export type BuildObject<S> = S extends {
-  // propertyNames?: unknown
-  properties?: {[property: string]: unknown}
-
   required?: string[]
-
+  propertyNames?: unknown
+  properties?: {[property: string]: unknown}
   additionalProperties?: unknown
-  patternProperties?: {[pattern: string]: unknown}
+  // patternProperties?: {[pattern: string]: unknown}
 } 
 ? (
-  S extends {required: string[]}
-  ? (
-    string extends S['required'][number] ? unknown : {
-      [P in S['required'][number]]: (
-        S extends {properties: {[p in P]: unknown}}
-        ? Schema2TS<S["properties"][P]>
-        : (
-          Schema2TS<S["additionalProperties"]>
-          | S["patternProperties"][keyof S["patternProperties"]]
-        )
-      )
-    }
-  )
+  (
+    S extends {required: string[]}
+    ? (
+      string extends S['required'][number]
+      ? unknown
+      : { [P in S['required'][number]]: unknown }
+    )
+    : unknown
+  ) 
+) & (
+  S extends { properties: {[property: string]: unknown} }
+  ? {[P in keyof S["properties"]]?: Schema2TS<S["properties"][P]>}
   : unknown
-) & {
-  [P in keyof S['properties']]?: S['properties'][P]
-}
+) & (
+  Record<string,
+    Schema2TS<S["additionalProperties"]>
+    | (
+      S extends { properties: {[property: string]: unknown} }
+      ? {[P in keyof S["properties"]]: Schema2TS<S["properties"][P]>}[keyof S["properties"]]
+      : never
+    )
+  >
+)
 : never
 // Schema2TS
 
@@ -90,3 +97,10 @@ export type ExtractType<T extends AnyObject> = keyof T extends "type" ? (
 )
 : unknown
 
+export type IsType<S, Type extends string> = Type extends (
+  S extends {type: string} ? S["type"]
+  : S extends {type: string[]} ? S["type"][number]
+  : unknown
+)
+? true
+: false
