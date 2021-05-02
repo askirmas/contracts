@@ -1,5 +1,6 @@
 import {
   desc,
+  tscheck,
   tscompare
 } from "../utils/checking";
 import { JsonSchema2Ts } from "./jsonschema-to-ts.types";
@@ -312,4 +313,43 @@ desc("object", () => {
       "n+ r+ p-": number,
     }>("=")
   })
+})
+
+desc("$ref", () => {
+  tscompare<string, JsonSchema2Ts<{
+    $ref: "#/definitions/str"
+    definitions: {
+      str: {type: "string"}
+    }
+  }>>("=")
+
+  desc("List", () => {
+    type List = null | {next: List}
+    type JList = JsonSchema2Ts<{
+      type: ["object", "null"],
+      required: ["next"],
+      additionalProperties: false,
+      properties: {
+        "next": {
+          "$ref": "#"
+        }
+      }
+    }>
+
+    tscompare<List, JList>("=")
+    
+    tscheck<JList>({
+      "empty": null,
+      //@ts-expect-error
+      "{}": {},
+      "next": {"next": null},
+      // TODO @ts-expect-error null works
+      "next+": {"next": {"next": null}, "a": null},
+      //@ts-expect-error
+      "next &": {"next": {"next": null, "length": 1}},
+      "deep": {"next": {"next": {"next": null}}}
+    })
+  })
+
+
 })
