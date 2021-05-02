@@ -38,22 +38,74 @@ desc("primitive", () => {
 })
 
 desc("array", () => {
-  tscompare<string[], JsonSchema2Ts<{
-    type: "array",
-    items: {type: "string"}
-  }>>("=")
+  desc("length-less", () => {
+    tscompare<string[], JsonSchema2Ts<{
+      type: "array",
+      items: {type: "string"}
+    }>>("=")
+    
+    tscompare<unknown[], JsonSchema2Ts<{
+      type: "array",
+      additionalItems: {type: "string"}
+    }>>("=")
   
-  tscompare<unknown[], JsonSchema2Ts<{
-    type: "array",
-    additionalItems: {type: "string"}
-  }>>("=")
+    // TODO Consider more Accuracy
+    tscompare<("item"|"add")[], JsonSchema2Ts<{
+      type: "array",
+      items: {const: "item"}[],
+      additionalItems: {const: "add"}
+    }>>("=")
 
-  // TODO Accuracy
-  tscompare<(string|number)[], JsonSchema2Ts<{
-    type: "array",
-    items: {type: "number"}[],
-    additionalItems: {type: "string"}
-  }>>("=")
+    tscompare<["0"?, "1"?, ...unknown[]], JsonSchema2Ts<{
+      type: "array",
+      items: [{const: "0"}, {const: "1"}]
+    }>>("=")
+    
+    tscompare<["0"?, "1"?, ..."add"[]], JsonSchema2Ts<{
+      type: "array",
+      items: [{const: "0"}, {const: "1"}],
+      additionalItems: {const: "add"}
+    }>>("=")
+  })
+
+  desc("range length", () => {
+    tscompare<["item", "item"?, "item"?], JsonSchema2Ts<{
+      type: "array",
+      items: {const: "item"},
+      minItems: 1,
+      maxItems: 3
+    }>>("=")
+
+    tscompare<["item", "item"?, "item"?], JsonSchema2Ts<{
+      type: "array",
+      items: {const: "item"}[],
+      minItems: 1,
+      maxItems: 3
+    }>>("=")
+
+    tscompare<["0", "1"?, unknown?], JsonSchema2Ts<{
+      type: "array",
+      items: [{const: "0"}, {const: "1"}]
+      minItems: 1,
+      maxItems: 3
+    }>>("=")
+
+    tscompare<["0", "1"?, "add"?], JsonSchema2Ts<{
+      type: "array",
+      items: [{const: "0"}, {const: "1"}],
+      additionalItems: {const: "add"},
+      minItems: 1,
+      maxItems: 3
+    }>>("=")
+
+    tscompare<["0", "1"?, "2"?], JsonSchema2Ts<{
+      type: "array",
+      items: [{const: "0"}, {const: "1"}, {const: "2"}, {const: "3"}],
+      additionalItems: {const: "add"},
+      minItems: 1,
+      maxItems: 3
+    }>>("=")
+  })
 })
 
 desc("object", () => {

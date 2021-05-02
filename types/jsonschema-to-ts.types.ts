@@ -34,18 +34,66 @@ type Types<Schema> = Schema extends {type: string} ? Schema["type"]
 : string
 
 type BuildArray<Schema>
-= Array<JsonSchema2Ts<
+= CompileArray<
   Schema extends {items: unknown[]}
-  ? (
-    Schema["items"][number] | (
-      Schema extends {additionalItems: unknown}
-      ? Schema["additionalItems"]
-      : never
-    )
-  )
-  : Schema extends {items: unknown} ? Schema["items"]
-  : true
->>
+  ? number extends Schema["items"]["length"]
+    ? []
+    : Schema["items"]
+  : [],
+  JsonSchema2Ts<
+      Schema extends {items: unknown[]}
+      ? number extends Schema["items"]["length"]
+        ? (
+          Schema["items"][number] | (
+            Schema extends {additionalItems: unknown}
+            ? Schema["additionalItems"]
+            : never            
+          )
+        )
+        : Schema extends {additionalItems: unknown}
+          ? Schema["additionalItems"]
+          : true
+      : Schema extends {items: unknown}
+    ? Schema["items"]
+    : true
+  >,
+  Schema extends {minItems: number}
+  ? number extends Schema["minItems"] ? 0 : Schema["minItems"]
+  : 0,
+  Schema extends {maxItems: number}
+  ? Schema["maxItems"]
+  : number
+>
+
+type CompileArray<
+  Base extends unknown[],
+  additionalSchema,
+  minLen extends number,
+  maxLen extends number,
+  Acc extends unknown[] = []
+> = maxLen extends Acc["length"]
+? Acc
+: Base extends [infer Cur, ...infer NextBase]
+? CompileArray<
+  NextBase,
+  additionalSchema,
+  minLen,
+  maxLen,
+  minLen extends Acc["length"]
+  ? [...Acc, JsonSchema2Ts<Cur>?]
+  : [...Acc, JsonSchema2Ts<Cur>]
+>
+: CompileArray<
+  [],
+  additionalSchema,
+  minLen,
+  maxLen,
+  number extends maxLen
+  ? [...Acc, ...additionalSchema[]]
+  : minLen extends Acc["length"]
+  ? [...Acc, additionalSchema?]
+  : [...Acc, additionalSchema]
+>
 
 type BuildObject<Schema>
 = CompileObject<
