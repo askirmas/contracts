@@ -2,8 +2,10 @@ import {
   desc,
   tscheck,
   tscompare
-} from "../utils/checking";
+} from "../test-utils/checking";
 import { JsonSchema2Ts } from "./jsonschema-to-ts.types";
+
+it("", () => expect(1).toBe(1))
 
 desc("general", () => {
   tscompare<JsonSchema2Ts<false>, never>("=")
@@ -350,6 +352,4 @@ desc("$ref", () => {
       "deep": {"next": {"next": {"next": null}}}
     })
   })
-
-
 })

@@ -12,6 +12,7 @@
   },
   "coveragePathIgnorePatterns": [
     "/node_modules/",
+    "/test-utils/",
     "uri-template/parse\\.ts"
   ]
 }
