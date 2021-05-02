@@ -1,0 +1,16 @@
+{
+  "description": "https://json-schema.org/draft-07/json-schema-hypermedia.html#rfc.section.3",
+  "type": "object",
+  "properties": {
+      "id": {
+          "type": "number",
+          "readOnly": true
+      }
+  },
+  "links": [
+      {
+          "rel": "self",
+          "href": "thing/{id}"
+      }
+  ]
+}

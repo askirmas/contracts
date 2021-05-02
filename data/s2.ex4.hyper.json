@@ -1,0 +1,56 @@
+{
+    "description": "https://json-schema.org/draft-07/json-schema-hypermedia.html#mailto",
+    "$id": "https://schema.example.com/interesting-stuff",
+    "$schema": "http://json-schema.org/draft-07/hyper-schema#",
+    "required": ["stuffWorthEmailingAbout", "email", "title"],
+    "properties": {
+        "title": {
+            "type": "string"
+        },
+        "stuffWorthEmailingAbout": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string",
+            "format": "email"
+        },
+        "cc": false
+    },
+    "links": [
+        {
+            "rel": "author",
+            "href": "mailto:{email}?subject={title}{&cc}",
+            "templateRequired": ["email"],
+            "hrefSchema": {
+                "required": ["title"],
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "cc": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "email": false
+                }
+            },
+            "submissionMediaType":
+                    "multipart/alternative; boundary=ab2",
+            "submissionSchema": {
+                "type": "array",
+                "items": [
+                    {
+                        "type": "string",
+                        "contentMediaType":
+                                "text/plain; charset=utf8"
+                    },
+                    {
+                        "type": "string",
+                        "contentMediaType": "text/html"
+                    }
+                ],
+                "minItems": 2
+            }
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+  "description": "https://json-schema.org/draft-07/json-schema-hypermedia.html#mailto",
+  "contextUri": "https://api.example.com/stuff",
+  "contextPointer": "",
+  "rel": "author",
+  "hrefInputTemplates": [
+    "mailto:someone@example.com?subject={title}{&cc}"
+  ],
+  "hrefPrepopulatedInput": {
+      "title": "The Really Awesome Thing"
+  },
+  "attachmentPointer": ""
+}

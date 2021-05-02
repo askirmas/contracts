@@ -1,0 +1,16 @@
+{
+    "description": "https://json-schema.org/draft-07/json-schema-hypermedia.html#entryPoint",
+    "$id": "https://schema.example.com/entry",
+    "$schema": "http://json-schema.org/draft-07/hyper-schema#",
+    "base": "https://api.example.com/",
+    "links": [
+        {
+            "rel": "self",
+            "href": ""
+        }, {
+            "rel": "about",
+            "href": "/docs"
+        }
+    ]
+}
+   

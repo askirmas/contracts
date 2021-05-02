@@ -1,0 +1,63 @@
+{
+  "description": "https://json-schema.org/draft-07/json-schema-hypermedia.html#rfc.section.9.5.1",
+    "properties": {
+        "elements": {
+        },
+        "meta": {
+            "type": "object",
+            "properties": {
+                "prev": {"$ref": "#/definitions/pagination"},
+                "current": {"$ref": "#/definitions/pagination"},
+                "next": {"$ref": "#/definitions/pagination"}
+            }
+        }
+    },
+    "links": [
+        {
+            "rel": "self",
+            "href": "things{?offset,limit}",
+            "templateRequired": ["offset", "limit"],
+            "templatePointers": {
+                "offset": "/meta/current/offset",
+                "limit": "/meta/current/limit"
+            },
+            "targetSchema": {"$ref": "#"}
+        }, {
+            "rel": "prev",
+            "href": "things{?offset,limit}",
+            "templateRequired": ["offset", "limit"],
+            "templatePointers": {
+                "offset": "/meta/prev/offset",
+                "limit": "/meta/prev/limit"
+            },
+            "targetSchema": {"$ref": "#"}
+        }, {
+            "rel": "next",
+            "href": "things{?offset,limit}",
+            "templateRequired": ["offset", "limit"],
+            "templatePointers": {
+                "offset": "/meta/next/offset",
+                "limit": "/meta/next/limit"
+            },
+            "targetSchema": {"$ref": "#"}
+        }
+    ],
+    "definitions": {
+        "pagination": {
+            "type": "object",
+            "properties": {
+                "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 0
+                },
+                "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100,
+                    "default": 10
+                }
+            }
+        }
+    }
+}
