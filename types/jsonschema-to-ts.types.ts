@@ -5,9 +5,11 @@ export type JsonSchema2Ts<S>
   (S extends {const: any} ? S["const"] : unknown)
   & (S extends {enum: any[]} ? S["enum"][number] : unknown)
   & (
+    | Allowed<S, null, "null">
     | (
-      Allowed<S, null, "null">
-      // & (S extends {nullable: false} ? never : null)
+      S extends {nullable: boolean}
+      ? S["nullable"] extends false ? never : null
+      : never
     )
     | Allowed<S, boolean, "boolean">
     | Allowed<S, number, "number"|"integer">

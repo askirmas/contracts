@@ -30,10 +30,12 @@ desc("primitive", () => {
     tscompare<JsonSchema2Ts<{examples: [null]}>, null>("=")
     //@ts-expect-error //TODO
     tscompare<JsonSchema2Ts<{example: null}>, null>("=")
-    //@ts-expect-error //TODO
-    tscompare<JsonSchema2Ts<{nullable: true}>, null>("=")
-    //@ts-expect-error //TODO
-    tscompare<JsonSchema2Ts<{nullable: boolean}>, null>("=")
+  })
+
+  desc("nullable", () => {
+    tscompare<JsonSchema2Ts<{type: "string", nullable: false}>, string>("=")
+    tscompare<JsonSchema2Ts<{type: "string", nullable: true}>, string|null>("=")
+    tscompare<JsonSchema2Ts<{type: "string", nullable: boolean}>, string|null>("=")    
   })
 })
 
