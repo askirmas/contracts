@@ -1,0 +1,625 @@
+{
+  "oneOf": [
+    {"$ref": "#/definitions/www-authenticate"},
+    {"$ref": "#/definitions/authorization"},
+    {"$ref": "#/definitions/proxy-authenticate"},
+    {"$ref": "#/definitions/proxy-authorization"},
+    {"$ref": "#/definitions/age"},
+    {"$ref": "#/definitions/cache-control"},
+    {"$ref": "#/definitions/clear-site-data"},
+    {"$ref": "#/definitions/expires"},
+    {"$ref": "#/definitions/pragma"},
+    {"$ref": "#/definitions/warning"},
+    {"$ref": "#/definitions/accept-ch"},
+    {"$ref": "#/definitions/accept-ch-lifetime"},
+    {"$ref": "#/definitions/early-data"},
+    {"$ref": "#/definitions/device-memory"},
+    {"$ref": "#/definitions/save-data"},
+    {"$ref": "#/definitions/viewport-width"},
+    {"$ref": "#/definitions/width"},
+    {"$ref": "#/definitions/last-modified"},
+    {"$ref": "#/definitions/etag"},
+    {"$ref": "#/definitions/if-match"},
+    {"$ref": "#/definitions/if-none-match"},
+    {"$ref": "#/definitions/if-modified-since"},
+    {"$ref": "#/definitions/if-unmodified-since"},
+    {"$ref": "#/definitions/vary"},
+    {"$ref": "#/definitions/connection"},
+    {"$ref": "#/definitions/keep-alive"},
+    {"$ref": "#/definitions/accept"},
+    {"$ref": "#/definitions/accept-encoding"},
+    {"$ref": "#/definitions/accept-language"},
+    {"$ref": "#/definitions/expect"},
+    {"$ref": "#/definitions/max-forwards"},
+    {"$ref": "#/definitions/cookie"},
+    {"$ref": "#/definitions/set-cookie"},
+    {"$ref": "#/definitions/cookie2"},
+    {"$ref": "#/definitions/set-cookie2"},
+    {"$ref": "#/definitions/access-control-allow-origin"},
+    {"$ref": "#/definitions/access-control-allow-credentials"},
+    {"$ref": "#/definitions/access-control-allow-headers"},
+    {"$ref": "#/definitions/access-control-allow-methods"},
+    {"$ref": "#/definitions/access-control-expose-headers"},
+    {"$ref": "#/definitions/access-control-max-age"},
+    {"$ref": "#/definitions/access-control-request-headers"},
+    {"$ref": "#/definitions/access-control-request-method"},
+    {"$ref": "#/definitions/origin"},
+    {"$ref": "#/definitions/timing-allow-origin"},
+    {"$ref": "#/definitions/dnt"},
+    {"$ref": "#/definitions/tk"},
+    {"$ref": "#/definitions/content-disposition"},
+    {"$ref": "#/definitions/content-length"},
+    {"$ref": "#/definitions/content-type"},
+    {"$ref": "#/definitions/content-encoding"},
+    {"$ref": "#/definitions/content-language"},
+    {"$ref": "#/definitions/content-location"},
+    {"$ref": "#/definitions/forwarded"},
+    {"$ref": "#/definitions/x-forwarded-for"},
+    {"$ref": "#/definitions/x-forwarded-host"},
+    {"$ref": "#/definitions/x-forwarded-proto"},
+    {"$ref": "#/definitions/via"},
+    {"$ref": "#/definitions/location"},
+    {"$ref": "#/definitions/from"},
+    {"$ref": "#/definitions/host"},
+    {"$ref": "#/definitions/referer"},
+    {"$ref": "#/definitions/referrer-policy"},
+    {"$ref": "#/definitions/user-agent"},
+    {"$ref": "#/definitions/allow"},
+    {"$ref": "#/definitions/server"},
+    {"$ref": "#/definitions/accept-ranges"},
+    {"$ref": "#/definitions/range"},
+    {"$ref": "#/definitions/if-range"},
+    {"$ref": "#/definitions/content-range"},
+    {"$ref": "#/definitions/cross-origin-embedder-policy"},
+    {"$ref": "#/definitions/cross-origin-opener-policy"},
+    {"$ref": "#/definitions/cross-origin-resource-policy"},
+    {"$ref": "#/definitions/content-security-policy"},
+    {"$ref": "#/definitions/content-security-policy-report-only"},
+    {"$ref": "#/definitions/expect-ct"},
+    {"$ref": "#/definitions/feature-policy"},
+    {"$ref": "#/definitions/origin-isolation"},
+    {"$ref": "#/definitions/strict-transport-security"},
+    {"$ref": "#/definitions/upgrade-insecure-requests"},
+    {"$ref": "#/definitions/x-content-type-options"},
+    {"$ref": "#/definitions/x-download-options"},
+    {"$ref": "#/definitions/x-frame-options"},
+    {"$ref": "#/definitions/x-permitted-cross-domain-policies"},
+    {"$ref": "#/definitions/x-powered-by"},
+    {"$ref": "#/definitions/x-xss-protection"},
+    {"$ref": "#/definitions/last-event-id"},
+    {"$ref": "#/definitions/nel"},
+    {"$ref": "#/definitions/ping-from"},
+    {"$ref": "#/definitions/ping-to"},
+    {"$ref": "#/definitions/report-to"},
+    {"$ref": "#/definitions/transfer-encoding"},
+    {"$ref": "#/definitions/te"},
+    {"$ref": "#/definitions/trailer"},
+    {"$ref": "#/definitions/sec-websocket-key"},
+    {"$ref": "#/definitions/sec-websocket-extensions"},
+    {"$ref": "#/definitions/sec-websocket-accept"},
+    {"$ref": "#/definitions/sec-websocket-protocol"},
+    {"$ref": "#/definitions/sec-websocket-version"},
+    {"$ref": "#/definitions/accept-push-policy"},
+    {"$ref": "#/definitions/accept-signature"},
+    {"$ref": "#/definitions/alt-svc"},
+    {"$ref": "#/definitions/date"},
+    {"$ref": "#/definitions/large-allocation"},
+    {"$ref": "#/definitions/link"},
+    {"$ref": "#/definitions/push-policy"},
+    {"$ref": "#/definitions/retry-after"},
+    {"$ref": "#/definitions/signature"},
+    {"$ref": "#/definitions/signed-headers"},
+    {"$ref": "#/definitions/server-timing"},
+    {"$ref": "#/definitions/service-worker-allowed"},
+    {"$ref": "#/definitions/sourcemap"},
+    {"$ref": "#/definitions/upgrade"},
+    {"$ref": "#/definitions/x-dns-prefetch-control"},
+    {"$ref": "#/definitions/x-firefox-spdy"},
+    {"$ref": "#/definitions/x-pingback"},
+    {"$ref": "#/definitions/x-requested-with"},
+    {"$ref": "#/definitions/x-robots-tag"},
+    {"$ref": "#/definitions/x-ua-compatible"}
+  ],
+  "definitions": {
+    "www-authenticate": {
+      "const": "www-authenticate",
+      "title": "[Authentication] Defines the authentication method that should be used to access a resource. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate"
+    },
+    "authorization": {
+      "const": "authorization",
+      "title": "[Authentication] Contains the credentials to authenticate a user-agent with a server. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization"
+    },
+    "proxy-authenticate": {
+      "const": "proxy-authenticate",
+      "title": "[Authentication] Defines the authentication method that should be used to access a resource behind a proxy server. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authenticate"
+    },
+    "proxy-authorization": {
+      "const": "proxy-authorization",
+      "title": "[Authentication] Contains the credentials to authenticate a user agent with a proxy server. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authorization"
+    },
+    "age": {
+      "const": "age",
+      "title": "[Caching] The time, in seconds, that the object has been in a proxy cache. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Age"
+    },
+    "cache-control": {
+      "const": "cache-control",
+      "title": "[Caching] Directives for caching mechanisms in both requests and responses. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control"
+    },
+    "clear-site-data": {
+      "const": "clear-site-data",
+      "title": "[Caching] Clears browsing data (e.g. cookies, storage, cache) associated with the requesting website. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data"
+    },
+    "expires": {
+      "const": "expires",
+      "title": "[Caching] The date/time after which the response is considered stale. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires"
+    },
+    "pragma": {
+      "const": "pragma",
+      "title": "[Caching] Implementation-specific header that may have various effects anywhere along the request-response chain. Used for backwards compatibility with HTTP/1.0 caches where the Cache-Control header is not yet present. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Pragma"
+    },
+    "warning": {
+      "const": "warning",
+      "title": "[Caching] General warning information about possible problems. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Warning"
+    },
+    "accept-ch": {
+      "const": "accept-ch",
+      "title": "[Client hints] Servers can advertise support for Client Hints using the Accept-CH header field or an equivalent HTML <meta> element with http-equiv attribute ([HTML]). https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-CH",
+      "experimental": true
+    },
+    "accept-ch-lifetime": {
+      "const": "accept-ch-lifetime",
+      "title": "[Client hints] Servers can ask the client to remember the set of Client Hints that the server supports for a specified period of time, to enable delivery of Client Hints on subsequent requests to the server’s origin ([RFC6454]). https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-CH-Lifetime",
+      "experimental": true
+    },
+    "early-data": {
+      "const": "early-data",
+      "title": "[Client hints] Indicates that the request has been conveyed in early data. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Early-Data",
+      "experimental": true
+    },
+    "device-memory": {
+      "const": "device-memory",
+      "title": "[Client hints] Technically a part of Device Memory API, this header represents an approximate amount of RAM client has. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Device-Memory",
+      "experimental": true
+    },
+    "save-data": {
+      "const": "save-data",
+      "title": "[Client hints] A boolean that indicates the user agent's preference for reduced data usage. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Save-Data",
+      "experimental": true
+    },
+    "viewport-width": {
+      "const": "viewport-width",
+      "title": "[Client hints] \n \n A number that indicates the layout viewport width in CSS pixels. The provided pixel value is a number rounded to the smallest following integer (i.e. ceiling value).\n \n\n \n If Viewport-Width occurs in a message more than once, the last value overrides all previous occurrences.\n \n  https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Viewport-Width",
+      "experimental": true
+    },
+    "width": {
+      "const": "width",
+      "title": "[Client hints] \n \n The Width request header field is a number that indicates the desired resource width in physical pixels (i.e. intrinsic size of an image). The provided pixel value is a number rounded to the smallest following integer (i.e. ceiling value).\n \n\n \n If the desired resource width is not known at the time of the request or the resource does not have a display width, the Width header field can be omitted. If Width occurs in a message more than once, the last value overrides all previous occurrences\n \n  https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Width",
+      "experimental": true
+    },
+    "last-modified": {
+      "const": "last-modified",
+      "title": "[Conditionals] The last modification date of the resource, used to compare several versions of the same resource. It is less accurate than ETag, but easier to calculate in some environments. Conditional requests using If-Modified-Since and If-Unmodified-Since use this value to change the behavior of the request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified"
+    },
+    "etag": {
+      "const": "etag",
+      "title": "[Conditionals] A unique string identifying the version of the resource. Conditional requests using If-Match and If-None-Match use this value to change the behavior of the request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag"
+    },
+    "if-match": {
+      "const": "if-match",
+      "title": "[Conditionals] Makes the request conditional, and applies the method only if the stored resource matches one of the given ETags. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match"
+    },
+    "if-none-match": {
+      "const": "if-none-match",
+      "title": "[Conditionals] Makes the request conditional, and applies the method only if the stored resource doesn't match any of the given ETags. This is used to update caches (for safe requests), or to prevent to upload a new resource when one already exists. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match"
+    },
+    "if-modified-since": {
+      "const": "if-modified-since",
+      "title": "[Conditionals] Makes the request conditional, and expects the entity to be transmitted only if it has been modified after the given date. This is used to transmit data only when the cache is out of date. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since"
+    },
+    "if-unmodified-since": {
+      "const": "if-unmodified-since",
+      "title": "[Conditionals] Makes the request conditional, and expects the entity to be transmitted only if it has not been modified after the given date. This ensures the coherence of a new fragment of a specific range with previous ones, or to implement an optimistic concurrency control system when modifying existing documents. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Unmodified-Since"
+    },
+    "vary": {
+      "const": "vary",
+      "title": "[Conditionals] Determines how to match request headers to decide whether a cached response can be used rather than requesting a fresh one from the origin server. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary"
+    },
+    "connection": {
+      "const": "connection",
+      "title": "[Connection management] Controls whether the network connection stays open after the current transaction finishes. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Connection"
+    },
+    "keep-alive": {
+      "const": "keep-alive",
+      "title": "[Connection management] Controls how long a persistent connection should stay open. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Keep-Alive"
+    },
+    "accept": {
+      "const": "accept",
+      "title": "[Content negotiation] Informs the server about the types of data that can be sent back. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept"
+    },
+    "accept-encoding": {
+      "const": "accept-encoding",
+      "title": "[Content negotiation] The encoding algorithm, usually a compression algorithm, that can be used on the resource sent back. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding"
+    },
+    "accept-language": {
+      "const": "accept-language",
+      "title": "[Content negotiation] Informs the server about the human language the server is expected to send back. This is a hint and is not necessarily under the full control of the user: the server should always pay attention not to override an explicit user choice (like selecting a language from a dropdown). https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language"
+    },
+    "expect": {
+      "const": "expect",
+      "title": "[Controls] Indicates expectations that need to be fulfilled by the server to properly handle the request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect"
+    },
+    "max-forwards": {
+      "const": "max-forwards",
+      "title": "[Controls]  https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Max-Forwards"
+    },
+    "cookie": {
+      "const": "cookie",
+      "title": "[Cookies] Contains stored HTTP cookies previously sent by the server with the Set-Cookie header. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie"
+    },
+    "set-cookie": {
+      "const": "set-cookie",
+      "title": "[Cookies] Send cookies from the server to the user-agent. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie"
+    },
+    "cookie2": {
+      "const": "cookie2",
+      "title": "[Cookies] Contains an HTTP cookie previously sent by the server with the Set-Cookie2 header, but has been obsoleted. Use Cookie instead. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie2",
+      "deprecated": true
+    },
+    "set-cookie2": {
+      "const": "set-cookie2",
+      "title": "[Cookies] Sends cookies from the server to the user-agent, but has been obsoleted. Use Set-Cookie instead. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie2",
+      "deprecated": true
+    },
+    "access-control-allow-origin": {
+      "const": "access-control-allow-origin",
+      "title": "[CORS] Indicates whether the response can be shared. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin"
+    },
+    "access-control-allow-credentials": {
+      "const": "access-control-allow-credentials",
+      "title": "[CORS] Indicates whether the response to the request can be exposed when the credentials flag is true. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials"
+    },
+    "access-control-allow-headers": {
+      "const": "access-control-allow-headers",
+      "title": "[CORS] Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers"
+    },
+    "access-control-allow-methods": {
+      "const": "access-control-allow-methods",
+      "title": "[CORS] Specifies the methods allowed when accessing the resource in response to a preflight request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods"
+    },
+    "access-control-expose-headers": {
+      "const": "access-control-expose-headers",
+      "title": "[CORS] Indicates which headers can be exposed as part of the response by listing their names. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers"
+    },
+    "access-control-max-age": {
+      "const": "access-control-max-age",
+      "title": "[CORS] Indicates how long the results of a preflight request can be cached. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age"
+    },
+    "access-control-request-headers": {
+      "const": "access-control-request-headers",
+      "title": "[CORS] Used when issuing a preflight request to let the server know which HTTP headers will be used when the actual request is made. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Headers"
+    },
+    "access-control-request-method": {
+      "const": "access-control-request-method",
+      "title": "[CORS] Used when issuing a preflight request to let the server know which HTTP method will be used when the actual request is made. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Method"
+    },
+    "origin": {
+      "const": "origin",
+      "title": "[CORS] Indicates where a fetch originates from. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin"
+    },
+    "timing-allow-origin": {
+      "const": "timing-allow-origin",
+      "title": "[CORS] Specifies origins that are allowed to see values of attributes retrieved via features of the Resource Timing API, which would otherwise be reported as zero due to cross-origin restrictions. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Timing-Allow-Origin"
+    },
+    "dnt": {
+      "const": "dnt",
+      "title": "[Do Not Track] Expresses the user's tracking preference. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/DNT"
+    },
+    "tk": {
+      "const": "tk",
+      "title": "[Do Not Track] Indicates the tracking status of the corresponding response. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Tk"
+    },
+    "content-disposition": {
+      "const": "content-disposition",
+      "title": "[Downloads] Indicates if the resource transmitted should be displayed inline (default behavior without the header), or if it should be handled like a download and the browser should present a “Save As” dialog. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition"
+    },
+    "content-length": {
+      "const": "content-length",
+      "title": "[Message body information] The size of the resource, in decimal number of bytes. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length"
+    },
+    "content-type": {
+      "const": "content-type",
+      "title": "[Message body information] Indicates the media type of the resource. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type"
+    },
+    "content-encoding": {
+      "const": "content-encoding",
+      "title": "[Message body information] Used to specify the compression algorithm. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding"
+    },
+    "content-language": {
+      "const": "content-language",
+      "title": "[Message body information] Describes the human language(s) intended for the audience, so that it allows a user to differentiate according to the users' own preferred language. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language"
+    },
+    "content-location": {
+      "const": "content-location",
+      "title": "[Message body information] Indicates an alternate location for the returned data. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Location"
+    },
+    "forwarded": {
+      "const": "forwarded",
+      "title": "[Proxies] Contains information from the client-facing side of proxy servers that is altered or lost when a proxy is involved in the path of the request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Forwarded"
+    },
+    "x-forwarded-for": {
+      "const": "x-forwarded-for",
+      "title": "[Proxies] Identifies the originating IP addresses of a client connecting to a web server through an HTTP proxy or a load balancer. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For",
+      "non-standard": true
+    },
+    "x-forwarded-host": {
+      "const": "x-forwarded-host",
+      "title": "[Proxies] Identifies the original host requested that a client used to connect to your proxy or load balancer. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host",
+      "non-standard": true
+    },
+    "x-forwarded-proto": {
+      "const": "x-forwarded-proto",
+      "title": "[Proxies] Identifies the protocol (HTTP or HTTPS) that a client used to connect to your proxy or load balancer. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto",
+      "non-standard": true
+    },
+    "via": {
+      "const": "via",
+      "title": "[Proxies] Added by proxies, both forward and reverse proxies, and can appear in the request headers and the response headers. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Via"
+    },
+    "location": {
+      "const": "location",
+      "title": "[Redirects] Indicates the URL to redirect a page to. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location"
+    },
+    "from": {
+      "const": "from",
+      "title": "[Request context] Contains an Internet email address for a human user who controls the requesting user agent. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/From"
+    },
+    "host": {
+      "const": "host",
+      "title": "[Request context] Specifies the domain name of the server (for virtual hosting), and (optionally) the TCP port number on which the server is listening. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host"
+    },
+    "referer": {
+      "const": "referer",
+      "title": "[Request context] The address of the previous web page from which a link to the currently requested page was followed. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer"
+    },
+    "referrer-policy": {
+      "const": "referrer-policy",
+      "title": "[Request context] Governs which referrer information sent in the Referer header should be included with requests made. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy"
+    },
+    "user-agent": {
+      "const": "user-agent",
+      "title": "[Request context] Contains a characteristic string that allows the network protocol peers to identify the application type, operating system, software vendor or software version of the requesting software user agent. See also the Firefox user agent string reference. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent"
+    },
+    "allow": {
+      "const": "allow",
+      "title": "[Response context] Lists the set of HTTP request methods supported by a resource. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Allow"
+    },
+    "server": {
+      "const": "server",
+      "title": "[Response context] Contains information about the software used by the origin server to handle the request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server"
+    },
+    "accept-ranges": {
+      "const": "accept-ranges",
+      "title": "[Range requests] Indicates if the server supports range requests, and if so in which unit the range can be expressed. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Ranges"
+    },
+    "range": {
+      "const": "range",
+      "title": "[Range requests] Indicates the part of a document that the server should return. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range"
+    },
+    "if-range": {
+      "const": "if-range",
+      "title": "[Range requests] Creates a conditional range request that is only fulfilled if the given etag or date matches the remote resource. Used to prevent downloading two ranges from incompatible version of the resource. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range"
+    },
+    "content-range": {
+      "const": "content-range",
+      "title": "[Range requests] Indicates where in a full body message a partial message belongs. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range"
+    },
+    "cross-origin-embedder-policy": {
+      "const": "cross-origin-embedder-policy",
+      "title": "[Security] Allows a server to declare an embedder policy for a given document. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy"
+    },
+    "cross-origin-opener-policy": {
+      "const": "cross-origin-opener-policy",
+      "title": "[Security] Prevents other domains from opening/controlling a window. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy"
+    },
+    "cross-origin-resource-policy": {
+      "const": "cross-origin-resource-policy",
+      "title": "[Security] Prevents other domains from reading the response of the resources to which this header is applied. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"
+    },
+    "content-security-policy": {
+      "const": "content-security-policy",
+      "title": "[Security] Controls resources the user agent is allowed to load for a given page. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy"
+    },
+    "content-security-policy-report-only": {
+      "const": "content-security-policy-report-only",
+      "title": "[Security] Allows web developers to experiment with policies by monitoring, but not enforcing, their effects. These violation reports consist of JSON documents sent via an HTTP POST request to the specified URI. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only"
+    },
+    "expect-ct": {
+      "const": "expect-ct",
+      "title": "[Security] Allows sites to opt in to reporting and/or enforcement of Certificate Transparency requirements, which prevents the use of misissued certificates for that site from going unnoticed. When a site enables the Expect-CT header, they are requesting that Chrome check that any certificate for that site appears in public CT logs. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT"
+    },
+    "feature-policy": {
+      "const": "feature-policy",
+      "title": "[Security] Provides a mechanism to allow and deny the use of browser features in its own frame, and in iframes that it embeds. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy"
+    },
+    "origin-isolation": {
+      "const": "origin-isolation",
+      "title": "[Security] Provides a mechanism to allow web applications to isolate their origins. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin-Isolation",
+      "experimental": true
+    },
+    "strict-transport-security": {
+      "const": "strict-transport-security",
+      "title": "[Security] Force communication using HTTPS instead of HTTP. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"
+    },
+    "upgrade-insecure-requests": {
+      "const": "upgrade-insecure-requests",
+      "title": "[Security] Sends a signal to the server expressing the client’s preference for an encrypted and authenticated response, and that it can successfully handle the upgrade-insecure-requests directive. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade-Insecure-Requests"
+    },
+    "x-content-type-options": {
+      "const": "x-content-type-options",
+      "title": "[Security] Disables MIME sniffing and forces browser to use the type given in Content-Type. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options"
+    },
+    "x-download-options": {
+      "const": "x-download-options",
+      "title": "[Security] The X-Download-Options HTTP header indicates that the browser (Internet Explorer) should not display the option to \"Open\" a file that has been downloaded from an application, to prevent phishing attacks as the file otherwise would gain access to execute in the context of the application. (Note: related MS Edge bug). https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Download-Options"
+    },
+    "x-frame-options": {
+      "const": "x-frame-options",
+      "title": "[Security] Indicates whether a browser should be allowed to render a page in a <frame>, <iframe>, <embed> or <object>. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options"
+    },
+    "x-permitted-cross-domain-policies": {
+      "const": "x-permitted-cross-domain-policies",
+      "title": "[Security] Specifies if a cross-domain policy file (crossdomain.xml) is allowed. The file may define a policy to grant clients, such as Adobe's Flash Player (now obsolete), Adobe Acrobat, Microsoft Silverlight (now obsolete), or Apache Flex, permission to handle data across domains that would otherwise be restricted due to the Same-Origin Policy. See the Cross-domain Policy File Specification for more information. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Permitted-Cross-Domain-Policies"
+    },
+    "x-powered-by": {
+      "const": "x-powered-by",
+      "title": "[Security] May be set by hosting environments or other frameworks and contains information about them while not providing any usefulness to the application or its visitors. Unset this header to avoid exposing potential vulnerabilities. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Powered-By"
+    },
+    "x-xss-protection": {
+      "const": "x-xss-protection",
+      "title": "[Security] Enables cross-site scripting filtering. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection"
+    },
+    "last-event-id": {
+      "const": "last-event-id",
+      "title": "[Server-sent events] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Event-ID"
+    },
+    "nel": {
+      "const": "nel",
+      "title": "[Server-sent events] Defines a mechanism that enables developers to declare a network error reporting policy. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/NEL",
+      "experimental": true
+    },
+    "ping-from": {
+      "const": "ping-from",
+      "title": "[Server-sent events] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Ping-From"
+    },
+    "ping-to": {
+      "const": "ping-to",
+      "title": "[Server-sent events] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Ping-To"
+    },
+    "report-to": {
+      "const": "report-to",
+      "title": "[Server-sent events] Used to specify a server endpoint for the browser to send warning and error reports to. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Report-To"
+    },
+    "transfer-encoding": {
+      "const": "transfer-encoding",
+      "title": "[Transfer coding] Specifies the form of encoding used to safely transfer the entity to the user. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding"
+    },
+    "te": {
+      "const": "te",
+      "title": "[Transfer coding] Specifies the transfer encodings the user agent is willing to accept. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/TE"
+    },
+    "trailer": {
+      "const": "trailer",
+      "title": "[Transfer coding] Allows the sender to include additional fields at the end of chunked message. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Trailer"
+    },
+    "sec-websocket-key": {
+      "const": "sec-websocket-key",
+      "title": "[WebSockets] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Key"
+    },
+    "sec-websocket-extensions": {
+      "const": "sec-websocket-extensions",
+      "title": "[WebSockets] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Extensions"
+    },
+    "sec-websocket-accept": {
+      "const": "sec-websocket-accept",
+      "title": "[WebSockets] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Accept"
+    },
+    "sec-websocket-protocol": {
+      "const": "sec-websocket-protocol",
+      "title": "[WebSockets] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Protocol"
+    },
+    "sec-websocket-version": {
+      "const": "sec-websocket-version",
+      "title": "[WebSockets] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Version"
+    },
+    "accept-push-policy": {
+      "const": "accept-push-policy",
+      "title": "[Other] A client can express the desired push policy for a request by sending an Accept-Push-Policy header field in the request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Push-Policy",
+      "experimental": true
+    },
+    "accept-signature": {
+      "const": "accept-signature",
+      "title": "[Other] A client can send the Accept-Signature header field to indicate intention to take advantage of any available signatures and to indicate what kinds of signatures it supports. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Signature",
+      "experimental": true
+    },
+    "alt-svc": {
+      "const": "alt-svc",
+      "title": "[Other] Used to list alternate ways to reach this service. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc"
+    },
+    "date": {
+      "const": "date",
+      "title": "[Other] Contains the date and time at which the message was originated. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Date"
+    },
+    "large-allocation": {
+      "const": "large-allocation",
+      "title": "[Other] Tells the browser that the page being loaded is going to want to perform a large allocation. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Large-Allocation"
+    },
+    "link": {
+      "const": "link",
+      "title": "[Other] The Link entity-header field provides a means for serialising one or more links in HTTP headers. It is semantically equivalent to the HTML <link> element. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link"
+    },
+    "push-policy": {
+      "const": "push-policy",
+      "title": "[Other] A Push-Policy defines the server behavior regarding push when processing a request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Push-Policy",
+      "experimental": true
+    },
+    "retry-after": {
+      "const": "retry-after",
+      "title": "[Other] Indicates how long the user agent should wait before making a follow-up request. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After"
+    },
+    "signature": {
+      "const": "signature",
+      "title": "[Other] The Signature header field conveys a list of signatures for an exchange, each one accompanied by information about how to determine the authority of and refresh that signature. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Signature",
+      "experimental": true
+    },
+    "signed-headers": {
+      "const": "signed-headers",
+      "title": "[Other] The Signed-Headers header field identifies an ordered list of response header fields to include in a signature. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Signed-Headers",
+      "experimental": true
+    },
+    "server-timing": {
+      "const": "server-timing",
+      "title": "[Other] Communicates one or more metrics and descriptions for the given request-response cycle. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing"
+    },
+    "service-worker-allowed": {
+      "const": "service-worker-allowed",
+      "title": "[Other] Used to remove the path restriction by including this header in the response of the Service Worker script. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Service-Worker-Allowed"
+    },
+    "sourcemap": {
+      "const": "sourcemap",
+      "title": "[Other] Links generated code to a source map. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/SourceMap"
+    },
+    "upgrade": {
+      "const": "upgrade",
+      "title": "[Other] The relevant RFC document for the Upgrade header field is RFC 7230, section 6.7. The standard establishes rules for upgrading or changing to a different protocol on the current client, server, transport protocol connection. For example, this header standard allows a client to change from HTTP 1.1 to HTTP 2.0, assuming the server decides to acknowledge and implement the Upgrade header field. Neither party is required to accept the terms specified in the Upgrade header field. It can be used in both client and server headers. If the Upgrade header field is specified, then the sender MUST also send the Connection header field with the upgrade option specified. For details on the Connection header field please see section 6.1 of the aforementioned RFC. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade"
+    },
+    "x-dns-prefetch-control": {
+      "const": "x-dns-prefetch-control",
+      "title": "[Other] Controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control"
+    },
+    "x-firefox-spdy": {
+      "const": "x-firefox-spdy",
+      "title": "[Other] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Firefox-Spdy",
+      "deprecated": true,
+      "non-standard": true
+    },
+    "x-pingback": {
+      "const": "x-pingback",
+      "title": "[Other] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Pingback",
+      "non-standard": true
+    },
+    "x-requested-with": {
+      "const": "x-requested-with",
+      "title": "[Other] ... https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Requested-With"
+    },
+    "x-robots-tag": {
+      "const": "x-robots-tag",
+      "title": "[Other] The X-Robots-Tag HTTP header is used to indicate how a web page is to be indexed within public search engine results. The header is effectively equivalent to <meta name=\"robots\" content=\"...\">. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Robots-Tag",
+      "non-standard": true
+    },
+    "x-ua-compatible": {
+      "const": "x-ua-compatible",
+      "title": "[Other] Used by Internet Explorer to signal which document mode to use. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-UA-Compatible",
+      "non-standard": true
+    }
+  }
+}
