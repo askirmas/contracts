@@ -329,13 +329,21 @@ desc("object", () => {
 })
 
 desc("$ref", () => {
-  tscompare<string, JsonSchema2Ts<{
-    $ref: "#/definitions/str"
+  tscompare<number, JsonSchema2Ts<{
+    $ref: "#/definitions/number"
     definitions: {
-      str: {type: "string"}
+      number: {type: "number"}
     }
-  //@ts-expect-error //TODO
   }>>("=")
+
+  // `ReadonlyKeys<string & any[]> === "length"`
+  tscompare<string, JsonSchema2Ts<{
+    $ref: "#/definitions/string"
+    definitions: {
+      string: {type: "string"}
+    }
+  // TODO Make "="
+  }>>(">")
 
   desc("List", () => {
     type List = null | {next: List}
