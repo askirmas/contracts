@@ -15,11 +15,7 @@ export type JsonSchema2Ts<Schema, Root = Schema>
     Schema extends {const: any} ? Schema["const"] : unknown,
     Schema extends {enum: any[]} ? Schema["enum"][number] : unknown,
     | Allowed<Schema, null, "null">
-    | (
-      Schema extends {nullable: boolean}
-      ? Schema["nullable"] extends false ? never : null
-      : never
-    )
+    | BoolProp<Schema, "nullable", null, never>
     | Allowed<Schema, boolean, "boolean">
     | Allowed<Schema, number, "number"|"integer">
     | Allowed<Schema, string, "string">
@@ -95,7 +91,9 @@ type CompileArray<
   minLen,
   maxLen,
   minLen extends Acc["length"]
-  ? [...Acc, JsonSchema2Ts<Cur, Root>?]
+  ? [...Acc,
+      JsonSchema2Ts<Cur, Root>?
+    ]
   : [...Acc, JsonSchema2Ts<Cur, Root>]
 >
 : (
@@ -184,3 +182,7 @@ unknown extends T1
     Exclude<T1, primitive | any[]> & Exclude<T2, primitive | any[]> 
   )
 
+type BoolProp<Source, Prop extends string, True = true, False = false>
+= Source extends {[P in Prop]: boolean}
+? Source extends {[P in Prop]: false} ? False : True
+: False
