@@ -1,4 +1,9 @@
-import { AnyObject, GetByPath, primitive } from "./ts-swiss.types";
+import type {
+  AllOf,
+  AnyObject,
+  BoolProp,
+  GetByPath
+} from "./ts-swiss.types";
 
 export type JsonSchema2Ts<Schema, Root = Schema>
 = Schema extends AnyObject ? (
@@ -160,29 +165,3 @@ type CompileObject<
   )
   : { [additional in Exclude<Allowed, keyof Source | Required>]?: Additional }
 )
-
-type AllOf<Expr extends any[]> = number extends Expr["length"]
-? never
-: Expr["length"] extends 0|1
-? Expr[0]
-: Expr extends [infer T0, infer T1, ...infer Etc]
-? AllOf<[Intersect<T0, T1>, ...Etc]>
-: never
-
-type Intersect<T1, T2> =
-unknown extends T1
-? T2
-: unknown extends T2
-  ? T1
-  : (
-    Extract<T1, primitive> & Extract<T2, primitive> 
-  ) | (
-    Extract<T1, any[]> & Extract<T2, any[]> 
-  ) | (
-    Exclude<T1, primitive | any[]> & Exclude<T2, primitive | any[]> 
-  )
-
-type BoolProp<Source, Prop extends string, True = true, False = false>
-= Source extends {[P in Prop]: boolean}
-? Source extends {[P in Prop]: false} ? False : True
-: False

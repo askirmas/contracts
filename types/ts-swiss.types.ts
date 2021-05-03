@@ -28,3 +28,29 @@ export type FunctionPropertyNames<T> = {
 export type ReadonlyKeys<T> = Extract<ReadonlyKeysOf<T>, string>
 
 export type primitive = undefined|null|boolean|number|string|bigint|string|symbol|void
+
+export type AllOf<Expr extends any[]> = number extends Expr["length"]
+? never
+: Expr["length"] extends 0|1
+? Expr[0]
+: Expr extends [infer T0, infer T1, ...infer Etc]
+? AllOf<[Intersect<T0, T1>, ...Etc]>
+: never
+
+type Intersect<T1, T2> =
+unknown extends T1
+? T2
+: unknown extends T2
+  ? T1
+  : (
+    Extract<T1, primitive> & Extract<T2, primitive> 
+  ) | (
+    Extract<T1, any[]> & Extract<T2, any[]> 
+  ) | (
+    Exclude<T1, primitive | any[]> & Exclude<T2, primitive | any[]> 
+  )
+
+export type BoolProp<Source, Prop extends string, True = true, False = false>
+= Source extends {[P in Prop]: boolean}
+? Source extends {[P in Prop]: false} ? False : True
+: False
