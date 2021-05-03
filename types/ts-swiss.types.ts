@@ -17,4 +17,3 @@ export type GetByPath<Delimiter extends string, T, Path extends string> = [Extra
   ? Prop extends keyof T ? GetByPath<Delimiter, T[Prop], NextPath> : never
   : Path extends keyof T ? T[Path] : never
 )
-

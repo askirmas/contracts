@@ -145,6 +145,10 @@ type CompileObject<
     K extends Allowed ? Source[K] : never
 } & (
   string extends Allowed 
-  ? { [K in string]: Additional | Source[keyof Source] }
+  ? (
+    [Additional] extends [never]
+    ? unknown
+    : { [K in string]: Additional | Source[keyof Source] }
+  )
   : { [K in Exclude<Allowed, keyof Source | Required>]?: Additional }
 )

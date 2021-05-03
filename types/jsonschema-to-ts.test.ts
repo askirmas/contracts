@@ -9,8 +9,9 @@ it("", () => expect(1).toBe(1))
 
 desc("general", () => {
   tscompare<JsonSchema2Ts<false>, never>("=")
-  tscompare<JsonSchema2Ts<true>, any>("=")
-  tscompare<JsonSchema2Ts<{}>, any>("=")
+  //TODO Harmonize
+  tscompare<JsonSchema2Ts<true>, unknown>("=")
+  tscompare<JsonSchema2Ts<{}>, unknown>("<")
 })
 
 desc("pre-defined", () => {
@@ -115,7 +116,11 @@ desc("array", () => {
 
 desc("object", () => {
   desc("one rule", () => {
-    tscompare<{a: unknown, b: unknown}, JsonSchema2Ts<{
+    tscompare<{
+      a: unknown,
+      b: unknown,
+      [k: string]: unknown
+    }, JsonSchema2Ts<{
       type: "object",
       required: ["a", "b"]
     }>>("=")
@@ -125,7 +130,11 @@ desc("object", () => {
       propertyNames: {enum: ["a", "b"]}
     }>>("=")
   
-    tscompare<{a?: string, b?: number}, JsonSchema2Ts<{
+    tscompare<{
+      a?: string
+      b?: number
+      [k: string]: unknown
+    }, JsonSchema2Ts<{
       type: "object",
       properties: {
         a: {type: "string"},
@@ -166,6 +175,7 @@ desc("object", () => {
         a: string
         b: unknown
         c?: number
+        [k: string]: unknown
       }
     >("=")}
 
@@ -265,6 +275,7 @@ desc("object", () => {
     }>, {
       a?: boolean,
       b?: string
+      c?: never
     }>("=")    
 
     tscompare<JsonSchema2Ts<{
@@ -279,7 +290,8 @@ desc("object", () => {
       a: boolean,
       b: string
       c?: number
-    }>("=")    
+    } & Record<string,boolean|number|string>
+    >("=")
   })
 
   desc("4", () => {
@@ -305,8 +317,7 @@ desc("object", () => {
       },
       additionalProperties: {type: "number"}
     }>, {
-      // "n- r- p-"?: never,
-      // "n- r- p+"?: never,
+      "n- r- p+"?: never,
       "n- r+ p-": never,
       "n- r+ p+": never,
       "n+ r- p+"?: string,
@@ -345,11 +356,31 @@ desc("$ref", () => {
       //@ts-expect-error
       "{}": {},
       "next": {"next": null},
-      // TODO @ts-expect-error null works
+      // @ts-expect-error
       "next+": {"next": {"next": null}, "a": null},
-      //@ts-expect-error
+      // TODO //@ts-expect-error
       "next &": {"next": {"next": null, "length": 1}},
       "deep": {"next": {"next": {"next": null}}}
     })
   })
+
+  desc("meta", () => {
+    desc("readOnly", () => {
+      tscompare<JsonSchema2Ts<{
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          a: {type: "string"}
+        }
+      }>, {
+        a?: string
+      }>("=")
+    })
+  })
+
+  tscompare<{
+    a: string
+  }, {
+    readonly a: string
+  }>("=")
 })
