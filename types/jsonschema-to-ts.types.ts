@@ -1,4 +1,4 @@
-import { AnyObject, GetByPath } from "./ts-swiss.types";
+import { AnyObject, GetByPath, primitive } from "./ts-swiss.types";
 
 export type JsonSchema2Ts<S, R = S>
 = S extends AnyObject ? (
@@ -166,6 +166,9 @@ unknown extends T1
 ? T2
 : unknown extends T2
   ? T1
-  : Extract<Extract<T1, T2>, T1>
-
+  : (
+    Exclude<T1, primitive> & Exclude<T2, primitive> 
+  ) | (
+    Extract<T1, primitive> & Extract<T2, primitive> 
+  )
 

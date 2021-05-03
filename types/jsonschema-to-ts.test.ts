@@ -385,9 +385,10 @@ desc("$ref", () => {
       }
     }>
 
-    //@ts-expect-error Type of property 'next' circularly //TODO
     tscompare<List, JList>("=")
-    
+    //@ts-expect-error // TODO Fix
+    tscompare<List, Exclude<Exclude<JList, null>["next"], null>>("=")
+
     tscheck<JList>({
       "empty": null,
       //@ts-expect-error

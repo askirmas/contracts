@@ -26,3 +26,5 @@ export type FunctionPropertyNames<T> = {
 }[keyof T];
 
 export type ReadonlyKeys<T> = Extract<ReadonlyKeysOf<T>, string>
+
+export type primitive = undefined|null|boolean|number|string|bigint|string|symbol|void
