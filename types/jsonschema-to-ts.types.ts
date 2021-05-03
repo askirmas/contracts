@@ -98,18 +98,28 @@ type CompileArray<
   ? [...Acc, JsonSchema2Ts<Cur, Root>?]
   : [...Acc, JsonSchema2Ts<Cur, Root>]
 >
-: CompileArray<
-  Root,
-  [],
-  additionalSchema,
-  minLen,
-  maxLen,
-  number extends maxLen
-  ? [...Acc, ...additionalSchema[]]
-  : minLen extends Acc["length"]
-  ? [...Acc, additionalSchema?]
-  : [...Acc, additionalSchema]
->
+: (
+  (
+    [additionalSchema] extends [never]
+    ? number extends maxLen
+      ? true
+      : false
+    : false
+  ) extends true
+  ? Acc
+  : CompileArray<
+    Root,
+    [],
+    additionalSchema,
+    minLen,
+    maxLen,
+    number extends maxLen
+    ? [...Acc, ...additionalSchema[]]
+    : minLen extends Acc["length"]
+      ? [...Acc, additionalSchema?]
+      : [...Acc, additionalSchema]
+  >
+)
 
 type BuildObject<Schema, Root>
 = CompileObject<

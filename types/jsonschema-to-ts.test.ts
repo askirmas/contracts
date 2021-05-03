@@ -78,12 +78,6 @@ desc("array", () => {
         type: "array",
         items: [{const: "0"}, {const: "1"}],
         additionalItems: false
-      //@ts-expect-error //TODO Fix
-      }>>("=")
-      tscompare<["0"?, "1"?, ...never[]], JsonSchema2Ts<{
-        type: "array",
-        items: [{const: "0"}, {const: "1"}],
-        additionalItems: false
       }>>("=")
     }
   })
@@ -450,7 +444,7 @@ desc("$ref", () => {
           type: "string",
           readOnly: true
         }]
-      // @ts-expect-error // TODO implement in array
+      // TODO implement in array
       }>, [string?]>("=")
     })
   })
