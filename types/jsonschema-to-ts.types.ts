@@ -1,34 +1,34 @@
 import { AnyObject, GetByPath, primitive } from "./ts-swiss.types";
 
-export type JsonSchema2Ts<S, R = S>
-= S extends AnyObject ? (
+export type JsonSchema2Ts<Schema, Root = Schema>
+= Schema extends AnyObject ? (
   AllOf<[
-    S extends {"$ref": string}
-    ? string extends S["$ref"]
+    Schema extends {"$ref": string}
+    ? string extends Schema["$ref"]
       ? unknown
-      : S["$ref"] extends "#"
-        ? JsonSchema2Ts<R, R>
-        : S["$ref"] extends `#/${infer LocalPath}`
-          ? JsonSchema2Ts<GetByPath<"/", S, LocalPath>, R>
+      : Schema["$ref"] extends "#"
+        ? JsonSchema2Ts<Root, Root>
+        : Schema["$ref"] extends `#/${infer LocalPath}`
+          ? JsonSchema2Ts<GetByPath<"/", Schema, LocalPath>, Root>
           : unknown
     : unknown,
-    S extends {const: any} ? S["const"] : unknown,
-    S extends {enum: any[]} ? S["enum"][number] : unknown,
-    | Allowed<S, null, "null">
+    Schema extends {const: any} ? Schema["const"] : unknown,
+    Schema extends {enum: any[]} ? Schema["enum"][number] : unknown,
+    | Allowed<Schema, null, "null">
     | (
-      S extends {nullable: boolean}
-      ? S["nullable"] extends false ? never : null
+      Schema extends {nullable: boolean}
+      ? Schema["nullable"] extends false ? never : null
       : never
     )
-    | Allowed<S, boolean, "boolean">
-    | Allowed<S, number, "number"|"integer">
-    | Allowed<S, string, "string">
-    | Allowed<S, BuildArray<S, R>, "array">
-    | Allowed<S, BuildObject<S, R>, "object">
+    | Allowed<Schema, boolean, "boolean">
+    | Allowed<Schema, number, "number"|"integer">
+    | Allowed<Schema, string, "string">
+    | Allowed<Schema, BuildArray<Schema, Root>, "array">
+    | Allowed<Schema, BuildObject<Schema, Root>, "object">
   ]>
 )
-: true extends S ? unknown
-: false extends S ? never
+: true extends Schema ? unknown
+: false extends Schema ? never
 : unknown
 
 type Allowed<Schema, Type, TypeName extends string>
@@ -124,7 +124,7 @@ type CompileArray<
 type BuildObject<Schema, Root>
 = CompileObject<
   Schema extends {properties: {[property in string]: unknown}}
-  ? {[K in keyof Schema["properties"]]: JsonSchema2Ts<Schema["properties"][K], Root>}
+  ? {[Property in keyof Schema["properties"]]: JsonSchema2Ts<Schema["properties"][Property], Root>}
   : Record<never, never>,
   Schema extends {required: string[]}
   ? string extends Schema["required"][number]
@@ -144,23 +144,23 @@ type CompileObject<
   Required extends string,
   Allowed extends string,
   Additional
-> = { [K in Required]:
-  K extends Allowed
-  ? ( K extends keyof Source ? Source[K] : Additional )
+> = { [R in Required]:
+  R extends Allowed
+  ? ( R extends keyof Source ? Source[R] : Additional )
   : never
 } & {
-  [K in Exclude<keyof Source, Required>]?: 
-    K extends Allowed
-    ? Source[K]
+  [P in Exclude<keyof Source, Required>]?: 
+    P extends Allowed
+    ? Source[P]
     : never
 } & (
   string extends Allowed 
   ? (
     [Additional] extends [never]
     ? unknown
-    : { [K in string]: Additional | Source[keyof Source] }
+    : { [indexing in string]: Additional | Source[keyof Source] }
   )
-  : { [K in Exclude<Allowed, keyof Source | Required>]?: Additional }
+  : { [additional in Exclude<Allowed, keyof Source | Required>]?: Additional }
 )
 
 type AllOf<Expr extends any[]> = number extends Expr["length"]
@@ -177,8 +177,10 @@ unknown extends T1
 : unknown extends T2
   ? T1
   : (
-    Exclude<T1, primitive> & Exclude<T2, primitive> 
-  ) | (
     Extract<T1, primitive> & Extract<T2, primitive> 
+  ) | (
+    Extract<T1, any[]> & Extract<T2, any[]> 
+  ) | (
+    Exclude<T1, primitive | any[]> & Exclude<T2, primitive | any[]> 
   )
 

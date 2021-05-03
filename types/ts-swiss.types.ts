@@ -1,7 +1,7 @@
 import type { ReadonlyKeysOf } from "mongoose";
 
 // type Part<T> = {[K in keyof T]?: T[K]}
-export type AnyObject = {[k: string]: any}
+export type AnyObject = {[anyProperty: string]: any}
 export type EmptyObject = {[k in never]: never}
 export type IsSame<T, E> = [T] extends [E] ? ([E] extends [T] ? true : false) : false;
 

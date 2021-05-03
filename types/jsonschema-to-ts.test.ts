@@ -374,14 +374,15 @@ desc("$ref", () => {
       additionalProperties: false,
       properties: {
         "next": {
-          "$ref": "#"
+          $ref: "#"
         }
       }
     }>
 
     tscompare<List, JList>("=")
     //@ts-expect-error // TODO Fix
-    tscompare<List, Exclude<Exclude<JList, null>["next"], null>>("=")
+    tscompare<JList, Exclude<Exclude<JList, null>["next"], null>>("=")
+    // type C = Exclude<Exclude<JList, null>["next"], null>
 
     tscheck<JList>({
       "empty": null,
