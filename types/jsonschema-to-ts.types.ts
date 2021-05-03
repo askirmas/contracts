@@ -140,7 +140,9 @@ type CompileObject<
   : never
 } & {
   [K in Exclude<keyof Source, Required>]?: 
-    K extends Allowed ? Source[K] : never
+    K extends Allowed
+    ? Source[K]
+    : never
 } & (
   string extends Allowed 
   ? (

@@ -72,6 +72,20 @@ desc("array", () => {
       items: [{const: "0"}, {const: "1"}],
       additionalItems: {const: "add"}
     }>>("=")
+
+    {
+      tscompare<["0"?, "1"?], JsonSchema2Ts<{
+        type: "array",
+        items: [{const: "0"}, {const: "1"}],
+        additionalItems: false
+      //@ts-expect-error //TODO Fix
+      }>>("=")
+      tscompare<["0"?, "1"?, ...never[]], JsonSchema2Ts<{
+        type: "array",
+        items: [{const: "0"}, {const: "1"}],
+        additionalItems: false
+      }>>("=")
+    }
   })
 
   desc("range length", () => {
@@ -236,6 +250,21 @@ desc("object", () => {
         [k: string]: string|number|boolean
       }
     >("=")}
+
+    {tscompare<
+      JsonSchema2Ts<{
+        type: "object",
+        properties: {
+          a: {type: "string"},
+          c: {type: "number"},
+        },
+        additionalProperties: false
+      }>,
+      {
+        a?: string,
+        c?: number
+      }
+    >("=")}
   })
 
   desc("3", () => {
@@ -384,12 +413,44 @@ desc("$ref", () => {
         type: "object",
         additionalProperties: false,
         properties: {
-          a: {type: "string"}
+          a: {
+            type: "string",
+            readOnly: true
+          }
         }
       }>, {
         readonly a?: string
       //@ts-expect-error //TODO Implement
       }>("=")
+
+      tscompare<JsonSchema2Ts<{
+        type: "object",
+        additionalProperties: {
+          type: "string",
+        }
+      }>, {
+        [k in string]: string
+      // No additional check
+      }>("=")
+
+      tscompare<JsonSchema2Ts<{
+        type: "array",
+        items: {
+          type: "string",
+          readOnly: true
+        }
+      //@ts-expect-error //TODO
+      }>, Readonly<Array<string>>>("=")
+
+      tscompare<JsonSchema2Ts<{
+        type: "array",
+        additionalItems: false
+        items: [{
+          type: "string",
+          readOnly: true
+        }]
+      // @ts-expect-error // TODO implement in array
+      }>, [string?]>("=")
     })
   })
 })
