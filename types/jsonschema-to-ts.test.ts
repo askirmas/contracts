@@ -336,14 +336,12 @@ desc("$ref", () => {
     }
   }>>("=")
 
-  // `ReadonlyKeys<string & any[]> === "length"`
   tscompare<string, JsonSchema2Ts<{
     $ref: "#/definitions/string"
     definitions: {
       string: {type: "string"}
     }
-  // TODO Make "="
-  }>>(">")
+  }>>("=")
 
   desc("List", () => {
     type List = null | {next: List}
@@ -358,6 +356,7 @@ desc("$ref", () => {
       }
     }>
 
+    //@ts-expect-error Type of property 'next' circularly //TODO
     tscompare<List, JList>("=")
     
     tscheck<JList>({
@@ -365,10 +364,16 @@ desc("$ref", () => {
       //@ts-expect-error
       "{}": {},
       "next": {"next": null},
-      // @ts-expect-error
-      "next+": {"next": {"next": null}, "a": null},
+      "next+": {"next": {"next": null},
+        //@ts-expect-error
+        a: null
+      },
+      "next &1": {"next": {"next": null},
+        //@ts-expect-error
+        length: 1
+      },
       // TODO //@ts-expect-error
-      "next &": {"next": {"next": null, "length": 1}},
+      "next &2": {"next": {"next": null, length: 1}},
       "deep": {"next": {"next": {"next": null}}}
     })
   })

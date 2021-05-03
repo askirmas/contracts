@@ -2,7 +2,7 @@ import { AnyObject, GetByPath } from "./ts-swiss.types";
 
 export type JsonSchema2Ts<S, R = S>
 = S extends AnyObject ? (
-  (
+  AllOf<[
     S extends {"$ref": string}
     ? string extends S["$ref"]
       ? unknown
@@ -11,11 +11,9 @@ export type JsonSchema2Ts<S, R = S>
         : S["$ref"] extends `#/${infer LocalPath}`
           ? JsonSchema2Ts<GetByPath<"/", S, LocalPath>, R>
           : unknown
-    : unknown
-  )
-  & (S extends {const: any} ? S["const"] : unknown)
-  & (S extends {enum: any[]} ? S["enum"][number] : unknown)
-  & (
+    : unknown,
+    S extends {const: any} ? S["const"] : unknown,
+    S extends {enum: any[]} ? S["enum"][number] : unknown,
     | Allowed<S, null, "null">
     | (
       S extends {nullable: boolean}
@@ -27,7 +25,7 @@ export type JsonSchema2Ts<S, R = S>
     | Allowed<S, string, "string">
     | Allowed<S, BuildArray<S, R>, "array">
     | Allowed<S, BuildObject<S, R>, "object">
-  )
+  ]>
 )
 : true extends S ? unknown
 : false extends S ? never
@@ -152,3 +150,20 @@ type CompileObject<
   )
   : { [K in Exclude<Allowed, keyof Source | Required>]?: Additional }
 )
+
+type AllOf<Expr extends any[]> = number extends Expr["length"]
+? never
+: Expr["length"] extends 0|1
+? Expr[0]
+: Expr extends [infer T0, infer T1, ...infer Etc]
+? AllOf<[Intersect<T0, T1>, ...Etc]>
+: never
+
+type Intersect<T1, T2> =
+unknown extends T1
+? T2
+: unknown extends T2
+  ? T1
+  : Extract<Extract<T1, T2>, T1>
+
+
