@@ -8,13 +8,11 @@ desc("Object comparison", () => {
   tscompare<{
     readonly a: string
   }, {
-    //TODO @ts-expect-error
     a: string
-  }>("=")
+  }>("<")
 
   tscompare<
     Readonly<{a: string}>,
     {a: string}
-  //TODO @ts-expect-error
-  >("=")
+  >("<")
 })

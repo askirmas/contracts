@@ -1,3 +1,5 @@
+import type { ReadonlyKeysOf } from "mongoose";
+
 // type Part<T> = {[K in keyof T]?: T[K]}
 export type AnyObject = {[k: string]: any}
 export type EmptyObject = {[k in never]: never}
@@ -17,3 +19,10 @@ export type GetByPath<Delimiter extends string, T, Path extends string> = [Extra
   ? Prop extends keyof T ? GetByPath<Delimiter, T[Prop], NextPath> : never
   : Path extends keyof T ? T[Path] : never
 )
+
+// Like mongoose's NonFunctionPropertyNames FunctionPropertyNames
+export type FunctionPropertyNames<T> = {
+  [K in keyof T]: T[K] extends Function ? K : never;
+}[keyof T];
+
+export type ReadonlyKeys<T> = Extract<ReadonlyKeysOf<T>, string>
