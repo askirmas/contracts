@@ -1,5 +1,3 @@
-type Dict<T = unknown> = Record<string, T>  
-
 type Part<T> = { [P in keyof T]?: T[P] }
 
 declare namespace HTTP {

@@ -54,3 +54,9 @@ export type BoolProp<Source, Prop extends string, True = true, False = false>
 = Source extends {[P in Prop]: boolean}
 ? Source extends {[P in Prop]: false} ? False : True
 : False
+
+export type Dict<V = unknown, K extends string = string> = Record<K, V>
+
+export type Stringable = {
+  toString(): string
+}

@@ -1,3 +1,4 @@
+import type { Dict } from "../../types/ts-swiss.types"
 import { parse } from "./parse"
 import { stringify } from "./stringify"
 

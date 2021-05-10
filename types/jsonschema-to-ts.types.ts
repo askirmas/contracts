@@ -79,6 +79,8 @@ type BuildArray<Schema, Root>
   : number
 >
 
+
+// TODO Reuse in ts-swiss
 type CompileArray<
   Root,
   Base extends unknown[],
