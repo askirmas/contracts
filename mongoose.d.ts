@@ -1,6 +1,8 @@
 ///* <reference types="mongoose" />
 /// <reference types="node" />
 
+import type { Stringable } from "./types/ts-swiss.types"
+
 declare module "mongoose" {
   import { Schema, SchemaDefinition } from "mongoose"
   import mongo from "mongodb"
@@ -115,7 +117,7 @@ declare module "mongoose" {
     type False = false | "false" | 0 | "0" | "no"
     type Boolean = True | False
     type Number = number | boolean | {valueOf: () => number} | "" 
-    type String = string | {toString: () => string}
+    type String = string | Stringable
     type Buffer = string | number | {"type": "Buffer", "data": number[]}
     type Map<V = unknown> = Record<string, V>
     type Mixed = any
