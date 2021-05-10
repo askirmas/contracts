@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/hyper-schema#",
+  "$id": "http://json-schema.org/draft-07/links#",
+  "title": "Link Description Object",
+  "allOf": [
+      { "required": [ "rel", "href" ] },
+      { "$ref": "#/definitions/noRequiredFields" }
+  ],
+  "definitions": {
+      "noRequiredFields": {
+          "type": "object",
+          "properties": {
+              "anchor": {
+                  "type": "string",
+                  "format": "uri-template",
+                  "title": "This property sets the context URI of the link. The value of the property is a URI Template [RFC6570], and the resulting URI-reference [RFC3986] MUST be resolved against the base URI of the instance. https://json-schema.org/draft-07/json-schema-hypermedia.html#anchor",
+                  "description": "The URI is computed from the provided URI template using the same process described for the \"href\" [href] property, with the exception that \"hrefSchema\" [hrefSchema] MUST NOT be applied. Unlike target URIs, context URIs do not accept user input."
+              },
+              "anchorPointer": {
+                  "type": "string",
+                  "anyOf": [
+                      { "format": "json-pointer" },
+                      { "format": "relative-json-pointer" }
+                  ],
+                  "title": "This property changes the point within the instance that is considered to be the context resource of the link. The value of the property MUST be a valid JSON Pointer in JSON String representation form, or a valid Relative JSON Pointer [relative-json-pointer] which is evaluated relative to the default context. https://json-schema.org/draft-07/json-schema-hypermedia.html#anchorPointer",
+                  "description": "While an alternate context with a known URI is best set with the \"anchor\" [anchor] keyword, the lack of a fragment identifier syntax for application/json means that it is usually not possible to change the context within a JSON instance using a URI.\nEven in \"+json\" media types that define JSON Pointer as a fragment identifier syntax, if the default context is nested within an array, it is not possible to obtain the index of the default context's position in that array in order to construct a pointer to another property in that same nested JSON object. This will be demonstrated in the examples.\nThe result of processing this keyword SHOULD be a URI fragment if the media type of the instance allows for such a fragment. Otherwise it MUST be a string-encoded JSON Pointer."
+              },
+              "rel": {
+                  "type": "string",
+                  "title": "The value of this property MUST be a string, and MUST be a single Link Relation Type as defined in RFC 8288, Section 2.1. https://json-schema.org/draft-07/json-schema-hypermedia.html#rel"
+              },
+              "href": {
+                  "type": "string",
+                  "format": "uri-template"
+              },
+              "hrefSchema": {
+                  "$ref": "http://json-schema.org/draft-07/hyper-schema#"
+              },
+              "templatePointers": {
+                  "type": "object",
+                  "additionalProperties": {
+                      "type": "string",
+                      "anyOf": [
+                          { "format": "json-pointer" },
+                          { "format": "relative-json-pointer" }
+                      ]
+                  }
+              },
+              "templateRequired": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  },
+                  "uniqueItems": true
+              },
+              "title": {
+                  "type": "string"
+              },
+              "description": {
+                  "type": "string"
+              },
+              "targetSchema": {
+                  "$ref": "http://json-schema.org/draft-07/hyper-schema#"
+              },
+              "targetMediaType": {
+                  "type": "string"
+              },
+              "targetHints": { },
+              "headerSchema": {
+                  "$ref": "http://json-schema.org/draft-07/hyper-schema#"
+              },
+              "submissionMediaType": {
+                  "type": "string",
+                  "default": "application/json"
+              },
+              "submissionSchema": {
+                  "$ref": "http://json-schema.org/draft-07/hyper-schema#"
+              },
+              "$comment": {
+                  "type": "string"
+              }
+          }
+      }
+  }
+}
