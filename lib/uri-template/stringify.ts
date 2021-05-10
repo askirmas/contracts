@@ -25,7 +25,8 @@ function stringify<SchemaKeys extends string, UriTemplate extends string>(
       named,
       foremp,
       encode,
-      del
+      del,
+      valuefirst
     } = schema
 
     for (let i = length; i--;) {
@@ -68,16 +69,20 @@ function stringify<SchemaKeys extends string, UriTemplate extends string>(
             )
           else {
             const entries: string[] = []
-            , kvDel = explode ? del : ","
+            , kvDel_ = explode ? del : ","
   
-            for (const key in value_)
-              entries.push(`${
-                key
-              }${
-                kvDel
-              }${
-                encode ? encoding(encode, value_[key]) : value_[key]
-              }`)
+            for (const key in value_) {
+              const encoded = encode ? encoding(encode, value_[key]) : value_[key]
+              , kvDel = encoded !== "" || foremp
+              ? kvDel_
+              : ""
+
+              entries.push(
+                valuefirst
+                ? `${encoded}${kvDel}${key}`
+                : `${key}${kvDel}${encoded}`
+              )
+            }
   
             value = entries.join(explode ? sep : ",")
               
@@ -98,6 +103,18 @@ function stringify<SchemaKeys extends string, UriTemplate extends string>(
         ? del
         : ""
       }${value}`
+      // TODO Should be replaced with next but appears uncovered
+      // if (!named)
+      //   varSpecs[i] = value
+      // else {
+      //   const kvDel = value !== "" || foremp
+      //   ? del
+      //   : ""
+
+      //   varSpecs[i] = valuefirst
+      //   ? `${value}${kvDel}${key}`
+      //   : `${key}${kvDel}${value}`
+      // }  
     }
 
     const filtered = varSpecs.filter(v => v !== undefined && v !== null)

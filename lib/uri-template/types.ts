@@ -21,7 +21,7 @@ export type SchemaKeys = "" | "." | "/" | ";" | "?" | "&" | "#" | "+"
   /** A string to append to the name if its corresponding value is empty.
    * @default "" */
   // ifemp: string
-  /** Do append of `=` to the name if its corresponding value is empty. */
+  /** Do append of `del` (`=`) to the name if its corresponding value is empty. */
   foremp: boolean
 
   /** What characters to allow unencoded within the value expansion:
@@ -31,6 +31,9 @@ export type SchemaKeys = "" | "." | "/" | ";" | "?" | "&" | "#" | "+"
   // allow: boolean
   /** */
   encode: boolean
+
+  /** I.e. `${key}=${value}` vs `${value} AS ${key}` */
+  valuefirst: boolean
 }
 
 export type value = string|number|null|undefined
