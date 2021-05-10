@@ -21,7 +21,8 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
       sep = ",",
       named = false,
       foremp =false,
-      encode = false
+      encode = false,
+      del = "="
     } = schema
 
     for (let i = length; i--;) {
@@ -39,7 +40,7 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
 
       const {
         last,
-        explode
+        explode,
       } = action
 
       let value: value = undefined
@@ -60,11 +61,11 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
             value = encoding(encode, value_)
             .join(
               !explode ? ","
-              : `${sep}${named ? `${key}=`: ""}`
+              : `${sep}${named ? `${key}${del}`: ""}`
             )
           else {
             const entries: string[] = []
-            , kvDel = explode ? "=" : ","
+            , kvDel = explode ? del : ","
   
             for (const key in value_)
               entries.push(`${
@@ -91,7 +92,7 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
       ? value
       : `${key}${
         value !== "" || foremp
-        ? "="
+        ? del
         : ""
       }${value}`
     }

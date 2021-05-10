@@ -15,6 +15,9 @@ export type SchemaKeys = "" | "." | "/" | ";" | "?" | "&" | "#" | "+"
   /** A boolean for whether or not the expansion includes the variable or key name when no explode modifier is given. */
   named: boolean
   
+  /** Delimiter between key and value */
+  del: string
+
   /** A string to append to the name if its corresponding value is empty.
    * @default "" */
   // ifemp: string
