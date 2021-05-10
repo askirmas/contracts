@@ -10,7 +10,7 @@ export {
 }
 
 function parse(uriTemplate: string, uri: string) {
-  const $return: Payload<string> = {}
+  const $return: Payload<string, string> = {}
 
   let iter: ReturnType<RegExp["exec"]>
   , uriIndex = 0

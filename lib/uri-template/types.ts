@@ -36,17 +36,17 @@ export type SchemaKeys = "" | "." | "/" | ";" | "?" | "&" | "#" | "+"
 export type value = string|number|null|undefined
 export type structure = value[] | Record<string, value>
 
-export type Payload<UriPattern extends string> = 
+export type Payload<SchemaKeys extends string, UriPattern extends string> = 
 string extends UriPattern
 ? Record<string, value|structure>
-: Shape<VarSpecs<UriPattern>>
+: Shape<VarSpecs<SchemaKeys, UriPattern>>
 
 type Split<E extends string> = E extends `${infer V},${infer Tail}` ? V|Split<Tail> : E
 
-type VarSpecs<K extends string> = K extends `${string}{${infer Expr}}${infer Back}`
+type VarSpecs<SchemaKeys extends string, K extends string> = K extends `${string}{${infer Expr}}${infer Back}`
 ? (
   Split<Expr extends `${Exclude<SchemaKeys, "">}${infer E}` ? E : Expr>
-) | VarSpecs<Back>
+) | VarSpecs<SchemaKeys, Back>
 : never
 
 type VarNames<Spec extends string> = Spec extends `${infer V}${"*"|`:${string}`}` ? V : Spec

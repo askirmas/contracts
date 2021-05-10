@@ -1,5 +1,5 @@
-import type { Payload, value } from "./types"
-import { configs, expParser } from "./consts"
+import type { Config, Payload, value } from "./types"
+import { expParser } from "./consts"
 import { encoding } from "./encodes"
 import { parseAction } from "./utils"
 
@@ -10,8 +10,11 @@ export {
 }
 
 /** @see https://tools.ietf.org/html/rfc6570 */
-function stringify<UriTemplate extends string>(uriTemplate: UriTemplate, data: Payload<UriTemplate>): string
-function stringify(uriTemplate: string, data: Payload<string>): string {
+function stringify<SchemaKeys extends string, UriTemplate extends string>(
+  configs: {[S in SchemaKeys]: Config},
+  uriTemplate: UriTemplate,
+  data: Payload<SchemaKeys, UriTemplate>
+): string {
   return uriTemplate.replace(expParser, (_, schemaKey: keyof typeof configs, exp: string) => {
     const varSpecs: value[] = exp.split(",")
     , {length} = varSpecs

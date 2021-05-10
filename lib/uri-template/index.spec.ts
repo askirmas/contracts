@@ -1,4 +1,5 @@
 import type { Dict } from "../../types/ts-swiss.types"
+import { configs } from "./consts"
 import { parse } from "./parse"
 import { stringify } from "./stringify"
 
@@ -309,7 +310,7 @@ const examples = {
 describe(stringify.name, () => {
   $entries(examples).forEach(([template, suite]) => describe(template, () =>
     $entries(suite).forEach(([output, payload]) => it($keys(payload).join(","), () =>
-      expect(stringify(template as keyof typeof examples, payload)).toBe(output)
+      expect(stringify(configs, template as keyof typeof examples, payload)).toBe(output)
     ))
   ))
 
@@ -322,7 +323,7 @@ describe(stringify.name, () => {
           : it
 
           t(`${status === false ? "- " : ""}${input}`, () => {
-            const exp = expect(stringify(input, payload))
+            const exp = expect(stringify(configs, input, payload))
             , expSigned = status === false ? exp.not
             : exp
             expSigned.toBe(output)
