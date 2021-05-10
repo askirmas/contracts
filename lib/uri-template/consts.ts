@@ -9,7 +9,7 @@ const regexEscape = new RegExp(`[\\${
 , property = /[a-zA-Z_\$][a-zA-Z_\$0-9]*/
 , modifier = /\*|:(\d+)/
 , propWithModifier = new RegExp(`${property.source}(${modifier.source})?`)
-, expParser = new RegExp(`\\{([+#./;?&]?)(${
+, expParser = new RegExp(`\\{(.*?)(${
   propWithModifier.source
 }(,${propWithModifier.source})*)\\}`, "g")
 // TODO replace `.+` with var pattern and without `^$`
