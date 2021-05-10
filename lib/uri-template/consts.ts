@@ -10,15 +10,15 @@ const regexEscape = new RegExp(`[\\${
 // TODO replace `.+` with var pattern and without `^$`
 , keyWithActionsParser = /^(.+)(\*|:(\d+))$/
 // , expSplit = /(?:(\{[+#./;?&]?[^\}]+\}))/
-, configs: Record<SchemaKeys, Partial<Config>>= {
-  "":  {                                                                      "encode": true},
-  "+": {                                          "del": "=",                               },  
-  ".": {"first": ".", "sep": ".",                 "del": "=",                 "encode": true},
-  "/": {"first": "/", "sep": "/",                 "del": "=",                 "encode": true},
-  ";": {"first": ";", "sep": ";", "named": true , "del": "=",                 "encode": true},  
-  "?": {"first": "?", "sep": "&", "named": true , "del": "=", "foremp": true, "encode": true},
-  "&": {"first": "&", "sep": "&", "named": true , "del": "=", "foremp": true, "encode": true},
-  "#": {"first": "#",                             "del": "=", "foremp": true,               },
+, configs: Record<SchemaKeys, Config>= {
+  "":  {"first": "" , "sep": ",", "named": false, "del": "=", "foremp": false, "encode": true },
+  "+": {"first": "" , "sep": ",", "named": false, "del": "=", "foremp": false, "encode": false},  
+  ".": {"first": ".", "sep": ".", "named": false, "del": "=", "foremp": false, "encode": true },
+  "/": {"first": "/", "sep": "/", "named": false, "del": "=", "foremp": false, "encode": true },
+  ";": {"first": ";", "sep": ";", "named": true , "del": "=", "foremp": false, "encode": true },  
+  "?": {"first": "?", "sep": "&", "named": true , "del": "=", "foremp": true , "encode": true },
+  "&": {"first": "&", "sep": "&", "named": true , "del": "=", "foremp": true , "encode": true },
+  "#": {"first": "#", "sep": ",", "named": false, "del": "=", "foremp": true , "encode": false},
 }
 
 // "":  {"first": "" , "sep": ",", "named": false, "ifemp": "" , "allow": false},

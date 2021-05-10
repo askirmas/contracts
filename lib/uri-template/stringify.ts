@@ -17,12 +17,12 @@ function stringify(uriTemplate: string, data: Payload<string>): string {
     , {length} = varSpecs
     , schema = configs[schemaKey]
     , {
-      first = "",
-      sep = ",",
-      named = false,
-      foremp =false,
-      encode = false,
-      del = "="
+      first,
+      sep,
+      named,
+      foremp,
+      encode,
+      del
     } = schema
 
     for (let i = length; i--;) {

@@ -21,10 +21,10 @@ export {
 
 function groupBased(
   {
-    named = false,
-    sep = ",",
-    foremp = false
-  }: Partial<Config>,
+    named,
+    sep,
+    foremp
+  }: Config,
   varSpecs: string,
   schema: JsonSchema
 ) {
