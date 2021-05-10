@@ -1,4 +1,4 @@
-import { ReadonlyKeys } from "../types/ts-swiss.types"
+import type { ReadonlyKeys } from "../types/ts-swiss.types"
 
 type IfExtends<T1, T2, Then, Else> = [T1] extends [T2]
 ? keyof T1 extends keyof T2

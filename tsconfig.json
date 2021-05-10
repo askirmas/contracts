@@ -5,7 +5,8 @@
     "types": [
       "jest",
       "node"
-    ]
+    ],
+    "importsNotUsedAsValues": "error"
   },
   "include": [
     "**/*.ts"

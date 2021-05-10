@@ -3,7 +3,7 @@ import {
   tscheck,
   tscompare
 } from "../test-utils/checking";
-import { JsonSchema2Ts } from "./jsonschema-to-ts.types";
+import type { JsonSchema2Ts } from "./jsonschema-to-ts.types";
 
 it("", () => expect(1).toBe(1))
 
