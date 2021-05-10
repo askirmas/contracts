@@ -13,7 +13,7 @@
         "--expose-gc"
       ],
       "args": [
-        "./${relativeFile}",
+        "./${relativeFileDirname}/${fileBasenameNoExtension}",
         "--testTimeout", "9999999", 
         "--watch",
         "--runInBand",
